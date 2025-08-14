@@ -1,6 +1,6 @@
-import path from 'path'
-import Dotenv from 'dotenv-webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import path from 'path';
+import Dotenv from 'dotenv-webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -44,7 +44,7 @@ export default {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '..', './src/index.html'),
     }),
-    new Dotenv()
+    new Dotenv(),
   ],
   stats: 'errors-only',
-}
+};

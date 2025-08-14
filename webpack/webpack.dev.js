@@ -1,4 +1,4 @@
-import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin"
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 export default {
   mode: 'development',
@@ -7,7 +7,5 @@ export default {
   },
   devtool: 'cheap-module-source-map',
 
-  plugins: [
-    new ReactRefreshPlugin()
-  ]
-}
+  plugins: [new ReactRefreshPlugin()],
+};

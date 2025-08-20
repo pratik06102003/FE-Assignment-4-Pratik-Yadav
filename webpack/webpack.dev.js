@@ -5,7 +5,7 @@ export default {
   devServer: {
     hot: true,
   },
-  devtool: 'cheap-module-source-map',
+  devtool: 'eval-source-map',
 
   plugins: [new ReactRefreshPlugin()],
 };

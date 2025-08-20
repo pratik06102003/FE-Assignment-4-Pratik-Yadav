@@ -4,6 +4,11 @@ const config = {
   semi: true,
   singleQuote: true,
   endOfLine: 'lf',
+  printWidth: 100,
+  bracketSpacing: true,
+  arrowParens: 'always',
+  proseWrap: 'preserve',
+  quoteProps: 'as-needed',
 };
 
 export default config;

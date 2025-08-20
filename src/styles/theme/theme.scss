@@ -1,0 +1,48 @@
+@use '../abstracts' as *;
+
+:root {
+  --base-font-size: #{$base-font-size};
+
+  --primary-black: #{$primary-black};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+
+  --background-primary: #{$background-primary};
+  --background-secondary: #{$background-secondary};
+
+  --border-primary: #{$border-primary};
+  --border-secondary: #{$border-secondary};
+
+  --link-primary: #{$link-primary};
+  --link-primary-hover: #{$link-primary-hover};
+
+  --success: #{$success};
+  --warning: #{$warning};
+  --error: #{$error};
+
+  --highlight: #{$highlight};
+
+  --base-line-height: #{$base-line-height};
+
+  --heading-h1-size: #{$heading-h1-size};
+  --heading-h1-line-height: #{$heading-h1-line-height};
+
+  --heading-h2-size: #{$heading-h2-size};
+  --heading-h2-line-height: #{$heading-h2-line-height};
+
+  --heading-h3-size: #{$heading-h3-size};
+  --heading-h3-line-height: #{$heading-h3-line-height};
+
+  --heading-h4-size: #{$heading-h4-size};
+  --heading-h4-line-height: #{$heading-h4-line-height};
+
+  --heading-h5-size: #{$heading-h5-size};
+  --heading-h5-line-height: #{$heading-h5-line-height};
+
+  --breakpoint-xs: #{$breakpoint-xs};
+  --breakpoint-sm: #{$breakpoint-sm};
+  --breakpoint-md: #{$breakpoint-md};
+  --breakpoint-lg: #{$breakpoint-lg};
+  --breakpoint-xl: #{$breakpoint-xl};
+  --breakpoint-xxl: #{$breakpoint-xxl};
+}

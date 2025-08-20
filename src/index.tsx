@@ -2,8 +2,11 @@ import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import { FireBaseContextProvider } from './firebase';
 import { ConfigProvider } from 'antd';
-import { theme } from './theme';
+import './styles/main.scss';
+import { loadTheme } from './theme';
 const rootElement = document.getElementById('root') as HTMLElement;
+
+const theme = loadTheme();
 
 createRoot(rootElement).render(
   <FireBaseContextProvider>

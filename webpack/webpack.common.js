@@ -3,11 +3,11 @@ import Dotenv from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const FILE_NAME = fileURLToPath(import.meta.url);
+const DIR_NAME = path.dirname(FILE_NAME);
 
 export default {
-  entry: path.resolve(__dirname, '..', './src/index.tsx'),
+  entry: path.resolve(DIR_NAME, '..', './src/index.tsx'),
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
@@ -23,6 +23,11 @@ export default {
         ],
       },
       {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
@@ -37,12 +42,20 @@ export default {
     ],
   },
   output: {
-    path: path.resolve(__dirname, '..', './build'),
-    filename: 'bundle.js',
+    path: path.resolve(DIR_NAME, '..', './build'),
+    filename: '[name].[contenthash].js',
+    assetModuleFilename: 'assets/[name].[contenthash][ext]',
+    clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '..', './src/index.html'),
+      template: './src/index.html',
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+      },
     }),
     new Dotenv(),
   ],

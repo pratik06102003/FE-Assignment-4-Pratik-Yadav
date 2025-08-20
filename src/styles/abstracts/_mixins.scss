@@ -1,0 +1,110 @@
+@use './variables';
+@use './functions';
+@use 'sass:math';
+@use 'sass:map';
+
+@mixin breakpoint($name) {
+  @if not map.has-key(variables.$breakpoints, $name) {
+    @warn "Warning: `#{$name}` is not a valid breakpoint name.";
+  } @else {
+    @media (min-width: map.get(variables.$breakpoints, $name)) {
+      @content;
+    }
+  }
+}
+
+@mixin flex(
+  $align-items: center,
+  $justify-content: center,
+  $direction: row,
+  $flex-wrap: nowrap,
+  $gap: 0
+) {
+  display: flex;
+  align-items: $align-items;
+  justify-content: $justify-content;
+  flex-direction: $direction;
+  flex-wrap: $flex-wrap;
+  gap: $gap;
+}
+
+@mixin outline($color: black) {
+  outline: 2px solid $color;
+}
+
+@mixin box-shadow($type: 'default') {
+  @if not map-has-key(variables.$shadows, $type) {
+    @warn "Warning: `#{$type}` is not a valid shadow name";
+  } @else {
+    box-shadow: map-get(variables.$shadows, $type);
+  }
+}
+
+@mixin padding-vertical($primary, $secondary: $primary) {
+  @if $primary != 0 and math.unit($primary) != 'px' {
+    @error "`padding-vertical` expects px values, got #{math.unit($primary)}.";
+  }
+  @if $secondary != 0 and math.unit($secondary) != 'px' {
+    @error "`padding-vertical` expects px values, got #{math.unit($secondary)}.";
+  }
+  padding-top: functions.px-to-rem($primary);
+  padding-bottom: functions.px-to-rem($secondary);
+}
+
+@mixin padding-horizontal($primary, $secondary: $primary) {
+  @if $primary != 0 and math.unit($primary) != 'px' {
+    @error "`padding-horizontal` expects px values, got #{math.unit($primary)}.";
+  }
+  @if $secondary != 0 and math.unit($secondary) != 'px' {
+    @error "`padding-horizontal` expects px values, got #{math.unit($secondary)}.";
+  }
+  padding-left: functions.px-to-rem($primary);
+  padding-right: functions.px-to-rem($secondary);
+}
+
+@mixin section-padding() {
+  @include padding-horizontal(16px, 16px);
+  @include breakpoint(tablet-up) {
+    @include padding-horizontal(64px, 64px);
+  }
+  @include breakpoint(desktop-up) {
+    @include padding-horizontal(128px, 118px);
+  }
+}
+
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+}
+
+@mixin font(
+  $font-family: variables.$font-family-primary,
+  $line-height: 1.2,
+  $font-weight: 700,
+  $font-size: 16px,
+  $letter-spacing: 0
+) {
+  @if math.unit($font-size) != 'px' {
+    @error "`font-size` expects px values, got #{math.unit($font-size)}.";
+  }
+  font-family: $font-family;
+  font-weight: $font-weight;
+  font-size: functions.px-to-rem($font-size);
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin scroll-margin() {
+  & {
+    scroll-margin-top: functions.px-to-rem(variables.$header-mobile-height);
+    @include breakpoint(tablet-up) {
+      scroll-margin-top: functions.px-to-rem(variables.$header-tablet-height);
+    }
+    @include breakpoint(desktop-up) {
+      scroll-margin-top: functions.px-to-rem(variables.$header-desktop-height);
+    }
+  }
+}

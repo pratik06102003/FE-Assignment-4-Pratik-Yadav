@@ -1,0 +1,146 @@
+@use '../abstracts';
+
+.footer {
+  @include abstracts.flex($direction: column, $gap: abstracts.px-to-rem(90px));
+  @include abstracts.padding-vertical(36px);
+  @include abstracts.section-padding();
+
+  @include abstracts.breakpoint(tablet-up) {
+    @include abstracts.padding-vertical(12px);
+    gap: abstracts.px-to-rem(64px);
+  }
+
+  @include abstracts.breakpoint(desktop-up) {
+    @include abstracts.padding-vertical(24px);
+    @include abstracts.flex(
+      $justify-content: flex-start,
+      $gap: abstracts.px-to-rem(32px)
+    );
+  }
+
+  &-content {
+    @include abstracts.flex(
+      $direction: column,
+      $align-items: flex-start,
+      $gap: abstracts.px-to-rem(32px)
+    );
+
+    @include abstracts.breakpoint(desktop-up) {
+      width: 53%;
+    }
+
+    &__brand {
+      @include abstracts.flex($gap: abstracts.px-to-rem(16px));
+    }
+
+    &__title {
+      font-size: abstracts.px-to-rem(24px);
+      font-weight: 900;
+    }
+
+    &__paragraph {
+      @include abstracts.line-clamp(4);
+      @include abstracts.breakpoint(tablet-up) {
+        font-size: abstracts.px-to-rem(23px);
+      }
+    }
+
+    &__socials {
+      font-size: abstracts.px-to-rem(32px);
+      @include abstracts.flex($gap: abstracts.px-to-rem(32px));
+
+      @include abstracts.breakpoint(desktop-up) {
+        margin-top: abstracts.px-to-rem(32px);
+      }
+
+      &-icon {
+        transition: box-shadow 0.25s;
+        border-radius: 50%;
+
+        &:hover {
+          @include abstracts.box-shadow(btn-primary);
+        }
+      }
+    }
+  }
+
+  &-nav {
+    align-self: stretch;
+
+    @include abstracts.flex(
+      $direction: column,
+      $justify-content: flex-start,
+      $gap: abstracts.px-to-rem(38px)
+    );
+
+    @include abstracts.breakpoint(tablet-up) {
+      @include abstracts.flex(
+        $justify-content: flex-start,
+        $align-items: flex-start,
+        $gap: abstracts.px-to-rem(40px)
+      );
+    }
+
+    @include abstracts.breakpoint(desktop-up) {
+      width: 50%;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  &-drawer {
+    @include abstracts.flex(
+      $direction: column,
+      $justify-content: flex-start,
+      $align-items: flex-start,
+      $gap: abstracts.px-to-rem(32px)
+    );
+    align-self: stretch;
+
+    @include abstracts.breakpoint(tablet-up) {
+      width: 30%;
+    }
+
+    &__head {
+      align-self: stretch;
+      @include abstracts.flex($justify-content: space-between);
+    }
+
+    &__title {
+      font-size: abstracts.px-to-rem(23px);
+    }
+
+    &__icon {
+      font-size: abstracts.px-to-rem(24px);
+      transition: transform 0.25s;
+
+      @include abstracts.breakpoint(tablet-up) {
+        display: none;
+      }
+
+      &--active {
+        transform: rotate(180deg);
+      }
+    }
+
+    &__links {
+      align-self: stretch;
+      @include abstracts.flex(
+        $direction: column,
+        $align-items: flex-start,
+        $gap: abstracts.px-to-rem(32px)
+      );
+
+      &--hidden {
+        height: 0;
+        visibility: hidden;
+        overflow: hidden;
+      }
+
+      @include abstracts.breakpoint(tablet-up) {
+        visibility: visible;
+        height: unset;
+      }
+    }
+  }
+}

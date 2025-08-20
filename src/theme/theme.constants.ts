@@ -7,7 +7,7 @@ export const COLORS = {
   TEXT_SECONDARY: '#555555', // #555555
 
   // Backgrounds
-  BACKGROUND_PRIMARY: '#FFFFFF', // #FFFFFF
+  BACKGROUND_PRIMARY: '#555555', // #FFFFFF
   BACKGROUND_SECONDARY: '#FAFAFA', // #FAFAFA
 
   // Borders & dividers
@@ -24,7 +24,7 @@ export const COLORS = {
   ERROR: '#DC3545', // #DC3545
 
   //highlights
-  HIGHLIGHT: '#FFF9C4', // #FFF9C4}
+  HIGHLIGHT: '#FFF9C4', // #FFF9C4
 } as const;
 
 export const BREAKPOINTS = {

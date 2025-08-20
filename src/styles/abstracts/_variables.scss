@@ -1,0 +1,62 @@
+@use './colors';
+
+//fonts-family
+$font-family-primary: 'Inter';
+$font-family-secondary: 'Inter';
+
+//paths
+$font-base-path: '../assets/fonts';
+$img-base-path: '/src/assets/images';
+
+//base
+$base-font-size: 10px;
+
+//breakpoints
+$breakpoints: (
+  mobile-up: 576px,
+  tablet-up: 768px,
+  desktop-up: 1440px,
+);
+
+//general
+$container-max-width: 1600px;
+$base-backdrop-blur: 2px;
+
+//z-index
+$z-header: 10;
+
+//gradients
+$logo-gradient: linear-gradient(
+  to left,
+  colors.$btn-primary,
+  colors.$text-highlight
+);
+
+$overlay-gradient: linear-gradient(
+  rgba(255, 255, 255, 0.8),
+  rgba(255, 255, 255, 0.8)
+);
+
+//shadows
+$shadows: (
+  btn-primary: (
+    0px 0px 0px 0px #0000001a,
+    0px 5px 11px 0px #0000001a,
+    0px 20px 20px 0px #00000017,
+    0px 45px 27px 0px #0000000d,
+    0px 81px 32px 0px #00000003,
+    0px 126px 35px 0px #00000000,
+  ),
+  card-primary: (
+    0px 0px 0px 0px #0000001a,
+    0px 41px 89px 0px #0000001a,
+  ),
+  navbar: (
+    1px -25px 175px -8px rgba(0, 0, 0, 0.52),
+  ),
+);
+
+// Header Heights
+$header-mobile-height: 120px;
+$header-tablet-height: 117px;
+$header-desktop-height: 178px;

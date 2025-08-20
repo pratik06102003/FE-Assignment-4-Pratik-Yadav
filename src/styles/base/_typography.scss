@@ -1,0 +1,117 @@
+// @use '../abstracts';
+
+// @font-face {
+//     font-family: 'Circular Std';
+//     src:
+//         url(abstracts.$font-base-path + '/circular-std/CircularStd-Black.woff2')
+//             format('woff2'),
+//         url(abstracts.$font-base-path + '/circular-std/CircularStd-Black.woff')
+//             format('woff');
+//     font-weight: 900;
+//     font-display: swap;
+// }
+
+// @font-face {
+//     font-family: 'Circular Std';
+//     src:
+//         url(abstracts.$font-base-path + '/circular-std/CircularStd-Bold.woff2')
+//             format('woff2'),
+//         url(abstracts.$font-base-path + '/circular-std/CircularStd-Bold.woff')
+//             format('woff');
+//     font-weight: 700;
+//     font-display: swap;
+// }
+
+// @font-face {
+//     font-family: 'Circular Std';
+//     src:
+//         url(abstracts.$font-base-path + '/circular-std/CircularStd-Medium.woff2')
+//             format('woff2'),
+//         url(abstracts.$font-base-path + '/circular-std/CircularStd-Medium.woff')
+//             format('woff');
+//     font-weight: 450;
+//     font-display: swap;
+// }
+
+// @font-face {
+//     font-family: 'Inter';
+//     src:
+//         url(abstracts.$font-base-path + '/inter/Inter-Regular.woff2')
+//             format('woff2'),
+//         url(abstracts.$font-base-path + '/inter/Inter-Regular.woff')
+//             format('woff');
+//     font-weight: 400;
+//     font-display: swap;
+// }
+
+// .heading {
+//     @include abstracts.font($font-size: 40px);
+//     color: abstracts.$text-primary;
+
+//     @include abstracts.breakpoint(tablet-up) {
+//         font-size: abstracts.px-to-rem(56px);
+//     }
+
+//     @include abstracts.breakpoint(desktop-up) {
+//         font-size: abstracts.px-to-rem(68px);
+//     }
+
+//     &--highlight {
+//         color: abstracts.$text-highlight;
+//     }
+// }
+
+// .subheading {
+//     @include abstracts.font($font-size: 32px);
+//     color: abstracts.$text-dark;
+
+//     @include abstracts.breakpoint(tablet-up) {
+//         font-size: abstracts.px-to-rem(40px);
+//     }
+
+//     @include abstracts.breakpoint(desktop-up) {
+//         font-size: abstracts.px-to-rem(44px);
+//     }
+// }
+
+// .title {
+//     @include abstracts.font($font-size: 16px);
+//     color: abstracts.$text-primary;
+
+//     @include abstracts.breakpoint(tablet-up) {
+//         font-size: abstracts.px-to-rem(32px);
+//     }
+
+//     &--primary {
+//         font-size: abstracts.px-to-rem(24px);
+
+//         @include abstracts.breakpoint(tablet-up) {
+//             font-size: abstracts.px-to-rem(28px);
+//         }
+//     }
+
+//     &--secondary {
+//         font-size: abstracts.px-to-rem(35px);
+//     }
+
+//     &--tertiary {
+//         font-size: abstracts.px-to-rem(23px);
+//     }
+// }
+// .paragraph {
+//     @include abstracts.font(
+//         $font-size: 16px,
+//         $font-family: abstracts.$font-family-secondary,
+//         $line-height: 1.6,
+//         $font-weight: 450
+//     );
+//     color: abstracts.$text-secondary;
+
+//     @include abstracts.breakpoint(tablet-up) {
+//         font-size: abstracts.px-to-rem(18px);
+//     }
+
+//     &--secondary {
+//         font-size: abstracts.px-to-rem(18px);
+//     }
+// }

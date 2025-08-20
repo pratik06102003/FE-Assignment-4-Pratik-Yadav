@@ -1,0 +1,29 @@
+@use '../abstracts';
+
+.card {
+  @include abstracts.flex($direction: column, $gap: abstracts.px-to-rem(32px));
+  padding: abstracts.px-to-rem(32px);
+  border: 1px solid abstracts.$border-primary;
+  transition: box-shadow 0.25s;
+  border-radius: abstracts.px-to-rem(32px);
+
+  &:hover {
+    @include abstracts.box-shadow(card-primary);
+    border: 1px solid abstracts.$white;
+  }
+
+  &__body {
+    @include abstracts.flex(
+      $direction: column,
+      $gap: abstracts.px-to-rem(32px)
+    );
+
+    &--primary {
+      gap: abstracts.px-to-rem(16px);
+    }
+
+    &--secondary {
+      gap: abstracts.px-to-rem(8px);
+    }
+  }
+}

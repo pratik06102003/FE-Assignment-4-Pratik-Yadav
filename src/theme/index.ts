@@ -29,10 +29,10 @@ export const theme: ThemeConfig = {
 
     // Breakpoints
     screenXS: BREAKPOINTS.XS,
-    screenSM: BREAKPOINTS.SM,
-    screenMD: BREAKPOINTS.MD,
-    screenLG: BREAKPOINTS.LG,
-    screenXL: BREAKPOINTS.XL,
-    screenXXL: BREAKPOINTS.XXL,
+    // screenSM: BREAKPOINTS.SM,
+    // screenMD: BREAKPOINTS.MD,
+    // screenLG: BREAKPOINTS.LG,
+    // screenXL: BREAKPOINTS.XL,
+    // screenXXL: BREAKPOINTS.XXL,
   },
 };

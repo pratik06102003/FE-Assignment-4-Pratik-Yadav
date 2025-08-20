@@ -1,6 +1,7 @@
 import path from 'path';
 import Dotenv from 'dotenv-webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,6 +22,27 @@ export default {
             loader: 'babel-loader',
           },
         ],
+      },
+      {
+        test: /\.module\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[local]__[hash:base64:5]',
+              },
+              sourceMap: true,
+            },
+          },
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        exclude: /\.module\.s[ac]ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,

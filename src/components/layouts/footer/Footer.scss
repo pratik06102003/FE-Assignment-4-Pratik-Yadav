@@ -1,0 +1,28 @@
+@use '../../../styles/abstracts';
+
+.footer {
+  background: #fafafa;
+  border-top: 1px solid var(--color-border);
+
+  .footer__paragraph {
+    margin: 0;
+  }
+
+  .footer__title {
+    margin: 0;
+  }
+}
+
+.nav {
+  @include abstracts.outline();
+}
+
+.menu {
+  flex: 1;
+}
+
+.footer-nav {
+  .footer-panel {
+    border: none;
+  }
+}

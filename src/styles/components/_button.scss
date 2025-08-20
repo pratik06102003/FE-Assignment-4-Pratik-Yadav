@@ -1,0 +1,51 @@
+@use '../abstracts';
+
+.btn {
+  @include abstracts.flex(
+    $justify-content: center,
+    $align-items: center,
+    $gap: abstracts.px-to-rem(8px)
+  );
+  font-size: abstracts.px-to-rem(14px);
+  font-weight: bold;
+  border-radius: abstracts.px-to-rem(100px);
+  padding: abstracts.px-to-rem(16px) abstracts.px-to-rem(32px);
+  white-space: nowrap;
+  line-height: 1.2;
+  align-self: stretch;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s;
+  user-select: none;
+
+  &--primary {
+    background-color: abstracts.$btn-primary;
+    color: abstracts.$text-light;
+    border: 2px solid abstracts.$btn-primary;
+  }
+
+  &--secondary {
+    background-color: abstracts.$btn-secondary;
+    color: abstracts.$text-primary;
+    border: 2px solid abstracts.$border-light;
+  }
+
+  &--tertiary {
+    background-color: transparent;
+    color: abstracts.$text-highlight;
+    gap: abstracts.px-to-rem(16px);
+    border: 2px solid abstracts.$white;
+    @include abstracts.box-shadow(btn-primary);
+  }
+
+  &:hover {
+    @include abstracts.box-shadow(btn-primary);
+    border: 2px solid transparent;
+  }
+
+  &:focus-visible {
+    outline: 4px solid abstracts.$outline-primary;
+  }
+}

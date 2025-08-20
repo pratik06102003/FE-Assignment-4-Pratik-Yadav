@@ -1,0 +1,70 @@
+@use '../abstracts';
+.header {
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: abstracts.$white;
+  border-bottom: 1px solid abstracts.$border-primary;
+  padding: 0 28px;
+
+  .brand {
+    font-size: 22px;
+    font-weight: 800;
+    color: abstracts.$black;
+    padding: 0;
+  }
+}
+
+.nav {
+  display: flex;
+  gap: 14px;
+
+  a {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 8px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.035);
+      color: #000;
+    }
+  }
+}
+
+.spacer {
+  flex: 1;
+}
+
+.search {
+  display: none;
+
+  @include abstracts.breakpoint(tablet-up) {
+    display: block;
+    width: 100%;
+  }
+  @include abstracts.breakpoint(desktop-up) {
+    display: block;
+    width: 50%;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 999px;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.035);
+  }
+}

@@ -10,7 +10,20 @@ export default {
   entry: path.resolve(DIR_NAME, '..', './src/index.tsx'),
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '@components': path.resolve(DIR_NAME, '../src/components'),
+      '@utils': path.resolve(DIR_NAME, '../src/utils'),
+      '@styles': path.resolve(DIR_NAME, '../src/styles'),
+      '@assets': path.resolve(DIR_NAME, '../src/assets'),
+      '@hooks': path.resolve(DIR_NAME, '../src/hooks'),
+      '@store': path.resolve(DIR_NAME, '../src/store'),
+      '@layouts': path.resolve(DIR_NAME, '../src/layouts'),
+      '@pages': path.resolve(DIR_NAME, '../src/pages'),
+      '@services': path.resolve(DIR_NAME, '../src/services'),
+      '@features': path.resolve(DIR_NAME, '../src/features'),
+    },
   },
+
   module: {
     rules: [
       {
@@ -46,6 +59,7 @@ export default {
     filename: '[name].[contenthash].js',
     assetModuleFilename: 'assets/[name].[contenthash][ext]',
     clean: true,
+    publicPath: '/',
   },
   plugins: [
     new HtmlWebpackPlugin({

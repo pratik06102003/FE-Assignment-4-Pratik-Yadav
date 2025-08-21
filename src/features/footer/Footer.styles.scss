@@ -1,0 +1,6 @@
+@use '@styles/abstracts';
+
+.footer {
+  background-color: abstracts.$background-secondary;
+  border-top: 1px solid abstracts.$border-secondary;
+}

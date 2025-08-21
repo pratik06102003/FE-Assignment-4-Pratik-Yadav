@@ -1,0 +1,16 @@
+@use 'sass:math';
+@use './variables';
+
+/**
+ * Converts a pixel value to rem units based on a 10px root.
+ *
+ * @param {Number} $pxValue - A number with `px` units (e.g., 20px).
+ * @return {Number} - The equivalent value in rem units.
+ */
+@function px-to-rem($pxValue) {
+  @if $pxValue !=0 and math.unit($pxValue) != 'px' {
+    @error "px-to-rem expects a px, but got #{math.unit($pxValue)}.";
+  }
+
+  @return math.div($pxValue, variables.$base-font-size) * 1rem;
+}

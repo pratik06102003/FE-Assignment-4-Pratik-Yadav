@@ -4,6 +4,7 @@ export default {
   mode: 'development',
   devServer: {
     hot: true,
+    historyApiFallback: true,
   },
   devtool: 'eval-source-map',
 

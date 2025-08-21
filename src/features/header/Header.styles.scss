@@ -1,0 +1,18 @@
+@use '@styles/abstracts';
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: abstracts.$header-z-index;
+  background-color: abstracts.$background-primary;
+  border-bottom: 1px solid abstracts.$border-primary;
+  padding: 0 abstracts.px_to_rem(32px);
+
+  &__search {
+    display: none;
+    @include abstracts.breakpoint(tablet-up) {
+      display: block;
+      width: 50%;
+    }
+  }
+}

@@ -9,7 +9,6 @@ import { loadTheme } from './theme';
 import './styles/main.scss';
 
 const rootElement = document.getElementById('root') as HTMLElement;
-
 const theme = loadTheme();
 
 createRoot(rootElement).render(

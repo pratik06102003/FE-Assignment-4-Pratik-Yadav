@@ -1,12 +1,5 @@
-import { Button } from 'antd';
+import { RouterProvider } from 'react-router-dom';
 
-import { useFirebase } from './firebase';
+import { router } from './routes/router';
 
-export const App = () => {
-  const firebase = useFirebase();
-  return (
-    <Button type="primary" onClick={firebase?.testService}>
-      Test Firebase Service
-    </Button>
-  );
-};
+export const App = () => <RouterProvider router={router} />;

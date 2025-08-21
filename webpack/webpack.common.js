@@ -24,6 +24,7 @@ export default {
       '@app': path.resolve(DIR_NAME, '../src/app'),
     },
   },
+
   module: {
     rules: [
       {

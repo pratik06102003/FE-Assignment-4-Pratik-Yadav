@@ -8,7 +8,6 @@ import { App } from './App';
 import '@styles/main.scss';
 
 const rootElement = document.getElementById('root') as HTMLElement;
-
 const theme = loadTheme();
 
 createRoot(rootElement).render(

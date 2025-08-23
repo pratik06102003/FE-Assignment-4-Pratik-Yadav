@@ -1,7 +1,9 @@
 import { act, isValidElement, ReactElement, ReactNode } from 'react';
+
+import { MemoryRouter } from 'react-router-dom';
+
 import { render, RenderOptions } from '@testing-library/react';
 import { screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 
 /**
  * Re-export everything from @testing-library/react

@@ -1,14 +1,15 @@
 import { NavLink } from 'react-router-dom';
+
 import {
-  FireOutlined,
-  TagsOutlined,
-  UserOutlined,
-  InfoCircleOutlined,
-  TeamOutlined,
-  MailOutlined,
   BookOutlined,
+  FireOutlined,
+  InfoCircleOutlined,
   LinkOutlined,
+  MailOutlined,
   QuestionCircleOutlined,
+  TagsOutlined,
+  TeamOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 
 // Explore menu items

@@ -1,9 +1,12 @@
 import { lazy, Suspense } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+
 import type { RouteObject } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+
 import { Spin } from 'antd';
 
 import { RootLayout } from '@layouts/RootLayout';
+
 import { RouteErrorBoundary } from './RouteErrorBoundary';
 
 const PostsIndex = lazy(() => import('@pages/posts/PostIndex'));

@@ -1,8 +1,11 @@
 import { createContext, useContext } from 'react';
 
 //TODO: Added proper generic for the context
-export const FireBaseContext = createContext<{
+
+export interface FireBaseContextValue {
   testService: () => void;
-} | null>(null);
+}
+
+export const FireBaseContext = createContext<FireBaseContextValue | null>(null);
 
 export const useFirebase = () => useContext(FireBaseContext);

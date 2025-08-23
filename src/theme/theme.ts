@@ -1,4 +1,5 @@
 import { ThemeConfig } from 'antd';
+
 import { getCssVar } from './theme.utils';
 
 export function loadTheme() {

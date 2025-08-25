@@ -16,6 +16,19 @@ jest.mock('antd', () => {
   };
 });
 
+jest.mock('@app/', () => ({
+  firebaseApp: {},
+  firebaseAuth: {},
+  firestore: {},
+}));
+
+type ReactRouterDomModule = typeof import('react-router-dom');
+
+jest.mock('react-router-dom', () => {
+  const actual = jest.requireActual('react-router-dom') as ReactRouterDomModule;
+  return { ...actual, useNavigate: jest.fn() };
+});
+
 Object.defineProperty(window, 'matchMedia', {
   value: jest.fn().mockImplementation(() => ({
     matches: true,

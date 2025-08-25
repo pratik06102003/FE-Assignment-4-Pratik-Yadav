@@ -6,7 +6,7 @@ const { Content } = Layout;
 
 export const AuthLayout = () => (
   <Layout style={{ height: '100dvh' }}>
-    <Content className="container" style={{ display: 'flex', alignItems: 'center' }}>
+    <Content className="container content">
       <Outlet />
     </Content>
   </Layout>

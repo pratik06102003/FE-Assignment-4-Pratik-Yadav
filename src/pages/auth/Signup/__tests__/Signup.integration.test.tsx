@@ -2,7 +2,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { AnyAction, combineReducers, legacy_createStore as createStore, Store } from 'redux';
 import { Provider } from 'react-redux';
 
-import * as AuthModule from '@store/auth'; // import module namespace for safe typing
+import * as AuthModule from '@store/auth';
 import { authError, authStart, authSuccess } from '@store/auth/auth.actions';
 import {
   AUTH_ERROR,

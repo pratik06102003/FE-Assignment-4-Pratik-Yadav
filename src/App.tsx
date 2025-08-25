@@ -1,16 +1,12 @@
-<<<<<<< HEAD
-import { RouterProvider } from 'react-router-dom';
-
-import { router } from './routes/router';
-
-export const App = () => <RouterProvider router={router} />;
-=======
-import { useAppDispatch } from '@store/root/root.hooks';
-import { router } from './routes/router';
-import { RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
+
+import { RouterProvider } from 'react-router-dom';
+
 import { authStart, authSuccess } from '@store/auth/auth.actions';
+import { useAppDispatch } from '@store/root/root.hooks';
+
 import { authServices } from './app/auth/';
+import { router } from './routes/router';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -22,4 +18,3 @@ export const App = () => {
 
   return <RouterProvider router={router} />;
 };
->>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)

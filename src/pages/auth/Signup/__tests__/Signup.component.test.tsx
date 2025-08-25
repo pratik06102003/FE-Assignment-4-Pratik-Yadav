@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { Provider } from 'react-redux';
-import { legacy_createStore as createStore, combineReducers, AnyAction, Store } from 'redux';
+import { ReactNode } from 'react';
+
 import { MemoryRouter, useNavigate } from 'react-router-dom';
+import { AnyAction, combineReducers, legacy_createStore as createStore, Store } from 'redux';
+import { Provider } from 'react-redux';
+
 import { signUp } from '@store/auth';
-import Signup from '../Signup.page';
 import {
   AUTH_ERROR,
   AUTH_START,
@@ -12,7 +12,11 @@ import {
   AuthAction,
   AuthState,
 } from '@store/auth/auth.types';
-import { ReactNode } from 'react';
+
+import Signup from '../Signup.page';
+
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 type AuthStoreModule = typeof import('@store/auth');
 

@@ -1,16 +1,15 @@
-<<<<<<< HEAD
-import { Typography } from 'antd';
-
-const Signup = () => <Typography.Title>Signup</Typography.Title>;
-=======
-import { Formik, Form, Field, FieldProps, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { Input, Button, Typography, Card, Flex, Alert } from 'antd';
-
-import { useAppDispatch, useAppSelector } from '@store/root';
-import { signUp } from '@store/auth';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+
+import { Alert, Button, Card, Flex, Input, Typography } from 'antd';
+
+import { ErrorMessage, Field, FieldProps, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+
+import { signUp } from '@store/auth';
+import { useAppDispatch, useAppSelector } from '@store/root';
+
 import { SignInValues } from './Signup.types';
 
 const { Title } = Typography;
@@ -37,6 +36,7 @@ const Signup = () => {
   const handleSubmit = async (values: SignInValues) => {
     await signUp(values.firstName, values.lastName, values.email, values.password, dispatch);
   };
+
   return (
     <>
       <Card title={<Title level={3}>Signup</Title>} extra="signin">
@@ -119,6 +119,5 @@ const Signup = () => {
     </>
   );
 };
->>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 
 export default Signup;

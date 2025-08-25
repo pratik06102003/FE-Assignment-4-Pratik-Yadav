@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-<<<<<<< HEAD
 
 import {
   BookOutlined,
@@ -11,18 +10,6 @@ import {
   TagsOutlined,
   TeamOutlined,
   UserOutlined,
-=======
-import {
-  FireOutlined,
-  TagsOutlined,
-  UserOutlined,
-  InfoCircleOutlined,
-  TeamOutlined,
-  MailOutlined,
-  BookOutlined,
-  LinkOutlined,
-  QuestionCircleOutlined,
->>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 } from '@ant-design/icons';
 
 // Explore menu items

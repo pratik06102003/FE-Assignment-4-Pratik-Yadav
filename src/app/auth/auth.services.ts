@@ -1,15 +1,17 @@
 import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-  sendPasswordResetEmail,
-  onAuthStateChanged,
-  setPersistence,
   browserLocalPersistence,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
-import type { AuthUser } from '@store/auth';
-import { firebaseAuth, firestore } from '../../app';
 import { doc, setDoc } from 'firebase/firestore';
+
+import type { AuthUser } from '@store/auth';
+
+import { firebaseAuth, firestore } from '../../app';
 
 export const authServices = {
   listen: (callback: (user: AuthUser | null) => void) =>

@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-import { Typography } from 'antd';
-
-const PostsIndex = () => <Typography.Title>All Posts</Typography.Title>;
-=======
-import { signOut } from '@store/auth';
-import { Button, Typography } from 'antd';
 import { useDispatch } from 'react-redux';
+
+import { Button, Typography } from 'antd';
+
+import { signOut } from '@store/auth';
 
 const PostsIndex = () => {
   const dispatch = useDispatch();
@@ -16,6 +13,5 @@ const PostsIndex = () => {
     </>
   );
 };
->>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 
 export default PostsIndex;

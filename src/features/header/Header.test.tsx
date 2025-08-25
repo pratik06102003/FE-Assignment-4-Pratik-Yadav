@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Grid } from 'antd';
 
 import { Header } from './Header.component';
@@ -6,13 +5,6 @@ import { DROPDOWN_ITEMS, MENU_ITEMS } from './Header.constants';
 
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-=======
-import { screen, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { Header } from './Header.component';
-import { MENU_ITEMS, DROPDOWN_ITEMS } from './Header.constants';
-import { Grid } from 'antd';
->>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 import {
   expectMenuitemLinkToBeInTheDocumentWithCorrectHref,
   expectMenuitemsNotToBeInTheDocument,

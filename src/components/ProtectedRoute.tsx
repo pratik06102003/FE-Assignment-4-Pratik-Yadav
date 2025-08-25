@@ -1,11 +1,13 @@
-import { useAppSelector } from '@store/root/root.hooks';
-import { Spin } from 'antd';
 import { ReactNode } from 'react';
+
 import { Navigate } from 'react-router-dom';
+
+import { Spin } from 'antd';
+
+import { useAppSelector } from '@store/root/root.hooks';
 
 export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { user, loading } = useAppSelector((s) => s.auth);
-  // alert(`${loading}, ${JSON.stringify(user, null, 2)}`);
 
   if (loading) {
     return <Spin fullscreen />;

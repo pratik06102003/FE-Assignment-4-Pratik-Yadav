@@ -1,8 +1,10 @@
-import { AppDispatch } from '@store/root/root.types';
-import { authError, authStart, authSuccess } from './auth.actions';
-import { authServices } from '../../app/auth/auth.services';
-import { mapFirebaseError } from './auth.utils';
 import { FirebaseError } from 'firebase/app';
+
+import { AppDispatch } from '@store/root/root.types';
+
+import { authServices } from '../../app/auth/auth.services';
+import { authError, authStart, authSuccess } from './auth.actions';
+import { mapFirebaseError } from './auth.utils';
 
 export const signUp = async (
   firstName: string,

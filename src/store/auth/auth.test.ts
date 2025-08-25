@@ -1,5 +1,5 @@
+import { authError, authStart, authSuccess } from './auth.actions';
 import { authReducer } from './auth.reducer';
-import { authStart, authSuccess, authError } from './auth.actions';
 import { AuthState, AuthUser } from './auth.types';
 
 describe('authReducer', () => {
@@ -27,35 +27,3 @@ describe('authReducer', () => {
     expect(state.user).toBeNull();
   });
 });
-
-// jest.mock('./auth.utils');
-jest.mock('@app/auth', () => ({
-  authServices: {
-    signUp: jest.fn(),
-    signOut: jest.fn(),
-  },
-}));
-
-// import { authServices } from '@app/auth';
-
-// const mockedSignUp = jest.mocked(authServices.signUp, true);
-// const mockedMapFirebaseError = jest.mocked(mapFirebaseError);
-
-// describe('authService.signUp', () => {
-//   const dispatch = jest.fn();
-//   test('dispatches start -> success', async () => {
-//     const user = { uid: '123', email: 't@t.com' };
-//     mockedSignUp.mockResolvedValueOnce(user);
-//     await signUp('Pratik', 'yadav', 't@t.com', 'secret', dispatch);
-// expect(dispatch).toHaveBeenNthCalledWith(1, authStart());
-// expect(mockedSignUp).toHaveBeenCalledWith('Pratik', 'Yadav', 't@t.com', 'secret');
-// expect(dispatch).toHaveBeenNthCalledWith(2, authSuccess(user));
-// });
-// it('dispatches start -> error with mapped message on failure', async () => {
-//   mockedSignUp.mockRejectedValueOnce({ code: 'auth/email-already-in-use' });
-//   mockedMapFirebaseError.mockReturnValue('Email already in use');
-//   await signUp('Pratik', 'Yadav', 'dup@t.com', 'secret', dispatch);
-//   expect(dispatch).toHaveBeenNthCalledWith(1, authStart());
-//   expect(dispatch).toHaveBeenNthCalledWith(2, authError('Email already in use'));
-// });
-// });

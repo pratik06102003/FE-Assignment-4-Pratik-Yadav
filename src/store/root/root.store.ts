@@ -1,4 +1,5 @@
-import { legacy_createStore as createStore, combineReducers } from 'redux';
+import { combineReducers, legacy_createStore as createStore } from 'redux';
+
 import { authReducer } from '@store/auth';
 
 const rootReducer = combineReducers({ auth: authReducer });

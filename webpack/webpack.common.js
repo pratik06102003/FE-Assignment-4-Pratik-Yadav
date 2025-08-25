@@ -21,10 +21,7 @@ export default {
       '@pages': path.resolve(DIR_NAME, '../src/pages'),
       '@services': path.resolve(DIR_NAME, '../src/services'),
       '@features': path.resolve(DIR_NAME, '../src/features'),
-<<<<<<< HEAD
-=======
       '@app': path.resolve(DIR_NAME, '../src/app'),
->>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
     },
   },
 

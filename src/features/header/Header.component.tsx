@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { NavLink } from 'react-router-dom';
 
 import { Avatar, Button, Dropdown, Flex, Grid, Input, Layout, Menu, Typography } from 'antd';
@@ -6,6 +7,13 @@ import { DROPDOWN_ITEMS, MENU_ITEMS } from './Header.constants';
 
 import './Header.styles.scss';
 import { EditOutlined, MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
+=======
+import './Header.styles.scss';
+import { Layout, Input, Button, Dropdown, Avatar, Menu, Flex, Grid, Typography } from 'antd';
+import { EditOutlined, UserOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { MENU_ITEMS, DROPDOWN_ITEMS } from './Header.constants';
+import { NavLink } from 'react-router-dom';
+>>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 
 const { Header: AntHeader } = Layout;
 const { Search } = Input;

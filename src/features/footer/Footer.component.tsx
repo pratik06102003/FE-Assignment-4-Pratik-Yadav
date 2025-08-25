@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { NavLink } from 'react-router-dom';
 
 import { Collapse, Flex, Grid, Layout, Menu, Typography } from 'antd';
@@ -5,6 +6,12 @@ import { Collapse, Flex, Grid, Layout, Menu, Typography } from 'antd';
 import { COMPANY_ITEMS, EXPLORE_ITEMS, RESOURCE_ITEMS } from './Footer.constants';
 
 import './Footer.styles.scss';
+=======
+import './Footer.styles.scss';
+import { Layout, Flex, Menu, Collapse, Grid, Typography } from 'antd';
+import { RESOURCE_ITEMS, COMPANY_ITEMS, EXPLORE_ITEMS } from './Footer.constants';
+import { NavLink } from 'react-router-dom';
+>>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 
 const { Footer: AntFooter } = Layout;
 const { useBreakpoint } = Grid;

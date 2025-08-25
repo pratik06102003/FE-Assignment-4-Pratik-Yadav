@@ -17,6 +17,24 @@
   outline: 2px solid $color;
 }
 
+<<<<<<< HEAD
+=======
+@mixin flex(
+  $align-items: center,
+  $justify-content: center,
+  $direction: row,
+  $flex-wrap: nowrap,
+  $gap: 0
+) {
+  display: flex;
+  align-items: $align-items;
+  justify-content: $justify-content;
+  flex-direction: $direction;
+  flex-wrap: $flex-wrap;
+  gap: $gap;
+}
+
+>>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 @mixin padding-vertical($primary, $secondary: $primary) {
   @if $primary != 0 and math.unit($primary) != 'px' {
     @error "`padding-vertical` expects px values, got #{math.unit($primary)}.";

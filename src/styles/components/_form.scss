@@ -1,0 +1,21 @@
+@use '../abstracts';
+
+.form {
+  @include abstracts.flex(
+    $direction: column,
+    $align-items: stretch,
+    $gap: abstracts.px-to-rem(16px)
+  );
+
+  &-control {
+    flex-direction: column;
+  }
+
+  &__label {
+    font-weight: 500;
+  }
+
+  &__error {
+    color: abstracts.$error;
+  }
+}

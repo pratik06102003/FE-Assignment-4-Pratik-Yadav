@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+<<<<<<< HEAD
 
 import type { RouteObject } from 'react-router-dom';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
@@ -8,6 +9,16 @@ import { Spin } from 'antd';
 import { RootLayout } from '@layouts/RootLayout';
 
 import { RouteErrorBoundary } from './RouteErrorBoundary';
+=======
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
+import { Spin } from 'antd';
+
+import { RootLayout } from '@layouts/RootLayout';
+import { AuthLayout } from '@layouts/AuthLayout';
+import { RouteErrorBoundary } from './RouteErrorBoundary';
+import ProtectedRoute from '@components/ProtectedRoute';
+>>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 
 const PostsIndex = lazy(() => import('@pages/posts/PostIndex'));
 const PostDetails = lazy(() => import('@pages/posts/PostDetails'));
@@ -19,7 +30,15 @@ const NotFound = lazy(() => import('@pages/notFound'));
 
 const routes: RouteObject[] = [
   {
+<<<<<<< HEAD
     element: <RootLayout />,
+=======
+    element: (
+      <ProtectedRoute>
+        <RootLayout />
+      </ProtectedRoute>
+    ),
+>>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
     errorElement: <RouteErrorBoundary />,
     children: [
       {
@@ -72,6 +91,29 @@ const routes: RouteObject[] = [
         ],
       },
       {
+<<<<<<< HEAD
+=======
+        path: 'not-found',
+        element: (
+          <Suspense fallback={<Spin />}>
+            <NotFound />
+          </Suspense>
+        ),
+      },
+      {
+        path: '*',
+        element: <Navigate to="/not-found" />,
+      },
+    ],
+  },
+
+  {
+    path: 'auth',
+    element: <AuthLayout />,
+    errorElement: <RouteErrorBoundary />,
+    children: [
+      {
+>>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
         path: 'signin',
         element: (
           <Suspense fallback={<Spin />}>
@@ -87,6 +129,7 @@ const routes: RouteObject[] = [
           </Suspense>
         ),
       },
+<<<<<<< HEAD
       {
         path: 'not-found',
         element: (
@@ -99,6 +142,8 @@ const routes: RouteObject[] = [
         path: '*',
         element: <Navigate to="/not-found" />,
       },
+=======
+>>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
     ],
   },
 ];

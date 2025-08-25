@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Grid } from 'antd';
 
 import { Footer } from './Footer.component';
@@ -5,6 +6,13 @@ import { COMPANY_ITEMS, EXPLORE_ITEMS, RESOURCE_ITEMS } from './Footer.constants
 
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+=======
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Footer } from './Footer.component';
+import { Grid } from 'antd';
+import { EXPLORE_ITEMS, COMPANY_ITEMS, RESOURCE_ITEMS } from './Footer.constants';
+>>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 import {
   expectMenuitemLinkToBeInTheDocumentWithCorrectHref,
   expectMenuitemsNotToBeInTheDocument,

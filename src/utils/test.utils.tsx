@@ -1,9 +1,15 @@
 import { act, isValidElement, ReactElement, ReactNode } from 'react';
+<<<<<<< HEAD
 
 import { MemoryRouter } from 'react-router-dom';
 
 import { render, RenderOptions } from '@testing-library/react';
 import { screen } from '@testing-library/react';
+=======
+import { render, RenderOptions } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+>>>>>>> f2c91b2 (YP_RU_02: Auth 1: Signup: Added Signup page and associated tests)
 
 /**
  * Re-export everything from @testing-library/react

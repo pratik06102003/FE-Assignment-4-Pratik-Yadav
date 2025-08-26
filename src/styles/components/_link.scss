@@ -1,0 +1,10 @@
+@use '../abstracts';
+
+.link {
+  &:focus-visible {
+    outline: 2px solid abstracts.$primary-black;
+    outline-offset: 2px;
+    border-radius: 5px;
+  }
+  text-decoration: underline;
+}

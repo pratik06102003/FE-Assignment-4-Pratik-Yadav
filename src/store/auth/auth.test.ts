@@ -3,7 +3,7 @@ import { authReducer } from './auth.reducer';
 import { AuthState, AuthUser } from './auth.types';
 
 describe('authReducer', () => {
-  const initialState: AuthState = { user: null, loading: false, error: null };
+  const initialState: AuthState = { user: null, loading: false, error: null, message: null };
 
   test('AUTH_START sets loading and clears error', () => {
     const state = authReducer(initialState, authStart());
@@ -14,7 +14,7 @@ describe('authReducer', () => {
 
   test('AUTH_SUCCESS stores user and stops loading', () => {
     const user: AuthUser = { uid: 'u1', email: 'test@test.com' };
-    const state = authReducer(initialState, authSuccess(user));
+    const state = authReducer(initialState, authSuccess(user, null));
     expect(state.loading).toBe(false);
     expect(state.user).toEqual(user);
     expect(state.error).toBeNull();

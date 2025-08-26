@@ -4,7 +4,7 @@ import { MemoryRouter, useNavigate } from 'react-router-dom';
 import { AnyAction, combineReducers, legacy_createStore as createStore, Store } from 'redux';
 import { Provider } from 'react-redux';
 
-import { signUp } from '@store/auth';
+import { signIn } from '@store/auth';
 import {
   AUTH_ERROR,
   AUTH_START,
@@ -13,7 +13,7 @@ import {
   AuthState,
 } from '@store/auth/auth.types';
 
-import Signup from '../Signup.page';
+import SignIn from '../Signin.page';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -25,7 +25,7 @@ jest.mock('@store/auth', () => {
   const actual = jest.requireActual('@store/auth') as AuthStoreModule;
   return {
     ...actual,
-    signUp: jest.fn(),
+    signIn: jest.fn(),
   };
 });
 const getAuthState = (overrides?: Partial<AuthState>): AuthState => ({
@@ -65,46 +65,40 @@ function renderWithProviders(ui: ReactNode, preloadedState?: Partial<RootState>)
   return { store, ...utils };
 }
 
-describe('Signup', () => {
-  const signUpMock = jest.mocked(signUp);
+describe('SignIn', () => {
+  const signInMock = jest.mocked(signIn);
   const navigateMock = jest.fn();
   beforeEach(() => {
     jest.clearAllMocks();
     (useNavigate as unknown as jest.Mock).mockReturnValue(navigateMock);
   });
   it('renders all form fields', () => {
-    renderWithProviders(<Signup />);
-    expect(screen.getByLabelText(/first name/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/last name/i)).toBeInTheDocument();
+    renderWithProviders(<SignIn />);
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
   });
 
   test('shows validation errors on empty submit', async () => {
-    renderWithProviders(<Signup />);
+    renderWithProviders(<SignIn />);
     const user = userEvent.setup();
-    await user.click(screen.getByRole('button', { name: /sign up/i }));
+    await user.click(screen.getByRole('button', { name: /sign in/i }));
     const errors = await screen.findAllByText(/required/i);
-    expect(errors.length).toBeGreaterThanOrEqual(4);
+    expect(errors.length).toBeGreaterThanOrEqual(2);
   });
 
   test('calls signUp with correct arguments on valid submit (user-event)', async () => {
-    const { store } = renderWithProviders(<Signup />);
+    const { store } = renderWithProviders(<SignIn />);
     const user = userEvent.setup();
-    await user.type(screen.getByLabelText(/first name/i), 'firstName');
-    await user.type(screen.getByLabelText(/last name/i), 'lastName');
     await user.type(screen.getByLabelText(/email/i), 'email@domain.com');
     await user.type(screen.getByLabelText(/password/i), 'password123');
-    await user.click(screen.getByRole('button', { name: /sign up/i }));
+    await user.click(screen.getByRole('button', { name: /sign in/i }));
 
-    expect(signUpMock).toHaveBeenCalledTimes(1);
+    expect(signInMock).toHaveBeenCalledTimes(1);
 
-    const [firstName, lastName, email, password, dispatchArg] = signUpMock.mock.calls[0];
+    const [email, password, dispatchArg] = signInMock.mock.calls[0];
 
-    expect({ firstName, lastName, email, password }).toEqual({
-      firstName: 'firstName',
-      lastName: 'lastName',
+    expect({ email, password }).toEqual({
       email: 'email@domain.com',
       password: 'password123',
     });
@@ -112,24 +106,22 @@ describe('Signup', () => {
   });
 
   test('disables inputs when loading is true', () => {
-    renderWithProviders(<Signup />, {
+    renderWithProviders(<SignIn />, {
       auth: getAuthState({ loading: true }),
     });
-    expect(screen.getByLabelText(/first name/i)).toBeDisabled();
-    expect(screen.getByLabelText(/last name/i)).toBeDisabled();
     expect(screen.getByLabelText(/email/i)).toBeDisabled();
     expect(screen.getByLabelText(/password/i)).toBeDisabled();
   });
 
   test('shows error alert when error exists', () => {
-    renderWithProviders(<Signup />, {
+    renderWithProviders(<SignIn />, {
       auth: getAuthState({ error: 'Signup failed' }),
     });
     expect(screen.getByText(/signup failed/i)).toBeInTheDocument();
   });
 
   test('navigates to home when user exists', () => {
-    renderWithProviders(<Signup />, {
+    renderWithProviders(<SignIn />, {
       auth: getAuthState({ user: { uid: '1', email: 'test@domin.com' } }),
     });
     expect(navigateMock).toHaveBeenCalledWith('/');

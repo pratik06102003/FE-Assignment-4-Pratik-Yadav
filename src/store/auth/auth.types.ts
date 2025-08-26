@@ -6,6 +6,7 @@ export type AuthState = {
   user: AuthUser | null;
   loading: boolean;
   error: string | null;
+  message: string | null;
 };
 
 export const AUTH_START = 'auth/START' as const;
@@ -18,7 +19,7 @@ export type AuthStartActionType = {
 };
 export type AuthSuccessActionType = {
   type: typeof AUTH_SUCCESS;
-  payload: AuthUser | null;
+  payload: { user: AuthUser | null; message: string | null };
 };
 export type AuthErrorActionType = {
   type: typeof AUTH_ERROR;

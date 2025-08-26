@@ -17,6 +17,7 @@ const PostCreate = lazy(() => import('@pages/posts/PostCreate'));
 const PostEdit = lazy(() => import('@pages/posts/PostEdit'));
 const Signin = lazy(() => import('@pages/auth/Signin'));
 const Signup = lazy(() => import('@pages/auth/Signup'));
+const ForgotPassword = lazy(() => import('@pages/auth/ForgotPassword'));
 const NotFound = lazy(() => import('@pages/notFound'));
 
 const routes: RouteObject[] = [
@@ -110,6 +111,14 @@ const routes: RouteObject[] = [
         element: (
           <Suspense fallback={<Spin />}>
             <Signup />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'forgot-password',
+        element: (
+          <Suspense fallback={<Spin />}>
+            <ForgotPassword />
           </Suspense>
         ),
       },

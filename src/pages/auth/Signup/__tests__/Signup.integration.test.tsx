@@ -44,6 +44,7 @@ const makeAuthInitial = (overrides?: Partial<AuthState>): AuthState => ({
   loading: false,
   error: null,
   user: null,
+  message: null,
   ...overrides,
 });
 
@@ -52,7 +53,7 @@ function authReducer(state: AuthState = makeAuthInitial(), action: AuthAction): 
     case AUTH_START:
       return { ...state, loading: true, error: null };
     case AUTH_SUCCESS:
-      return { ...state, loading: false, user: action.payload, error: null };
+      return { ...state, loading: false, user: action.payload.user, error: null };
     case AUTH_ERROR:
       return { ...state, loading: false, error: action.payload ?? 'Unknown error' };
     default:
@@ -85,7 +86,7 @@ describe('Signup integration (real store + mocked signUp)', () => {
       dispatch(authStart());
       await Promise.resolve();
       const user = { uid: 'u123', email, firstName, lastName };
-      dispatch(authSuccess(user));
+      dispatch(authSuccess(user, null));
     });
 
     render(

@@ -40,7 +40,7 @@ export const authServices = {
     return user;
   },
 
-  resetPassword: async (email: string) => {
+  forgotPassword: async (email: string) => {
     await sendPasswordResetEmail(firebaseAuth, email);
   },
 

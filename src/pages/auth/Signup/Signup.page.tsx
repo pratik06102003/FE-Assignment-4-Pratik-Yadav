@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Alert, Button, Card, Flex, Input, Typography } from 'antd';
 
@@ -113,6 +113,11 @@ const Signup = () => {
               Sign Up
             </Button>
             {error && <Alert type="error" message={error} />}
+            <Flex justify="center" gap={8}>
+              <Link to="/auth/signin" className="link">
+                SignIn
+              </Link>
+            </Flex>
           </Form>
         </Formik>
       </Card>

@@ -10,9 +10,12 @@ import {
 
 export const authStart = (): AuthStartActionType => ({ type: AUTH_START });
 
-export const authSuccess = (user: AuthUser | null): AuthSuccessActionType => ({
+export const authSuccess = (
+  user: AuthUser | null,
+  message: string | null,
+): AuthSuccessActionType => ({
   type: AUTH_SUCCESS,
-  payload: user,
+  payload: { user, message },
 });
 
 export const authError = (errorMessage: string): AuthErrorActionType => ({

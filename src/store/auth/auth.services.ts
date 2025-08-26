@@ -16,7 +16,35 @@ export const signUp = async (
   dispatch(authStart());
   try {
     const user = await authServices.signUp(firstName, lastName, email, password);
-    dispatch(authSuccess(user));
+    dispatch(authSuccess(user, null));
+  } catch (error) {
+    if (error instanceof FirebaseError) {
+      dispatch(authError(mapFirebaseError(error.code)));
+    } else {
+      dispatch(authError('Unexpected Error occurred'));
+    }
+  }
+};
+
+export const signIn = async (email: string, password: string, dispatch: AppDispatch) => {
+  dispatch(authStart());
+  try {
+    const user = await authServices.signIn(email, password);
+    dispatch(authSuccess(user, null));
+  } catch (error) {
+    if (error instanceof FirebaseError) {
+      dispatch(authError(mapFirebaseError(error.code)));
+    } else {
+      dispatch(authError('Unexpected Error occurred'));
+    }
+  }
+};
+
+export const forgotPassword = async (email: string, dispatch: AppDispatch) => {
+  dispatch(authStart());
+  try {
+    await authServices.forgotPassword(email);
+    dispatch(authSuccess(null, 'Email Sent'));
   } catch (error) {
     if (error instanceof FirebaseError) {
       dispatch(authError(mapFirebaseError(error.code)));
@@ -30,7 +58,7 @@ export const signOut = async (dispatch: AppDispatch) => {
   dispatch(authStart());
   try {
     await authServices.signOut();
-    dispatch(authSuccess(null));
+    dispatch(authSuccess(null, null));
   } catch (error) {
     if (error instanceof FirebaseError) {
       dispatch(authError(mapFirebaseError(error.code)));

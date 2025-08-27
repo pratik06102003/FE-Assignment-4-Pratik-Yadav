@@ -11,7 +11,7 @@ import { doc, setDoc } from 'firebase/firestore';
 
 import type { AuthUser } from '@store/auth';
 
-import { firebaseAuth, firestore } from '../../app';
+import { firebaseAuth, firestore } from '@app/index';
 
 export const authServices = {
   listen: (callback: (user: AuthUser | null) => void) =>

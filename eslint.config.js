@@ -9,7 +9,7 @@ import react from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['build'] },
   {
     extends: [...tseslint.configs.recommendedTypeChecked, eslintConfigPrettier],
     files: ['**/*.{ts,tsx}'],

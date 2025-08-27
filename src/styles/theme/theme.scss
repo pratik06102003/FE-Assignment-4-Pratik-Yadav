@@ -39,10 +39,7 @@
   --heading-h5-size: #{$heading-h5-size};
   --heading-h5-line-height: #{$heading-h5-line-height};
 
-  --breakpoint-xs: #{$breakpoint-xs};
-  --breakpoint-sm: #{$breakpoint-sm};
-  --breakpoint-md: #{$breakpoint-md};
-  --breakpoint-lg: #{$breakpoint-lg};
-  --breakpoint-xl: #{$breakpoint-xl};
-  --breakpoint-xxl: #{$breakpoint-xxl};
+  @each $key, $value in $breakpoints {
+    --breakpoint-#{$key}: #{$value};
+  }
 }

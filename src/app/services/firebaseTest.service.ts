@@ -1,6 +1,6 @@
 import { getDatabase, ref, set } from 'firebase/database';
 
-import { app } from '../firebase.app';
+import { app } from '@app/firebase.app';
 
 const database = getDatabase(app);
 

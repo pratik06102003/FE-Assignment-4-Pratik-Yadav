@@ -1,12 +1,9 @@
 import { Button } from 'antd';
 
-import { useFirebase } from './firebase';
+import { testService } from '@app/services/firebaseTest.service';
 
-export const App = () => {
-  const firebase = useFirebase();
-  return (
-    <Button type="primary" onClick={firebase?.testService}>
-      Test Firebase Service
-    </Button>
-  );
-};
+export const App = () => (
+  <Button type="primary" onClick={testService}>
+    Test Firebase Service
+  </Button>
+);

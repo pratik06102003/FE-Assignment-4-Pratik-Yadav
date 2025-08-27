@@ -24,7 +24,8 @@
       "@pages/*": ["pages/*"],
       "@store/*": ["store/*"],
       "@services/*": ["services/*"],
-      "@app/*": ["app/*"]
+      "@app/*": ["app/*"],
+      "@constants/*": ["constants/*"]
     }
   },
   "include": ["src/**/*"]

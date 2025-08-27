@@ -17,7 +17,7 @@ export const Header: React.FC = () => {
   const isMobile = !screens.md;
 
   return (
-    <AntHeader className={'header'}>
+    <AntHeader className="header">
       <Flex gap={8} className="container">
         <Flex justify="flex-start" align="center" gap={isMobile ? 0 : 16}>
           {!isMobile && (

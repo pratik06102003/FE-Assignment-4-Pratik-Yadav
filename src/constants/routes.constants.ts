@@ -1,0 +1,16 @@
+export const ROUTES = {
+  HOME: '/home',
+  BLOGS: '/blogs',
+  TRENDING: '/trending',
+  TOPICS: '/topics',
+  WRITERS: '/writers',
+  ABOUT: '/about',
+  CAREERS: '/careers',
+  CONTACT: '/contact',
+  DOCS: '/docs',
+  API: '/api',
+  FAQ: '/faq',
+  PROFILE: '/profile',
+  STORIES: '/stories',
+  SETTINGS: '/settings',
+};

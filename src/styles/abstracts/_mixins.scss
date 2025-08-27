@@ -3,7 +3,7 @@
 @use 'sass:math';
 @use 'sass:map';
 
-@mixin breakpoint($name) {
+@mixin breakpoint-up($name) {
   @if not map.has-key(variables.$breakpoints, $name) {
     @warn "Warning: `#{$name}` is not a valid breakpoint name.";
   } @else {
@@ -11,10 +11,6 @@
       @content;
     }
   }
-}
-
-@mixin outline($color: black) {
-  outline: 2px solid $color;
 }
 
 @mixin padding-vertical($primary, $secondary: $primary) {

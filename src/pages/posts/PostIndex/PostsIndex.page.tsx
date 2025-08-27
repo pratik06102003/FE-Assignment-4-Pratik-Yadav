@@ -1,5 +1,7 @@
 import { Typography } from 'antd';
 
-const PostsIndex = () => <Typography.Title>All Posts</Typography.Title>;
+const { Title } = Typography;
+
+const PostsIndex = () => <Title>All Posts</Title>;
 
 export default PostsIndex;

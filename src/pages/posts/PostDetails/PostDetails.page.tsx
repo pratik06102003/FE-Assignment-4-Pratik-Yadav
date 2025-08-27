@@ -1,5 +1,7 @@
 import { Typography } from 'antd';
 
-const PostDetails = () => <Typography.Title>Post Details</Typography.Title>;
+const { Title } = Typography;
+
+const PostDetails = () => <Title>Post Details</Title>;
 
 export default PostDetails;

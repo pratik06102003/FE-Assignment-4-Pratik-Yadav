@@ -1,5 +1,7 @@
 import { Typography } from 'antd';
 
-const NotFound = () => <Typography.Title>404 NOT FOUND</Typography.Title>;
+const { Title } = Typography;
+
+const NotFound = () => <Title>404 NOT FOUND</Title>;
 
 export default NotFound;

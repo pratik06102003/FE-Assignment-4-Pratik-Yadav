@@ -10,7 +10,7 @@
 
   &__search {
     display: none;
-    @include abstracts.breakpoint(tablet-up) {
+    @include abstracts.breakpoint-up(tablet-up) {
       display: block;
       width: 50%;
     }

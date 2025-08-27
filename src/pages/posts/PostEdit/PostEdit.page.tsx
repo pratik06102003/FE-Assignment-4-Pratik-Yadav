@@ -1,5 +1,7 @@
 import { Typography } from 'antd';
 
-const PostEdit = () => <Typography.Title>Edit Post</Typography.Title>;
+const { Title } = Typography;
+
+const PostEdit = () => <Title>Edit Post</Title>;
 
 export default PostEdit;

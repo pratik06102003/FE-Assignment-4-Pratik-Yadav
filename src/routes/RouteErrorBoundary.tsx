@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
 
-export const RouteErrorBoundary = () => (
-  <Typography.Title>Some Really Bad Happend</Typography.Title>
-);
+const { Title } = Typography;
+
+export const RouteErrorBoundary = () => <Title>Some Really Bad Happened</Title>;

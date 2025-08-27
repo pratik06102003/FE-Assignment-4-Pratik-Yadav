@@ -1,5 +1,7 @@
 import { Typography } from 'antd';
 
-const Signin = () => <Typography.Title>Signin</Typography.Title>;
+const { Title } = Typography;
+
+const Signin = () => <Title>Signin</Title>;
 
 export default Signin;

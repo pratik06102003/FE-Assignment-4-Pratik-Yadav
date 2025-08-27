@@ -22,6 +22,7 @@ export default {
       '@services': path.resolve(DIR_NAME, '../src/services'),
       '@features': path.resolve(DIR_NAME, '../src/features'),
       '@app': path.resolve(DIR_NAME, '../src/app'),
+      '@constants': path.resolve(DIR_NAME, '../src/constants'),
     },
   },
 

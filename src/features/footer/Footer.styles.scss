@@ -3,4 +3,11 @@
 .footer {
   background-color: abstracts.$background-secondary;
   border-top: 1px solid abstracts.$border-secondary;
+
+  .link {
+    color: abstracts.$link-primary;
+    &:focus-visible {
+      color: abstracts.$link-primary-hover;
+    }
+  }
 }

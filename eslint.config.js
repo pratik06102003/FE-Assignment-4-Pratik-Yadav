@@ -59,8 +59,8 @@ export default tseslint.config(
         {
           groups: [
             ['^react$', '^react-dom$'],
+            ['^antd, ^@ant'],
             ['^react', '^redux', '^@redux', '^react-redux'],
-            ['^antd'],
             ['^\\w'],
             ['^@assets', '^@components', '^@store', '^@layout', '^@theme'],
             ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],

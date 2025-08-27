@@ -6,7 +6,7 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   setupFilesAfterEnv: ['./src/jest.setup.ts'],
   moduleNameMapper: {
-    '\\.(css|scss|sass|less)$': 'identity-obj-proxy',
+    '\\.scss$': 'identity-obj-proxy',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
   },

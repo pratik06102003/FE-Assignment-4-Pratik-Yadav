@@ -1,4 +1,4 @@
-import { act, isValidElement, ReactElement, ReactNode } from 'react';
+import { act, ReactElement } from 'react';
 
 import { MemoryRouter } from 'react-router-dom';
 
@@ -33,41 +33,15 @@ export async function renderWithRouter(
 }
 
 /**
- * Extracts text from a ReactNode safely for testing purposes.
- * Supports plain strings or React elements with string children.
- *
- * @param label - ReactNode (string or JSX element)
- * @returns The extracted text
- */
-export const getLabelText = (label: ReactNode): string => {
-  if (typeof label === 'string') {
-    return label;
-  }
-
-  if (isValidElement(label)) {
-    const element = label as ReactElement<{ children?: ReactNode }>;
-    const children = element.props.children;
-
-    if (typeof children === 'string') {
-      return children;
-    }
-  }
-
-  throw new Error(`Unsupported label type: ${JSON.stringify(label)}`);
-};
-
-/**
  * Asserts that all menu items in the given array exist in the DOM.
  * Useful for testing dropdowns or navigation menus.
  *
  * @param items - Array of objects with a `label` property
  */
-export const expectMenuitemsToBeInTheDocument = (items: { label: ReactNode }[]) => {
+export const expectMenuitemsToBeInTheDocument = (items: { label: string }[]) => {
   items.forEach((item) => {
-    const labelText = getLabelText(item.label);
-
     expect(
-      screen.queryByRole('menuitem', { name: new RegExp(labelText, 'i') }),
+      screen.queryByRole('menuitem', { name: new RegExp(item.label, 'i') }),
     ).toBeInTheDocument();
   });
 };
@@ -78,13 +52,11 @@ export const expectMenuitemsToBeInTheDocument = (items: { label: ReactNode }[]) 
  *
  * @param items - Array of objects with a `label` property
  */
-export const expectMenuitemsNotToBeInTheDocument = (items: { label: ReactNode }[]) => {
+export const expectMenuitemsNotToBeInTheDocument = (items: { label: string }[]) => {
   items.forEach((item) => {
-    const labelText = getLabelText(item.label);
-
     expect(
       screen.queryByRole('menuitem', {
-        name: new RegExp(labelText, 'i'),
+        name: new RegExp(item.label, 'i'),
       }),
     ).not.toBeInTheDocument();
   });
@@ -97,10 +69,10 @@ export const expectMenuitemsNotToBeInTheDocument = (items: { label: ReactNode }[
  * @param items - Array of objects with `label` and `to` properties
  */
 export const expectMenuitemLinkToBeInTheDocumentWithCorrectHref = (
-  items: { label: ReactNode; to: string }[],
+  items: { label: string; to: string }[],
 ) => {
   items.forEach((item) => {
-    const link = screen.getByRole('link', { name: new RegExp(getLabelText(item.label), 'i') });
+    const link = screen.getByRole('link', { name: new RegExp(item.label, 'i') });
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute('href', item.to);
   });

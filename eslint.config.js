@@ -62,7 +62,7 @@ export default tseslint.config(
             ['^antd, ^@ant'],
             ['^react', '^redux', '^@redux', '^react-redux'],
             ['^\\w'],
-            ['^@assets', '^@components', '^@store', '^@layout', '^@theme'],
+            ['^@assets', '^@components', '^@store', '^@layout', '^@theme', '^@constants'],
             ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
           ],
         },

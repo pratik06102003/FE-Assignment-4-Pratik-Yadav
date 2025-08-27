@@ -14,23 +14,11 @@
 }
 
 @mixin padding-vertical($primary, $secondary: $primary) {
-  @if $primary != 0 and math.unit($primary) != 'px' {
-    @error "`padding-vertical` expects px values, got #{math.unit($primary)}.";
-  }
-  @if $secondary != 0 and math.unit($secondary) != 'px' {
-    @error "`padding-vertical` expects px values, got #{math.unit($secondary)}.";
-  }
   padding-top: functions.px-to-rem($primary);
   padding-bottom: functions.px-to-rem($secondary);
 }
 
 @mixin padding-horizontal($primary, $secondary: $primary) {
-  @if $primary != 0 and math.unit($primary) != 'px' {
-    @error "`padding-horizontal` expects px values, got #{math.unit($primary)}.";
-  }
-  @if $secondary != 0 and math.unit($secondary) != 'px' {
-    @error "`padding-horizontal` expects px values, got #{math.unit($secondary)}.";
-  }
   padding-left: functions.px-to-rem($primary);
   padding-right: functions.px-to-rem($secondary);
 }

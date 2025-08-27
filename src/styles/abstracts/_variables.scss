@@ -1,5 +1,5 @@
 // Base font size
-$base-font-size: 16px;
+$base-font-size: 16;
 
 //paths
 $font-base-path: '/src/assets/fonts';
@@ -54,7 +54,7 @@ $header-z-index: 100;
 
 // Breakpoints
 $breakpoints: (
-  xs: 0,
+  xs: 480px,
   sm: 576px,
   md: 768px,
   lg: 992px,

@@ -1,19 +1,17 @@
 import { Link, NavLink } from 'react-router-dom';
 
-import { Collapse, Flex, Grid, Layout, Menu, Typography } from 'antd';
+import { Collapse, CollapseProps, Flex, Grid, Layout, Menu, Typography } from 'antd';
 
+import { MenuItemProps } from '@components/MenuItem';
 import { ICONS } from '@constants/icon.constants';
 
 import { COLLAPSE_ITEM } from './Footer.constants';
-import { CollapseMenuType, FooterItemType } from './Footer.types';
 
 import './Footer.styles.scss';
 
 const { Footer: AntFooter } = Layout;
 const { useBreakpoint } = Grid;
 const { Title, Paragraph, Text } = Typography;
-const { Item } = Menu;
-const { Panel } = Collapse;
 
 export const Footer = () => {
   const screens = useBreakpoint();
@@ -29,7 +27,7 @@ export const Footer = () => {
           </Paragraph>
         </Flex>
 
-        <Collapse bordered={false}>{COLLAPSE_ITEM.map((item) => PanelMenu(item))}</Collapse>
+        <Collapse bordered={false} items={collapseItems} />
 
         <Flex gap={8} justify="space-between" align="center" vertical>
           <Text type="secondary">{new Date().getFullYear()} BlogsHQ</Text>
@@ -50,25 +48,19 @@ export const Footer = () => {
   );
 };
 
-const FooterItem = (item: FooterItemType) => {
-  const { key, icon, label, to } = item;
+const mapChildrenToMenuItems = (children: MenuItemProps[]) =>
+  children.map((child) => {
+    const { key, to, label, icon } = child;
+    const Icon = icon ? ICONS[icon] : null;
+    return {
+      key: key,
+      label: <Link to={to}>{label}</Link>,
+      icon: Icon ? <Icon /> : undefined,
+    };
+  });
 
-  return (
-    <Item key={key} icon={ICONS[icon]}>
-      <Link to={to} className="link">
-        {label}
-      </Link>
-    </Item>
-  );
-};
-
-const PanelMenu = (menu: CollapseMenuType) => {
-  const { key, label, children } = menu;
-  return (
-    <Panel key={key} header={label}>
-      <Menu mode="inline" selectable={false}>
-        {children.map((item) => FooterItem(item))}
-      </Menu>
-    </Panel>
-  );
-};
+const collapseItems: NonNullable<CollapseProps['items']> = COLLAPSE_ITEM.map((menu) => ({
+  key: menu.key,
+  label: menu.label,
+  children: <Menu mode="inline" selectable={false} items={mapChildrenToMenuItems(menu.children)} />,
+}));

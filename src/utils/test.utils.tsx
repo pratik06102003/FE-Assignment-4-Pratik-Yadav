@@ -2,7 +2,7 @@ import { act, ReactElement } from 'react';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render, RenderOptions } from '@testing-library/react';
+import { render, RenderOptions, waitFor } from '@testing-library/react';
 import { screen } from '@testing-library/react';
 
 /**
@@ -38,12 +38,11 @@ export async function renderWithRouter(
  *
  * @param items - Array of objects with a `label` property
  */
-export const expectMenuitemsToBeInTheDocument = (items: { label: string }[]) => {
-  items.forEach((item) => {
-    expect(
-      screen.queryByRole('menuitem', { name: new RegExp(item.label, 'i') }),
-    ).toBeInTheDocument();
-  });
+export const expectMenuitemsToBeVisible = async (items: { label: string }[]) => {
+  for (const item of items) {
+    const el = await screen.findByRole('menuitem', { name: new RegExp(item.label, 'i') });
+    await waitFor(() => expect(el).toBeVisible());
+  }
 };
 
 /**
@@ -52,13 +51,17 @@ export const expectMenuitemsToBeInTheDocument = (items: { label: string }[]) => 
  *
  * @param items - Array of objects with a `label` property
  */
-export const expectMenuitemsNotToBeInTheDocument = (items: { label: string }[]) => {
+export const expectMenuitemsToNotToBeVisible = (items: { label: string }[]) => {
   items.forEach((item) => {
-    expect(
-      screen.queryByRole('menuitem', {
-        name: new RegExp(item.label, 'i'),
-      }),
-    ).not.toBeInTheDocument();
+    const menuItem = screen.queryByRole('menuitem', {
+      name: new RegExp(item.label, 'i'),
+    });
+
+    if (!menuItem) {
+      expect(menuItem).toBeNull();
+    } else {
+      expect(menuItem).not.toBeVisible();
+    }
   });
 };
 
@@ -68,12 +71,9 @@ export const expectMenuitemsNotToBeInTheDocument = (items: { label: string }[]) 
  *
  * @param items - Array of objects with `label` and `to` properties
  */
-export const expectMenuitemLinkToBeInTheDocumentWithCorrectHref = (
-  items: { label: string; to: string }[],
-) => {
+export const expectMenuitemsToHaveCorrectHref = (items: { label: string; to: string }[]) => {
   items.forEach((item) => {
     const link = screen.getByRole('link', { name: new RegExp(item.label, 'i') });
-    expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute('href', item.to);
   });
 };

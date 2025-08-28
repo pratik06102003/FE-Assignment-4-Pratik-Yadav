@@ -13,4 +13,5 @@ export const ROUTES = {
   PROFILE: '/profile',
   STORIES: '/stories',
   SETTINGS: '/settings',
+  LOGOUT: '/logout',
 };

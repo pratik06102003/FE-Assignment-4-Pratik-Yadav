@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ForwardRefExoticComponent } from 'react';
 
 import {
   BookOutlined,
@@ -11,15 +11,18 @@ import {
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import { IconBaseProps } from '@ant-design/icons/lib/components/Icon';
 
-export const ICONS: Record<string, ReactNode> = {
-  book: <BookOutlined />,
-  fire: <FireOutlined />,
-  info: <InfoCircleOutlined />,
-  link: <LinkOutlined />,
-  mail: <MailOutlined />,
-  question: <QuestionCircleOutlined />,
-  tags: <TagsOutlined />,
-  team: <TeamOutlined />,
-  user: <UserOutlined />,
+export type AntdIconType = ForwardRefExoticComponent<IconBaseProps>;
+
+export const ICONS: Record<string, AntdIconType> = {
+  book: BookOutlined,
+  fire: FireOutlined,
+  info: InfoCircleOutlined,
+  link: LinkOutlined,
+  mail: MailOutlined,
+  question: QuestionCircleOutlined,
+  tags: TagsOutlined,
+  team: TeamOutlined,
+  user: UserOutlined,
 };

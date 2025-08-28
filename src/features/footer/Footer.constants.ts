@@ -1,6 +1,6 @@
-import { FooterItemType } from './Footer.types';
-
 import { ROUTES } from '@constants/routes.constants';
+
+import { FooterItemType } from './Footer.types';
 
 // Explore menu items
 export const EXPLORE_ITEMS: FooterItemType[] = [

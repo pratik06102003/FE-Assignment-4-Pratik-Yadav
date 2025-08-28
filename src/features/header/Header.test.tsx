@@ -6,12 +6,13 @@ import { DROPDOWN_ITEMS, MENU_ITEMS } from './Header.constants';
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
-  expectMenuitemLinkToBeInTheDocumentWithCorrectHref,
-  expectMenuitemsNotToBeInTheDocument,
-  expectMenuitemsToBeInTheDocument,
+  expectMenuitemsToBeVisible,
+  expectMenuitemsToHaveCorrectHref,
+  expectMenuitemsToNotToBeVisible,
   renderWithRouter,
 } from '@utils/test.utils';
 
+jest.mock('antd/es/_util/motion', () => false);
 describe('Header Component', () => {
   const mockedUseBreakpoint = Grid.useBreakpoint as jest.Mock;
 
@@ -21,34 +22,34 @@ describe('Header Component', () => {
   test('renders brand title and logo', async () => {
     mockedUseBreakpoint.mockReturnValue({ md: true });
     await renderHeader();
-    expect(screen.getByRole('heading', { name: /bhq/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /bhq/i })).toBeVisible();
     expect(screen.getByRole('link', { name: /bhq/i })).toHaveAttribute('href', '/');
   });
 
   test('renders Menu on desktop', async () => {
     mockedUseBreakpoint.mockReturnValue({ md: true });
     await renderHeader();
-    expectMenuitemsToBeInTheDocument(MENU_ITEMS);
-    expectMenuitemLinkToBeInTheDocumentWithCorrectHref(MENU_ITEMS);
+    await expectMenuitemsToBeVisible(MENU_ITEMS);
+    expectMenuitemsToHaveCorrectHref(MENU_ITEMS);
   });
 
   test('renders Dropdown on mobile', async () => {
     mockedUseBreakpoint.mockReturnValue({ md: false });
     await renderHeader();
     const dropdownButton = screen.getByRole('button', { name: 'menu-fold' });
-    expectMenuitemsNotToBeInTheDocument(MENU_ITEMS);
-    expect(dropdownButton).toBeInTheDocument();
+    expectMenuitemsToNotToBeVisible(MENU_ITEMS);
+    expect(dropdownButton).toBeVisible();
 
     await userEvent.click(dropdownButton);
-    expectMenuitemsToBeInTheDocument(MENU_ITEMS);
-    expectMenuitemLinkToBeInTheDocumentWithCorrectHref(MENU_ITEMS);
+    await expectMenuitemsToBeVisible(MENU_ITEMS);
+    expectMenuitemsToHaveCorrectHref(MENU_ITEMS);
   });
 
   test('renders search input and allows typing', async () => {
     mockedUseBreakpoint.mockReturnValue({ md: true });
     await renderHeader();
     const searchInput = screen.getByPlaceholderText(/search stories, authors/i);
-    expect(searchInput).toBeInTheDocument();
+    expect(searchInput).toBeVisible();
 
     await userEvent.type(searchInput, 'React Testing');
     expect(searchInput).toHaveValue('React Testing');
@@ -59,7 +60,7 @@ describe('Header Component', () => {
     await renderHeader();
 
     const writeButton = screen.getByRole('button', { name: /write/i });
-    expect(writeButton).toBeInTheDocument();
+    expect(writeButton).toBeVisible();
 
     const handleClick = jest.fn();
     writeButton.onclick = handleClick;
@@ -73,12 +74,12 @@ describe('Header Component', () => {
     await renderHeader();
     const avatarButton = screen.getByRole('button', { name: 'user' });
 
-    expectMenuitemsNotToBeInTheDocument(DROPDOWN_ITEMS);
+    expectMenuitemsToNotToBeVisible(DROPDOWN_ITEMS);
 
     expect(avatarButton).toBeInTheDocument();
     await userEvent.click(avatarButton);
 
-    expectMenuitemsToBeInTheDocument(DROPDOWN_ITEMS);
-    expectMenuitemLinkToBeInTheDocumentWithCorrectHref(DROPDOWN_ITEMS);
+    await expectMenuitemsToBeVisible(DROPDOWN_ITEMS);
+    expectMenuitemsToHaveCorrectHref(DROPDOWN_ITEMS);
   });
 });

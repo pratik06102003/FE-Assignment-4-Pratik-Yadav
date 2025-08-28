@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Avatar, Button, Dropdown, Flex, Grid, Input, Layout, Menu, Typography } from 'antd';
 
@@ -21,21 +21,33 @@ export const Header: React.FC = () => {
       <Flex gap={8} className="container">
         <Flex justify="flex-start" align="center" gap={isMobile ? 0 : 16}>
           {!isMobile && (
-            <NavLink to="/">
+            <Link to="/" className="link">
               <Title level={2}>BHQ</Title>
-            </NavLink>
+            </Link>
           )}
 
           {isMobile ? (
             <Dropdown
-              menu={{ items: MENU_ITEMS }}
+              menu={{
+                items: MENU_ITEMS.map((item) => ({
+                  key: item.key,
+                  label: <Link to={item.to}>{item.label}</Link>,
+                })),
+              }}
               trigger={['click']}
               getPopupContainer={(triggerNode) => triggerNode.parentElement!}
             >
               <Button type="text" size="large" icon={<MenuFoldOutlined />} />
             </Dropdown>
           ) : (
-            <Menu mode="horizontal" items={MENU_ITEMS} style={{ flex: 1 }} />
+            <Menu
+              mode="horizontal"
+              items={MENU_ITEMS.map((item) => ({
+                key: item.key,
+                label: <Link to={item.to}>{item.label}</Link>,
+              }))}
+              style={{ flex: 1 }}
+            />
           )}
         </Flex>
 
@@ -47,14 +59,19 @@ export const Header: React.FC = () => {
             className="header__search"
           />
 
-          <NavLink to="/posts/create" style={{ textDecoration: 'none' }}>
+          <Link to="/posts/create">
             <Button size="middle" icon={<EditOutlined />}>
               Write
             </Button>
-          </NavLink>
+          </Link>
 
           <Dropdown
-            menu={{ items: DROPDOWN_ITEMS }}
+            menu={{
+              items: DROPDOWN_ITEMS.map((item) => ({
+                key: item.key,
+                label: <Link to={item.to}>{item.label}</Link>,
+              })),
+            }}
             trigger={['click']}
             getPopupContainer={(triggerNode) => triggerNode.parentElement!}
           >

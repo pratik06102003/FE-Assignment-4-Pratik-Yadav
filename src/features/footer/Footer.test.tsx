@@ -6,9 +6,9 @@ import { COMPANY_ITEMS, EXPLORE_ITEMS, RESOURCE_ITEMS } from './Footer.constants
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
-  expectMenuitemLinkToBeInTheDocumentWithCorrectHref,
-  expectMenuitemsNotToBeInTheDocument,
-  expectMenuitemsToBeInTheDocument,
+  expectMenuitemsToBeVisible,
+  expectMenuitemsToHaveCorrectHref,
+  expectMenuitemsToNotToBeVisible,
   renderWithRouter,
 } from '@utils/test.utils';
 
@@ -42,41 +42,41 @@ describe('Footer Component', () => {
   test('explore panel is initially collapsed and expands on click', async () => {
     await renderWithRouter(<Footer />);
 
-    expectMenuitemsNotToBeInTheDocument(EXPLORE_ITEMS);
+    expectMenuitemsToNotToBeVisible(EXPLORE_ITEMS);
 
     const panelButton = screen.getByRole('button', { name: /explore/i });
     expect(panelButton).toBeInTheDocument();
 
     await userEvent.click(panelButton);
-    expectMenuitemsToBeInTheDocument(EXPLORE_ITEMS);
-    expectMenuitemLinkToBeInTheDocumentWithCorrectHref(EXPLORE_ITEMS);
+    await expectMenuitemsToBeVisible(EXPLORE_ITEMS);
+    expectMenuitemsToHaveCorrectHref(EXPLORE_ITEMS);
   });
 
   test('company panel is initially collapsed and expands on click', async () => {
     await renderWithRouter(<Footer />);
 
-    expectMenuitemsNotToBeInTheDocument(COMPANY_ITEMS);
+    expectMenuitemsToNotToBeVisible(COMPANY_ITEMS);
 
     const panelButton = screen.getByRole('button', { name: /company/i });
     expect(panelButton).toBeInTheDocument();
 
     await userEvent.click(panelButton);
 
-    expectMenuitemsToBeInTheDocument(COMPANY_ITEMS);
-    expectMenuitemLinkToBeInTheDocumentWithCorrectHref(COMPANY_ITEMS);
+    await expectMenuitemsToBeVisible(COMPANY_ITEMS);
+    expectMenuitemsToHaveCorrectHref(COMPANY_ITEMS);
   });
 
   test('resources panel is initially collapsed and expands on click', async () => {
     await renderWithRouter(<Footer />);
 
-    expectMenuitemsNotToBeInTheDocument(RESOURCE_ITEMS);
+    expectMenuitemsToNotToBeVisible(RESOURCE_ITEMS);
 
     const panelButton = screen.getByRole('button', { name: /resources/i });
     expect(panelButton).toBeInTheDocument();
 
     await userEvent.click(panelButton);
 
-    expectMenuitemsToBeInTheDocument(RESOURCE_ITEMS);
-    expectMenuitemLinkToBeInTheDocumentWithCorrectHref(RESOURCE_ITEMS);
+    await expectMenuitemsToBeVisible(RESOURCE_ITEMS);
+    expectMenuitemsToHaveCorrectHref(RESOURCE_ITEMS);
   });
 });

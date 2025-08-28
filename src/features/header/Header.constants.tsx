@@ -1,16 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import { ROUTES } from '@constants/routes.constants';
+
+import { HeaderMenuItemType } from './Header.types';
 
 // Header dropdown items (user menu)
-export const DROPDOWN_ITEMS = [
-  { key: 'profile', label: <NavLink to="/profile">Profile</NavLink>, to: '/profile' },
-  { key: 'stories', label: <NavLink to="/stories">My Stories</NavLink>, to: '/stories' },
-  { key: 'settings', label: <NavLink to="/settings">Settings</NavLink>, to: '/settings' },
-  { key: 'logout', label: <NavLink to="/logout">Logout</NavLink>, to: '/logout' },
+export const DROPDOWN_ITEMS: HeaderMenuItemType[] = [
+  { key: 'profile', label: 'Profile', to: ROUTES.PROFILE },
+  { key: 'stories', label: 'My Stories', to: ROUTES.STORIES },
+  { key: 'settings', label: 'Settings', to: ROUTES.SETTINGS },
+  { key: 'logout', label: 'Logout', to: ROUTES.LOGOUT },
 ];
 
 // Header main menu items
-export const MENU_ITEMS = [
-  { key: '1', label: <NavLink to="/">Home</NavLink>, to: '/' },
-  { key: '2', label: <NavLink to="/blogs">Blogs</NavLink>, to: '/blogs' },
-  { key: '3', label: <NavLink to="/about">About</NavLink>, to: '/about' },
+export const MENU_ITEMS: HeaderMenuItemType[] = [
+  { key: '1', label: 'Home', to: ROUTES.HOME },
+  { key: '2', label: 'Blogs', to: ROUTES.BLOGS },
+  { key: '3', label: 'About', to: ROUTES.ABOUT },
 ];

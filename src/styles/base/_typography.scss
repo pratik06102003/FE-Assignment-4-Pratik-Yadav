@@ -1,37 +1,12 @@
 @use '../abstracts';
 
-@font-face {
-  font-family: 'Inter';
-  src:
-    url(abstracts.$font-base-path + '/inter/inter-regular.woff2') format('woff2'),
-    url(abstracts.$font-base-path + '/inter/inter-regular.ttf') format('ttf');
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src:
-    url(abstracts.$font-base-path + '/inter/inter-bold.woff2') format('woff2'),
-    url(abstracts.$font-base-path + '/inter/inter-bold.ttf') format('ttf');
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src:
-    url(abstracts.$font-base-path + '/inter/inter-medium.woff2') format('woff2'),
-    url(abstracts.$font-base-path + '/inter/inter-medium.ttf') format('ttf');
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src:
-    url(abstracts.$font-base-path + '/inter/inter-semi-bold.woff2') format('woff2'),
-    url(abstracts.$font-base-path + '/inter/inter-semi-bold.ttf') format('ttf');
-  font-weight: 600;
-  font-display: swap;
+@each $weight, $name in abstracts.$inter-fonts {
+  @font-face {
+    font-family: 'Inter';
+    src:
+      url(#{abstracts.$font-base-path}/inter/inter-#{$name}.woff2) format('woff2'),
+      url(#{abstracts.$font-base-path}/inter/inter-#{$name}.ttf) format('truetype');
+    font-weight: $weight;
+    font-display: swap;
+  }
 }

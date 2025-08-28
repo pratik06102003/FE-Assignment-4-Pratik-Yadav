@@ -3,7 +3,6 @@ import tseslint from 'typescript-eslint';
 
 // Plugins
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import react from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -30,7 +29,6 @@ export default tseslint.config(
     plugins: {
       react: react,
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
@@ -40,7 +38,6 @@ export default tseslint.config(
       'react/react-in-jsx-scope': 'off',
       'no-console': 'error',
       'no-shadow': 'error',
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/naming-convention': [
         'error',
         {

@@ -42,6 +42,14 @@ $heading-h4-line-height: 1.45;
 $heading-h5-size: 20px;
 $heading-h5-line-height: 1.5;
 
+// fonts
+$inter-fonts: (
+  400: 'regular',
+  500: 'medium',
+  600: 'semi-bold',
+  700: 'bold',
+);
+
 // Breakpoints
 $breakpoints: (
   xs: 0,

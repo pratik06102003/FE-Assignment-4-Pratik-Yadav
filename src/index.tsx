@@ -2,8 +2,8 @@ import { createRoot } from 'react-dom/client';
 
 import { ConfigProvider } from 'antd';
 
+import { loadTheme } from './antTheme';
 import { App } from './App';
-import { loadTheme } from './theme';
 
 import '@styles/main.scss';
 

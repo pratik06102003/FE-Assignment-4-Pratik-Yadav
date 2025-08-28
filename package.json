@@ -9,7 +9,8 @@
     "build": "webpack --config webpack/webpack.config.js --env env=prod",
     "lint": "eslint --fix \"./src/**/*.{ts,tsx}\"",
     "format": "prettier --write \"./src/**/*.{ts,tsx,css,scss}\"",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "prepare": "husky"
   },
   "keywords": [
     "Blogs",
@@ -44,6 +45,7 @@
     "@types/react-dom": "^19.1.7",
     "@typescript-eslint/eslint-plugin": "^8.39.1",
     "@typescript-eslint/parser": "^8.39.1",
+    "autoprefixer": "^10.4.21",
     "babel-loader": "^10.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
@@ -69,6 +71,8 @@
     "less": "^4.4.1",
     "less-loader": "^12.3.0",
     "lint-staged": "^16.1.5",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.1.1",
     "prettier": "^3.6.2",
     "react-refresh": "^0.17.0",
     "sass": "^1.90.0",

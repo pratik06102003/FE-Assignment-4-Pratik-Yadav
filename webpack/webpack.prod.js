@@ -7,6 +7,19 @@ export default {
   mode: 'production',
   devtool: 'source-map',
   plugins: [new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' })],
+  module: {
+    rules: [
+      {
+        test: /\.scss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+    ],
+  },
   optimization: {
     splitChunks: { chunks: 'all' },
     runtimeChunk: 'single',

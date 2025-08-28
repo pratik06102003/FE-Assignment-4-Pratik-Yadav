@@ -41,7 +41,7 @@ export default {
       },
 
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        test: /\.(png|jpe?g)$/i,
         type: 'asset/resource',
         generator: {
           filename: 'assets/images/[name].[contenthash][ext]',

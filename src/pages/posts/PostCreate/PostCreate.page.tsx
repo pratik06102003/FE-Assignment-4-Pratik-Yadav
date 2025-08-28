@@ -33,8 +33,7 @@ const PostCreate: React.FC = () => {
     dispatch(createPostRequest());
     try {
       const post = await postsServices.createPost(payload, userId);
-      dispatch(createPostSuccess(post));
-      message.success('Post created');
+      dispatch(createPostSuccess(post, 'Post Created!!'));
       resetForm();
     } catch {
       dispatch(createPostFailure('Failed to create post'));

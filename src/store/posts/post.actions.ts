@@ -13,9 +13,9 @@ export const createPostRequest = (): CreatePostRequestAction => ({
   type: CREATE_POST_REQUEST,
 });
 
-export const createPostSuccess = (post: Post): CreatePostSuccessAction => ({
+export const createPostSuccess = (post: Post, message: string): CreatePostSuccessAction => ({
   type: CREATE_POST_SUCCESS,
-  payload: post,
+  payload: { post, message },
 });
 
 export const createPostFailure = (message: string): CreatePostFailureAction => ({

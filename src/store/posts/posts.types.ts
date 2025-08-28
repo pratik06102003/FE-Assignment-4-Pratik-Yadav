@@ -17,7 +17,7 @@ export type CreatePostRequestAction = {
 
 export type CreatePostSuccessAction = {
   type: typeof CREATE_POST_SUCCESS;
-  payload: Post;
+  payload: { post: Post; message: string };
 };
 
 export type CreatePostFailureAction = {

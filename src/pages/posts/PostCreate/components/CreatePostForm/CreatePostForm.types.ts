@@ -6,7 +6,7 @@ export type CreatePostValuesType = {
   tags: string;
 };
 
-export type CreatePostFormsProps = {
+export type CreatePostFormProps = {
   handleSubmit: (
     values: CreatePostValuesType,
     formikHelpers: FormikHelpers<CreatePostValuesType>,

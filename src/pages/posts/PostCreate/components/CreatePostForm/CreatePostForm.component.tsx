@@ -1,9 +1,9 @@
-import { Alert, Button, Card, Flex, Form, Input, Typography } from 'antd';
+import { Alert, Button, Card, Flex, Input, Typography } from 'antd';
 
-import { ErrorMessage, Field, FieldProps, Formik } from 'formik';
+import { ErrorMessage, Field, FieldProps, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { CreatePostFormsProps, CreatePostValuesType } from './CreatePostForm.types';
+import { CreatePostFormProps, CreatePostValuesType } from './CreatePostForm.types';
 
 const { TextArea } = Input;
 const { Title, Text } = Typography;
@@ -16,7 +16,7 @@ const validationSchema = Yup.object({
   tags: Yup.string(),
 });
 
-export const CreatePostForm = (props: CreatePostFormsProps) => {
+export const CreatePostForm = (props: CreatePostFormProps) => {
   const { handleSubmit, isLoading, errorMessage } = props;
 
   return (
@@ -29,7 +29,7 @@ export const CreatePostForm = (props: CreatePostFormsProps) => {
         >
           <Form className="form">
             <Flex className="form-control">
-              <label htmlFor="firstName" className="form__label">
+              <label htmlFor="title" className="form__label">
                 Title
               </label>
               <Field name="title">
@@ -58,13 +58,13 @@ export const CreatePostForm = (props: CreatePostFormsProps) => {
             </Flex>
 
             <Flex className="form-control">
-              <label htmlFor="tag" className="form__label">
+              <label htmlFor="tags" className="form__label">
                 Tags
               </label>
-              <Field name="tag">
+              <Field name="tags">
                 {({ field }: FieldProps<string, CreatePostValuesType>) => (
                   <Input
-                    id="tag"
+                    id="tags"
                     placeholder="Add relevant tags for the blogs"
                     {...field}
                     disabled={isLoading}
@@ -73,10 +73,10 @@ export const CreatePostForm = (props: CreatePostFormsProps) => {
               </Field>
               <Text>Comma-separated (eg. react,javascript,web)</Text>
 
-              <ErrorMessage name="tag" component="div" className="form__error" />
+              <ErrorMessage name="tags" component="div" className="form__error" />
             </Flex>
 
-            <Button type="primary" htmlType="submit" loading={isLoading} block disabled={isLoading}>
+            <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
               Publish
             </Button>
             {errorMessage && <Alert type="error" message={errorMessage} />}

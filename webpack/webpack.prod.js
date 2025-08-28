@@ -25,7 +25,6 @@ export default {
     runtimeChunk: 'single',
     moduleIds: 'deterministic',
     minimizer: [
-      new TerserJSPlugin(),
       new CssMinimizerPlugin(),
       new ImageMinimizerPlugin({
         minimizer: {

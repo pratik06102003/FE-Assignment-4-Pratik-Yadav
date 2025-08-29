@@ -54,7 +54,7 @@ export const RESOURCE_ITEMS: FooterItemType[] = [
     key: 'faq',
     icon: 'question',
     label: 'FAQ',
-    to: '/faq',
+    to: ROUTES.FAQ,
   },
 ];
 

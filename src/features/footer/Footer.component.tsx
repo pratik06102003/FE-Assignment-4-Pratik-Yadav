@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 
 import { Collapse, CollapseProps, Flex, Grid, Layout, Menu, Typography } from 'antd';
 
-import { MenuItemProps } from '@components/MenuItem';
 import { ICONS } from '@constants/icon.constants';
 
 import { COLLAPSE_ITEM, FOOTER_NAV_LINKS } from './Footer.constants';
+import { FooterItemType } from './Footer.types';
 
 import './Footer.styles.scss';
 
@@ -44,9 +44,8 @@ export const Footer = () => {
   );
 };
 
-const mapChildrenToMenuItems = (children: MenuItemProps[]) =>
-  children.map((child) => {
-    const { key, to, label, icon } = child;
+const mapChildrenToMenuItems = (children: FooterItemType[]) =>
+  children.map(({ key, to, label, icon }) => {
     const Icon = icon ? ICONS[icon] : null;
     return {
       key: key,
@@ -59,8 +58,8 @@ const mapChildrenToMenuItems = (children: MenuItemProps[]) =>
     };
   });
 
-const collapseItems: NonNullable<CollapseProps['items']> = COLLAPSE_ITEM.map((menu) => ({
-  key: menu.key,
-  label: menu.label,
-  children: <Menu mode="inline" selectable={false} items={mapChildrenToMenuItems(menu.children)} />,
+const collapseItems: CollapseProps['items'] = COLLAPSE_ITEM.map(({ key, label, children }) => ({
+  key: key,
+  label: label,
+  children: <Menu mode="inline" selectable={false} items={mapChildrenToMenuItems(children)} />,
 }));

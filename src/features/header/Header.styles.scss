@@ -1,18 +1,18 @@
-@use '@styles/abstracts';
 @use '@styles/abstracts/functions' as functions;
 @use '@styles/abstracts/variables' as variables;
+@use '@styles/abstracts/mixins' as mixins;
 
 .header {
   position: sticky;
   top: 0;
-  z-index: abstracts.$header-z-index;
-  background-color: abstracts.$background-primary;
-  border-bottom: 1px solid abstracts.$border-primary;
-  padding: 0 abstracts.px_to_rem(32);
+  z-index: variables.$header-z-index;
+  background-color: variables.$background-primary;
+  border-bottom: 1px solid variables.$border-primary;
+  padding: 0 functions.px_to_rem(32);
 
   &__search {
     display: none;
-    @include abstracts.breakpoint-up(xs) {
+    @include mixins.breakpoint-up(xs) {
       display: block;
       width: 50%;
     }

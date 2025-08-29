@@ -19,8 +19,3 @@ export const ROUTES = {
   HELP: '/help',
   CREATE_POST: '/posts/create',
 } as const;
-
-export const TRIGGERS = {
-  CLICK: 'click',
-  HOVER: 'hover',
-} as const;

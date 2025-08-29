@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 
 import { Avatar, Button, Dropdown, Flex, Grid, Input, Layout, Menu, Typography } from 'antd';
+import { EditOutlined, MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
 
-import { DROPDOWN_ITEMS, MENU_ITEMS } from './Header.constants';
+import { ROUTES } from '@constants/routes.constants';
+
+import { DROPDOWN_ITEMS, HEADER_DROPDOWN_TRIGGERS, MENU_ITEMS } from './Header.constants';
 
 import './Header.styles.scss';
-import { EditOutlined, MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
 
 const { Header: AntHeader } = Layout;
 const { Search } = Input;
@@ -18,10 +20,10 @@ export const Header: React.FC = () => {
 
   return (
     <AntHeader className="header">
-      <Flex gap={8} className="container">
+      <Flex gap={8} className="container" align="center">
         <Flex justify="flex-start" align="center" gap={isMobile ? 0 : 16}>
           {!isMobile && (
-            <Link to="/" className="link">
+            <Link to={ROUTES.HOME} className="header__link">
               <Title level={2}>BHQ</Title>
             </Link>
           )}
@@ -34,8 +36,7 @@ export const Header: React.FC = () => {
                   label: <Link to={item.to}>{item.label}</Link>,
                 })),
               }}
-              trigger={['click']}
-              getPopupContainer={(triggerNode) => triggerNode.parentElement!}
+              trigger={HEADER_DROPDOWN_TRIGGERS}
             >
               <Button type="text" size="large" icon={<MenuFoldOutlined />} />
             </Dropdown>
@@ -46,7 +47,6 @@ export const Header: React.FC = () => {
                 key: item.key,
                 label: <Link to={item.to}>{item.label}</Link>,
               }))}
-              style={{ flex: 1 }}
             />
           )}
         </Flex>
@@ -59,8 +59,8 @@ export const Header: React.FC = () => {
             className="header__search"
           />
 
-          <Link to="/posts/create">
-            <Button size="middle" icon={<EditOutlined />}>
+          <Link to={ROUTES.CREATE_POST} className="header__link">
+            <Button size="middle" icon={<EditOutlined />} tabIndex={-1}>
               Write
             </Button>
           </Link>
@@ -72,8 +72,7 @@ export const Header: React.FC = () => {
                 label: <Link to={item.to}>{item.label}</Link>,
               })),
             }}
-            trigger={['click']}
-            getPopupContainer={(triggerNode) => triggerNode.parentElement!}
+            trigger={HEADER_DROPDOWN_TRIGGERS}
           >
             <Button type="link">
               <Avatar icon={<UserOutlined />} />

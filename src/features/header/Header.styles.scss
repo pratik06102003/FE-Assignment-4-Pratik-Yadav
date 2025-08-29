@@ -1,4 +1,6 @@
 @use '@styles/abstracts';
+@use '@styles/abstracts/functions' as functions;
+@use '@styles/abstracts/variables' as variables;
 
 .header {
   position: sticky;
@@ -16,9 +18,12 @@
     }
   }
 
-  .link {
-    &:focus-visible {
-      outline: 2px solid black;
+  &__link {
+    border-radius: functions.px_to_rem(5);
+    outline-offset: 2px;
+    display: inline-flex;
+    &:focus-within {
+      outline: 3px solid black;
     }
   }
 }

@@ -76,7 +76,7 @@ describe('Header Component', () => {
 
     expectMenuitemsToNotToBeVisible(DROPDOWN_ITEMS);
 
-    expect(avatarButton).toBeInTheDocument();
+    expect(avatarButton).toBeVisible();
     await userEvent.click(avatarButton);
 
     await expectMenuitemsToBeVisible(DROPDOWN_ITEMS);

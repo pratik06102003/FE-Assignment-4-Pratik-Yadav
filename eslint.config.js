@@ -58,11 +58,19 @@ export default tseslint.config(
         'error',
         {
           groups: [
-            ['^react$', '^react-dom$'],
-            ['^antd, ^@ant'],
+            ['^react$', '^react-dom$', '^react-router-dom$'],
+            ['^antd', '^@ant-design'],
             ['^react', '^redux', '^@redux', '^react-redux'],
             ['^\\w'],
-            ['^@assets', '^@components', '^@store', '^@layout', '^@theme', '^@constants'],
+            [
+              '^@assets',
+              '^@components',
+              '^@store',
+              '^@layout',
+              '^@theme',
+              '^@constants',
+              '^@features',
+            ],
             ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
           ],
         },

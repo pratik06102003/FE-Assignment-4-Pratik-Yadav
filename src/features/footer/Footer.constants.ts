@@ -58,20 +58,40 @@ export const RESOURCE_ITEMS: FooterItemType[] = [
   },
 ];
 
+// Collapse menu
 export const COLLAPSE_ITEM = [
   {
-    key: '1',
+    key: 'collapse-explore',
     label: 'Explore',
     children: EXPLORE_ITEMS,
   },
   {
-    key: '2',
+    key: 'collapse-company',
     label: 'Company',
     children: COMPANY_ITEMS,
   },
   {
-    key: '3',
+    key: 'collapse-resources',
     label: 'Resources',
     children: RESOURCE_ITEMS,
+  },
+];
+
+//Footer nav links
+export const FOOTER_NAV_LINKS = [
+  {
+    to: ROUTES.TERMS,
+    label: 'Terms',
+    key: 'footer-terms',
+  },
+  {
+    to: ROUTES.PRIVACY,
+    label: 'Privacy',
+    key: 'footer-privacy',
+  },
+  {
+    to: ROUTES.HELP,
+    label: 'Help',
+    key: 'footer-help',
   },
 ];

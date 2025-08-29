@@ -19,10 +19,8 @@ describe('Footer Component', () => {
   test('renders brand title and description', async () => {
     await renderWithRouter(<Footer />);
 
-    expect(screen.getByRole('heading', { name: /blogsHQ/i })).toBeInTheDocument();
-    expect(
-      screen.getByText(/read, write, and share your thoughts with the world/i),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /blogsHQ/i })).toBeVisible();
+    expect(screen.getByText(/read, write, and share your thoughts with the world/i)).toBeVisible();
   });
 
   test('renders footer links with correct href', async () => {
@@ -36,7 +34,7 @@ describe('Footer Component', () => {
   test('renders current year dynamically', async () => {
     await renderWithRouter(<Footer />);
     const year = new Date().getFullYear();
-    expect(screen.getByText(new RegExp(`${year} BlogsHQ`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${year} BlogsHQ`))).toBeVisible();
   });
 
   test('explore panel is initially collapsed and expands on click', async () => {
@@ -45,7 +43,7 @@ describe('Footer Component', () => {
     expectMenuitemsToNotToBeVisible(EXPLORE_ITEMS);
 
     const panelButton = screen.getByRole('button', { name: /explore/i });
-    expect(panelButton).toBeInTheDocument();
+    expect(panelButton).toBeVisible();
 
     await userEvent.click(panelButton);
     await expectMenuitemsToBeVisible(EXPLORE_ITEMS);
@@ -58,7 +56,7 @@ describe('Footer Component', () => {
     expectMenuitemsToNotToBeVisible(COMPANY_ITEMS);
 
     const panelButton = screen.getByRole('button', { name: /company/i });
-    expect(panelButton).toBeInTheDocument();
+    expect(panelButton).toBeVisible();
 
     await userEvent.click(panelButton);
 
@@ -72,7 +70,7 @@ describe('Footer Component', () => {
     expectMenuitemsToNotToBeVisible(RESOURCE_ITEMS);
 
     const panelButton = screen.getByRole('button', { name: /resources/i });
-    expect(panelButton).toBeInTheDocument();
+    expect(panelButton).toBeVisible();
 
     await userEvent.click(panelButton);
 

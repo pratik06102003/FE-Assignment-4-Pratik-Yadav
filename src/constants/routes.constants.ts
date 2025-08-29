@@ -1,5 +1,5 @@
 export const ROUTES = {
-  HOME: '/home',
+  HOME: '/',
   BLOGS: '/blogs',
   TRENDING: '/trending',
   TOPICS: '/topics',
@@ -14,4 +14,13 @@ export const ROUTES = {
   STORIES: '/stories',
   SETTINGS: '/settings',
   LOGOUT: '/logout',
-};
+  PRIVACY: '/privacy',
+  TERMS: '/terms',
+  HELP: '/help',
+  CREATE_POST: '/posts/create',
+} as const;
+
+export const TRIGGERS = {
+  CLICK: 'click',
+  HOVER: 'hover',
+} as const;

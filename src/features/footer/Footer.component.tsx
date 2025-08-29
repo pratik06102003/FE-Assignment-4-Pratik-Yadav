@@ -1,11 +1,11 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Collapse, CollapseProps, Flex, Grid, Layout, Menu, Typography } from 'antd';
 
 import { MenuItemProps } from '@components/MenuItem';
 import { ICONS } from '@constants/icon.constants';
 
-import { COLLAPSE_ITEM } from './Footer.constants';
+import { COLLAPSE_ITEM, FOOTER_NAV_LINKS } from './Footer.constants';
 
 import './Footer.styles.scss';
 
@@ -32,15 +32,11 @@ export const Footer = () => {
         <Flex gap={8} justify="space-between" align="center" vertical>
           <Text type="secondary">{new Date().getFullYear()} BlogsHQ</Text>
           <Flex gap={isMobile ? 0 : 32} align="center" vertical={isMobile}>
-            <NavLink to="/privacy" className="ant-typography">
-              Privacy
-            </NavLink>
-            <NavLink to="/terms" className="ant-typography">
-              Terms
-            </NavLink>
-            <NavLink to="/help" className="ant-typography">
-              Help
-            </NavLink>
+            {FOOTER_NAV_LINKS.map(({ key, label, to }) => (
+              <Link key={key} to={to} className="footer__link">
+                {label}
+              </Link>
+            ))}
           </Flex>
         </Flex>
       </Flex>
@@ -54,7 +50,11 @@ const mapChildrenToMenuItems = (children: MenuItemProps[]) =>
     const Icon = icon ? ICONS[icon] : null;
     return {
       key: key,
-      label: <Link to={to}>{label}</Link>,
+      label: (
+        <Link to={to} className="footer__link">
+          {label}
+        </Link>
+      ),
       icon: Icon ? <Icon /> : undefined,
     };
   });

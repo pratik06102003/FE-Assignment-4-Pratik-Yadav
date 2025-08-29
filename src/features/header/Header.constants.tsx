@@ -1,3 +1,5 @@
+import type { DropDownProps } from 'antd';
+
 import { ROUTES } from '@constants/routes.constants';
 
 import { HeaderMenuItemType } from './Header.types';
@@ -16,3 +18,6 @@ export const MENU_ITEMS: HeaderMenuItemType[] = [
   { key: '2', label: 'Blogs', to: ROUTES.BLOGS },
   { key: '3', label: 'About', to: ROUTES.ABOUT },
 ];
+
+//Header Dropdown triggers
+export const HEADER_DROPDOWN_TRIGGERS: DropDownProps['trigger'] = ['click'];

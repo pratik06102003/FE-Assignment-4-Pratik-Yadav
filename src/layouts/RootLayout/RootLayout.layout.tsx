@@ -5,10 +5,12 @@ import { Layout } from 'antd';
 import { Footer } from '@features/footer';
 import { Header } from '@features/header';
 
+import './RootLayout.styles.scss';
+
 const { Content } = Layout;
 
 export const RootLayout = () => (
-  <Layout style={{ height: '100dvh' }}>
+  <Layout className="root-layout">
     <Header />
 
     <Content className="container">

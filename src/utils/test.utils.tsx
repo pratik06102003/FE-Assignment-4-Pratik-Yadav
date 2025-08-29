@@ -1,5 +1,4 @@
 import { act, ReactElement } from 'react';
-
 import { MemoryRouter } from 'react-router-dom';
 
 import { render, RenderOptions, waitFor } from '@testing-library/react';

@@ -1,5 +1,4 @@
 import type { FirebaseOptions } from 'firebase/app';
-import { initializeApp } from 'firebase/app';
 
 export const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -10,5 +9,3 @@ export const firebaseConfig: FirebaseOptions = {
   appId: process.env.FIREBASE_APP_ID,
   databaseURL: process.env.FIREBASE_REALTIME_DATABASE_URL,
 };
-
-export const app = initializeApp(firebaseConfig);

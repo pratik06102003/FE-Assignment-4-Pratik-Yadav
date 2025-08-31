@@ -5,8 +5,10 @@ import { Spin } from 'antd';
 
 import type { RouteObject } from 'react-router-dom';
 
+import { AuthLayout } from '@layouts/AuthLayout';
 import { RootLayout } from '@layouts/RootLayout';
 
+import ProtectedRoute from './ProtectedRoute';
 import { RouteErrorBoundary } from './RouteErrorBoundary';
 
 const NotFound = lazy(() =>
@@ -15,7 +17,11 @@ const NotFound = lazy(() =>
 
 const routes: RouteObject[] = [
   {
-    element: <RootLayout />,
+    element: (
+      <ProtectedRoute>
+        <RootLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <RouteErrorBoundary />,
     children: [
       {
@@ -33,6 +39,30 @@ const routes: RouteObject[] = [
       {
         path: '*',
         element: <Navigate to="/not-found" />,
+      },
+    ],
+  },
+
+  {
+    path: 'auth',
+    element: <AuthLayout />,
+    errorElement: <RouteErrorBoundary />,
+    children: [
+      {
+        path: 'signin',
+        element: (
+          <Suspense fallback={<Spin />}>
+            <Signin />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'signup',
+        element: (
+          <Suspense fallback={<Spin />}>
+            <Signup />
+          </Suspense>
+        ),
       },
     ],
   },

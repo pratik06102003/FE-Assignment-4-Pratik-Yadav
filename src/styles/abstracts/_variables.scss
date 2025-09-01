@@ -1,0 +1,61 @@
+// Base font size
+$base-font-size: 16px;
+
+//paths
+$font-base-path: '/src/assets/fonts';
+
+// Colors
+$primary-black: #0a0a0a;
+$text-primary: #333333;
+$text-secondary: #555555;
+
+$background-primary: #ffffff;
+$background-secondary: #fafafa;
+
+$border-primary: #e0e0e0;
+$border-secondary: #f0f0f0;
+
+$link-primary: #1a8917;
+$link-primary-hover: #166f13;
+
+$success: #28a745;
+$warning: #ffc107;
+$error: #dc3545;
+
+$highlight: #fff9c4;
+
+// Typography
+$base-line-height: 1.6;
+
+$heading-h1-size: 36px;
+$heading-h1-line-height: 1.3;
+
+$heading-h2-size: 32px;
+$heading-h2-line-height: 1.35;
+
+$heading-h3-size: 28px;
+$heading-h3-line-height: 1.4;
+
+$heading-h4-size: 24px;
+$heading-h4-line-height: 1.45;
+
+$heading-h5-size: 20px;
+$heading-h5-line-height: 1.5;
+
+// fonts
+$inter-fonts: (
+  400: 'regular',
+  500: 'medium',
+  600: 'semi-bold',
+  700: 'bold',
+);
+
+// Breakpoints
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1600px,
+);

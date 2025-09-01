@@ -1,0 +1,12 @@
+@use '../abstracts/variables' as variables;
+
+@each $weight, $name in variables.$inter-fonts {
+  @font-face {
+    font-family: 'Inter';
+    src:
+      url(#{variables.$font-base-path}/inter/inter-#{$name}.woff2) format('woff2'),
+      url(#{variables.$font-base-path}/inter/inter-#{$name}.ttf) format('truetype');
+    font-weight: $weight;
+    font-display: swap;
+  }
+}

@@ -1,0 +1,45 @@
+@use '../abstracts/variables' as variables;
+
+:root {
+  --base-font-size: #{variables.$base-font-size};
+
+  --primary-black: #{variables.$primary-black};
+  --text-primary: #{variables.$text-primary};
+  --text-secondary: #{variables.$text-secondary};
+
+  --background-primary: #{variables.$background-primary};
+  --background-secondary: #{variables.$background-secondary};
+
+  --border-primary: #{variables.$border-primary};
+  --border-secondary: #{variables.$border-secondary};
+
+  --link-primary: #{variables.$link-primary};
+  --link-primary-hover: #{variables.$link-primary-hover};
+
+  --success: #{variables.$success};
+  --warning: #{variables.$warning};
+  --error: #{variables.$error};
+
+  --highlight: #{variables.$highlight};
+
+  --base-line-height: #{variables.$base-line-height};
+
+  --heading-h1-size: #{variables.$heading-h1-size};
+  --heading-h1-line-height: #{variables.$heading-h1-line-height};
+
+  --heading-h2-size: #{variables.$heading-h2-size};
+  --heading-h2-line-height: #{variables.$heading-h2-line-height};
+
+  --heading-h3-size: #{variables.$heading-h3-size};
+  --heading-h3-line-height: #{variables.$heading-h3-line-height};
+
+  --heading-h4-size: #{variables.$heading-h4-size};
+  --heading-h4-line-height: #{variables.$heading-h4-line-height};
+
+  --heading-h5-size: #{variables.$heading-h5-size};
+  --heading-h5-line-height: #{variables.$heading-h5-line-height};
+
+  @each $key, $value in variables.$breakpoints {
+    --breakpoint-#{$key}: #{$value};
+  }
+}

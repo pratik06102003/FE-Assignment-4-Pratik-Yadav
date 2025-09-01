@@ -1,12 +1,12 @@
+import type * as AntDModuleType from 'antd';
+
 import { TextDecoder, TextEncoder } from 'util';
 
 import '@testing-library/jest-dom';
 
-type AntDModuleType = typeof import('antd');
-
 jest.mock('antd', () => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const antd = jest.requireActual('antd') as AntDModuleType;
+  const antd = jest.requireActual('antd') as typeof AntDModuleType;
   return {
     ...antd,
     Grid: {

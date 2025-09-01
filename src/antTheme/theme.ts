@@ -1,8 +1,8 @@
-import { ThemeConfig } from 'antd';
+import type { ThemeConfig } from 'antd';
 
 import { getCssVar } from './theme.utils';
 
-export function loadTheme() {
+export const loadTheme = () => {
   const theme: ThemeConfig = {
     token: {
       colorPrimary: getCssVar('--primary-black') as string,
@@ -54,4 +54,4 @@ export function loadTheme() {
   };
 
   return theme;
-}
+};

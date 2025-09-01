@@ -1,7 +1,9 @@
 import { Grid } from 'antd';
 
+import { ROUTES } from '@constants/routes.constants';
+
 import { Header } from './Header.component';
-import { DROPDOWN_ITEMS, MENU_ITEMS } from './Header.constants';
+import { HEADER_DROPDOWN_ITEMS, HEADER_MENU_ITEMS } from './Header.constants';
 
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -12,61 +14,43 @@ import {
   renderWithRouter,
 } from '@utils/test.utils';
 
-jest.mock('antd/es/_util/motion', () => false);
+const renderHeader = async () => await act(() => renderWithRouter(<Header />));
+
 describe('Header Component', () => {
   const mockedUseBreakpoint = Grid.useBreakpoint as jest.Mock;
 
-  const renderHeader = async () => await act(() => renderWithRouter(<Header />));
-  mockedUseBreakpoint.mockReturnValue({ md: true });
+  mockedUseBreakpoint.mockResolvedValue({ md: true });
 
-  test('renders brand title and logo', async () => {
+  test('renders brand title, logo, search input, write button', async () => {
     mockedUseBreakpoint.mockReturnValue({ md: true });
     await renderHeader();
     expect(screen.getByRole('heading', { name: /bhq/i })).toBeVisible();
     expect(screen.getByRole('link', { name: /bhq/i })).toHaveAttribute('href', '/');
-  });
 
-  test('renders Menu on desktop', async () => {
-    mockedUseBreakpoint.mockReturnValue({ md: true });
-    await renderHeader();
-    await expectMenuitemsToBeVisible(MENU_ITEMS);
-    expectMenuitemsToHaveCorrectHref(MENU_ITEMS);
-  });
+    await expectMenuitemsToBeVisible(HEADER_MENU_ITEMS.map((item) => item.label));
+    expectMenuitemsToHaveCorrectHref(HEADER_MENU_ITEMS);
 
-  test('renders Dropdown on mobile', async () => {
-    mockedUseBreakpoint.mockReturnValue({ md: false });
-    await renderHeader();
-    const dropdownButton = screen.getByRole('button', { name: 'menu-fold' });
-    expectMenuitemsToNotToBeVisible(MENU_ITEMS);
-    expect(dropdownButton).toBeVisible();
-
-    await userEvent.click(dropdownButton);
-    await expectMenuitemsToBeVisible(MENU_ITEMS);
-    expectMenuitemsToHaveCorrectHref(MENU_ITEMS);
-  });
-
-  test('renders search input and allows typing', async () => {
-    mockedUseBreakpoint.mockReturnValue({ md: true });
-    await renderHeader();
     const searchInput = screen.getByPlaceholderText(/search stories, authors/i);
     expect(searchInput).toBeVisible();
+
+    const writeButton = screen.getByRole('link', { name: /write/i });
+    expect(writeButton).toBeVisible();
+    expect(writeButton).toHaveAttribute('href', ROUTES.CREATE_POST);
 
     await userEvent.type(searchInput, 'React Testing');
     expect(searchInput).toHaveValue('React Testing');
   });
 
-  test('renders write button and responds to click', async () => {
-    mockedUseBreakpoint.mockReturnValue({ md: true });
+  test('renders Dropdown on mobile', async () => {
+    mockedUseBreakpoint.mockReturnValue({ sm: true });
     await renderHeader();
+    const dropdownButton = screen.getByRole('button', { name: 'menu-fold' });
+    expectMenuitemsToNotToBeVisible(HEADER_MENU_ITEMS.map((item) => item.label));
+    expect(dropdownButton).toBeVisible();
 
-    const writeButton = screen.getByRole('button', { name: /write/i });
-    expect(writeButton).toBeVisible();
-
-    const handleClick = jest.fn();
-    writeButton.onclick = handleClick;
-
-    await userEvent.click(writeButton);
-    expect(handleClick).toHaveBeenCalledTimes(1);
+    await userEvent.click(dropdownButton);
+    await expectMenuitemsToBeVisible(HEADER_MENU_ITEMS.map((item) => item.label));
+    expectMenuitemsToHaveCorrectHref(HEADER_MENU_ITEMS);
   });
 
   test('renders user avatar dropdown and opens on click', async () => {
@@ -74,12 +58,12 @@ describe('Header Component', () => {
     await renderHeader();
     const avatarButton = screen.getByRole('button', { name: 'user' });
 
-    expectMenuitemsToNotToBeVisible(DROPDOWN_ITEMS);
+    expectMenuitemsToNotToBeVisible(HEADER_DROPDOWN_ITEMS.map((item) => item.label));
 
     expect(avatarButton).toBeVisible();
     await userEvent.click(avatarButton);
 
-    await expectMenuitemsToBeVisible(DROPDOWN_ITEMS);
-    expectMenuitemsToHaveCorrectHref(DROPDOWN_ITEMS);
+    await expectMenuitemsToBeVisible(HEADER_DROPDOWN_ITEMS.map((item) => item.label));
+    expectMenuitemsToHaveCorrectHref(HEADER_DROPDOWN_ITEMS);
   });
 });

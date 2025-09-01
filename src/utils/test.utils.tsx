@@ -1,34 +1,21 @@
-import { act, ReactElement } from 'react';
+import { act } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { render, RenderOptions, waitFor } from '@testing-library/react';
-import { screen } from '@testing-library/react';
+import type { ReactElement } from 'react';
 
-/**
- * Re-export everything from @testing-library/react
- * so tests can import from this file instead of two sources.
- */
-export * from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 /**
  * Custom render function that wraps the UI in a MemoryRouter.
  * Useful for testing components that rely on react-router hooks
  * like useLocation, useNavigate, NavLink, etc.
  *
- * @param ui - ReactElement to render
+ * @param component - ReactElement to render
  * @param options - Optional route and render options
  * @returns The result of RTL's render function
  */
-export async function renderWithRouter(
-  ui: ReactElement,
-  { route = '/', ...options }: { route?: string } & RenderOptions = {},
-) {
-  return await act(() =>
-    render(ui, {
-      wrapper: ({ children }) => <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>,
-      ...options,
-    }),
-  );
+export async function renderWithRouter(component: ReactElement) {
+  return await act(() => render(<MemoryRouter>{component}</MemoryRouter>));
 }
 
 /**
@@ -37,9 +24,9 @@ export async function renderWithRouter(
  *
  * @param items - Array of objects with a `label` property
  */
-export const expectMenuitemsToBeVisible = async (items: { label: string }[]) => {
-  for (const item of items) {
-    const el = await screen.findByRole('menuitem', { name: new RegExp(item.label, 'i') });
+export const expectMenuitemsToBeVisible = async (labels: string[]) => {
+  for (const label of labels) {
+    const el = await screen.findByRole('menuitem', { name: new RegExp(label, 'i') });
     await waitFor(() => expect(el).toBeVisible());
   }
 };
@@ -50,17 +37,13 @@ export const expectMenuitemsToBeVisible = async (items: { label: string }[]) => 
  *
  * @param items - Array of objects with a `label` property
  */
-export const expectMenuitemsToNotToBeVisible = (items: { label: string }[]) => {
-  items.forEach((item) => {
+export const expectMenuitemsToNotToBeVisible = (labels: string[]) => {
+  labels.forEach((label) => {
     const menuItem = screen.queryByRole('menuitem', {
-      name: new RegExp(item.label, 'i'),
+      name: new RegExp(label, 'i'),
     });
 
-    if (!menuItem) {
-      expect(menuItem).toBeNull();
-    } else {
-      expect(menuItem).not.toBeVisible();
-    }
+    expect(menuItem).toBeNull();
   });
 };
 

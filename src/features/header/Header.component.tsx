@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
 
 import { Avatar, Button, Dropdown, Flex, Grid, Input, Layout, Menu, Typography } from 'antd';
-import { EditOutlined, MenuFoldOutlined, UserOutlined } from '@ant-design/icons';
 
+import { LinkButton } from '@components/LinkButton';
+import { ICONS } from '@constants/icon.constants';
 import { ROUTES } from '@constants/routes.constants';
 
-import { DROPDOWN_ITEMS, HEADER_DROPDOWN_TRIGGERS, MENU_ITEMS } from './Header.constants';
+import {
+  HEADER_DROPDOWN_ITEMS,
+  HEADER_DROPDOWN_TRIGGERS,
+  HEADER_MENU_ITEMS,
+} from './Header.constants';
 
 import './Header.styles.scss';
 
@@ -21,31 +26,35 @@ export const Header: React.FC = () => {
   return (
     <AntHeader className="header">
       <Flex gap={8} className="container" align="center">
-        <Flex justify="flex-start" align="center" gap={isMobile ? 0 : 16}>
-          {!isMobile && (
-            <Link to={ROUTES.HOME} className="header__link">
-              <Title level={2}>BHQ</Title>
-            </Link>
-          )}
+        <Flex justify="flex-start" align="center" gap={isMobile ? 0 : 16} flex={isMobile ? 0 : 1}>
+          <Link to={ROUTES.HOME} className="link header__brand">
+            <Title level={2}>BHQ</Title>
+          </Link>
 
           {isMobile ? (
             <Dropdown
               menu={{
-                items: MENU_ITEMS.map((item) => ({
+                items: HEADER_MENU_ITEMS.map((item) => ({
                   key: item.key,
                   label: <Link to={item.to}>{item.label}</Link>,
                 })),
               }}
               trigger={HEADER_DROPDOWN_TRIGGERS}
             >
-              <Button type="text" size="large" icon={<MenuFoldOutlined />} />
+              <Button type="text" size="large" icon={<ICONS.MENU />} />
             </Dropdown>
           ) : (
             <Menu
               mode="horizontal"
-              items={MENU_ITEMS.map((item) => ({
+              tabIndex={-1}
+              className="header__menu"
+              items={HEADER_MENU_ITEMS.map((item) => ({
                 key: item.key,
-                label: <Link to={item.to}>{item.label}</Link>,
+                label: (
+                  <Link to={item.to} className="link">
+                    {item.label}
+                  </Link>
+                ),
               }))}
             />
           )}
@@ -59,15 +68,17 @@ export const Header: React.FC = () => {
             className="header__search"
           />
 
-          <Link to={ROUTES.CREATE_POST} className="header__link">
-            <Button size="middle" icon={<EditOutlined />} tabIndex={-1}>
-              Write
-            </Button>
-          </Link>
+          <LinkButton
+            size="middle"
+            className="link header__link"
+            to={ROUTES.CREATE_POST}
+            Icon={ICONS.WRITE}
+            label="Write"
+          />
 
           <Dropdown
             menu={{
-              items: DROPDOWN_ITEMS.map((item) => ({
+              items: HEADER_DROPDOWN_ITEMS.map((item) => ({
                 key: item.key,
                 label: <Link to={item.to}>{item.label}</Link>,
               })),
@@ -75,7 +86,7 @@ export const Header: React.FC = () => {
             trigger={HEADER_DROPDOWN_TRIGGERS}
           >
             <Button type="link">
-              <Avatar icon={<UserOutlined />} />
+              <Avatar icon={<ICONS.USER />} />
             </Button>
           </Dropdown>
         </Flex>

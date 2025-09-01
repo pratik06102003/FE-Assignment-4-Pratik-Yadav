@@ -1,6 +1,6 @@
-import { createRoot } from 'react-dom/client';
-
 import { ConfigProvider } from 'antd';
+
+import { createRoot } from 'react-dom/client';
 
 import { loadTheme } from './antTheme';
 import { App } from './App';

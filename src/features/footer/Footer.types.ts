@@ -1,12 +1,7 @@
-export type FooterItemType = {
-  key: string;
-  icon: string;
-  label: string;
-  to: string;
-};
+import type { ROUTES } from '@constants/routes.constants';
 
-export type CollapseMenuType = {
+export type FooterNavLinkType = {
   key: string;
   label: string;
-  children: FooterItemType[];
+  to: (typeof ROUTES)[keyof typeof ROUTES];
 };

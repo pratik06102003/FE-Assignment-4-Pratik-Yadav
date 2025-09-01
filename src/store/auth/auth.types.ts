@@ -1,9 +1,7 @@
-import type { User } from 'firebase/auth';
-
-export type AuthUser = Pick<User, 'email' | 'uid'>;
+import type { User } from '@app/auth';
 
 export type AuthState = {
-  user: AuthUser | null;
+  user: User | null;
   loading: boolean;
   errorMessage: string | null;
   infoMessage: string | null;
@@ -19,7 +17,7 @@ export type AuthStartActionType = {
 };
 export type AuthSuccessActionType = {
   type: typeof AUTH_SUCCESS;
-  payload: { user: AuthUser | null; infoMessage?: string };
+  payload: { user: User | null; infoMessage?: string };
 };
 export type AuthErrorActionType = {
   type: typeof AUTH_ERROR;

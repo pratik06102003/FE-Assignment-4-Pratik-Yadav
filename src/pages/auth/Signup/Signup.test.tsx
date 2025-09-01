@@ -1,9 +1,11 @@
-import { MemoryRouter, Navigate } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
-import { notification } from 'antd';
+import type * as AntDModule from 'antd';
 
-import { AuthState, signup } from '@store/auth';
-import { AppDispatch, useAppDispatch, useAppSelector } from '@store/root';
+import type * as ReactRouterDomModule from 'react-router-dom';
+
+import type { AuthState, signup } from '@store/auth';
+import type { AppDispatch, useAppDispatch, useAppSelector } from '@store/root';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -23,18 +25,17 @@ jest.mock('@store/auth', () => ({
 }));
 
 // Mocking useNavigate
-type ReactRouterDomModule = typeof import('react-router-dom');
-const mockNavigate: jest.MockedFunction<typeof Navigate> = jest.fn();
+const mockNavigate: jest.MockedFunction<typeof ReactRouterDomModule.Navigate> = jest.fn();
 jest.mock('react-router-dom', () => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const actual = jest.requireActual('react-router-dom') as ReactRouterDomModule;
+  const actual = jest.requireActual('react-router-dom') as typeof ReactRouterDomModule;
   return {
     ...actual,
     useNavigate: () => mockNavigate,
   };
 });
 
-type UseNotificationReturn = ReturnType<typeof notification.useNotification>;
+type UseNotificationReturn = ReturnType<typeof AntDModule.notification.useNotification>;
 const mockApi: UseNotificationReturn[0] = {
   success: jest.fn(),
   error: jest.fn(),
@@ -44,10 +45,9 @@ const mockApi: UseNotificationReturn[0] = {
   destroy: jest.fn(),
 };
 const contextHolder: UseNotificationReturn[1] = <div data-testid="mock-context-holder" />;
-type AntDModule = typeof import('antd');
 jest.mock('antd', () => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const actualAntd = jest.requireActual('antd') as AntDModule;
+  const actualAntd = jest.requireActual('antd') as typeof AntDModule;
   return {
     ...actualAntd,
     notification: {
@@ -57,7 +57,7 @@ jest.mock('antd', () => {
   };
 });
 
-import Signup from './Signup.page';
+import { Signup } from './Signup.page';
 
 const renderPage = () => {
   const user = userEvent.setup();
@@ -135,7 +135,7 @@ describe('Signup', () => {
 
     expect(mockApi.error).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: 'Hold on, something is wrong',
+        message: 'Hold on, something is wrong !!',
         description: errorMsg,
         placement: 'topLeft',
       }),

@@ -1,14 +1,14 @@
-import {
-  AUTH_ERROR,
-  AUTH_START,
-  AUTH_SUCCESS,
-  type AuthAction,
-  type AuthState,
-} from './auth.types';
+import type { AuthAction, AuthState } from './auth.types';
+import { AUTH_ERROR, AUTH_START, AUTH_SUCCESS } from './auth.types';
 
-const initial: AuthState = { user: null, loading: true, errorMessage: null, infoMessage: null };
+const initialState: AuthState = {
+  user: null,
+  loading: true,
+  errorMessage: null,
+  infoMessage: null,
+};
 
-export const authReducer = (state = initial, action: AuthAction): AuthState => {
+export const authReducer = (state = initialState, action: AuthAction): AuthState => {
   switch (action.type) {
     case AUTH_START:
       return { ...state, loading: true, errorMessage: null, infoMessage: null };

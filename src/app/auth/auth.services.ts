@@ -9,15 +9,14 @@ import {
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
-import type { AuthUser } from '@store/auth';
-
 import { firebaseAuth, firestore } from '../../app';
+import type { User } from './auth.types';
 
 export const authServices = {
-  listen: (callback: (user: AuthUser | null) => void) =>
+  listen: (callback: (user: User | null) => void) =>
     onAuthStateChanged(firebaseAuth, (user) => callback(user)),
 
-  signin: async (email: string, password: string): Promise<AuthUser> => {
+  signin: async (email: string, password: string): Promise<User> => {
     await setPersistence(firebaseAuth, browserLocalPersistence);
     const { user } = await signInWithEmailAndPassword(firebaseAuth, email, password);
     return user;
@@ -28,7 +27,7 @@ export const authServices = {
     lastName: string,
     email: string,
     password: string,
-  ): Promise<AuthUser> => {
+  ): Promise<User> => {
     await setPersistence(firebaseAuth, browserLocalPersistence);
     const { user } = await createUserWithEmailAndPassword(firebaseAuth, email, password);
     await setDoc(doc(firestore, 'users', user.uid), {

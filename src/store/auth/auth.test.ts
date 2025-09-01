@@ -1,6 +1,8 @@
+import type { User } from '@app/auth';
+
 import { authError, authStart, authSuccess } from './auth.actions';
 import { authReducer } from './auth.reducer';
-import { AuthState, AuthUser } from './auth.types';
+import type { AuthState } from './auth.types';
 
 describe('authReducer', () => {
   const initialState: AuthState = {
@@ -19,7 +21,7 @@ describe('authReducer', () => {
   });
 
   test('AUTH_SUCCESS stores user and stops loading', () => {
-    const user: AuthUser = { uid: 'u1', email: 'test@test.com' };
+    const user: User = { uid: 'u1', email: 'test@test.com' };
     const state = authReducer(initialState, authSuccess(user, 'successful'));
     expect(state.loading).toBe(false);
     expect(state.errorMessage).toBeNull();

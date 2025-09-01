@@ -1,8 +1,8 @@
 import { FirebaseError } from 'firebase/app';
 
-import { AppDispatch } from '@store/root/root.types';
+import { authServices } from '@app/auth';
+import type { AppDispatch } from '@store/root';
 
-import { authServices } from '../../app/auth/auth.services';
 import { authError, authStart, authSuccess } from './auth.actions';
 import { mapFirebaseError } from './auth.utils';
 
@@ -42,5 +42,5 @@ export const signout = async (dispatch: AppDispatch) => {
 
 export const listen = (dispatch: AppDispatch) => {
   dispatch(authStart());
-  return authServices.listen((user) => (user ? dispatch(authSuccess(user)) : null));
+  return authServices.listen((user) => dispatch(authSuccess(user)));
 };

@@ -1,4 +1,4 @@
-import { FormikHelpers } from 'formik';
+import type { FormikHelpers } from 'formik';
 
 export type SignupFormikValues = {
   firstName: string;

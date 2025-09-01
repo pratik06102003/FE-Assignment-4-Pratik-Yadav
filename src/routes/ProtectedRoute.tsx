@@ -1,7 +1,8 @@
-import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { Spin } from 'antd';
+
+import type { ReactNode } from 'react';
 
 import { useAppSelector } from '@store/root';
 import { ROUTES } from '@constants/routes.constants';

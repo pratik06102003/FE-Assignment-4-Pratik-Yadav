@@ -2,14 +2,15 @@ import { Link } from 'react-router-dom';
 
 import { Button, Card, Flex, Input, Typography } from 'antd';
 
-import { ErrorMessage, Field, FieldProps, Form, Formik } from 'formik';
+import type { FieldProps } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { ROUTES } from '@constants/routes.constants';
 
-import { SignupFormikValues, SignUpFormsProps } from './SignupForm.types';
+import type { SignupFormikValues, SignUpFormsProps } from './SignupForm.types';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().max(50, 'Maximum 50 characters').required('First name is required'),
@@ -26,8 +27,8 @@ export const SignupForm = ({ isLoading, handleSubmit }: SignUpFormsProps) => (
       <Formik initialValues={initialValues} validationSchema={SignupSchema} onSubmit={handleSubmit}>
         <Form className="form">
           <Flex className="form-control">
-            <label htmlFor="firstName" className="form__label">
-              First Name
+            <label htmlFor="firstName">
+              <Text>First Name</Text>
             </label>
             <Field name="firstName">
               {({ field }: FieldProps<string, SignupFormikValues>) => (
@@ -43,8 +44,8 @@ export const SignupForm = ({ isLoading, handleSubmit }: SignUpFormsProps) => (
           </Flex>
 
           <Flex className="form-control">
-            <label htmlFor="lastName" className="form__label">
-              Last Name
+            <label htmlFor="lastName">
+              <Text>Last Name</Text>
             </label>
             <Field name="lastName">
               {({ field }: FieldProps<string, SignupFormikValues>) => (
@@ -60,8 +61,8 @@ export const SignupForm = ({ isLoading, handleSubmit }: SignUpFormsProps) => (
           </Flex>
 
           <Flex className="form-control">
-            <label htmlFor="email" className="form__label">
-              Email
+            <label htmlFor="email">
+              <Text>Email</Text>
             </label>
             <Field name="email">
               {({ field }: FieldProps<string, SignupFormikValues>) => (
@@ -72,8 +73,8 @@ export const SignupForm = ({ isLoading, handleSubmit }: SignUpFormsProps) => (
           </Flex>
 
           <Flex className="form-control">
-            <label htmlFor="password" className="form__label">
-              Password
+            <label htmlFor="password">
+              <Text>Password</Text>
             </label>
             <Field name="password">
               {({ field }: FieldProps<string, SignupFormikValues>) => (
@@ -87,12 +88,11 @@ export const SignupForm = ({ isLoading, handleSubmit }: SignUpFormsProps) => (
             </Field>
             <ErrorMessage name="password" component="div" className="form__error" />
           </Flex>
-
           <Button type="primary" htmlType="submit" loading={isLoading} block disabled={isLoading}>
             Sign Up
           </Button>
           <Flex justify="center" gap={8}>
-            <Link to={ROUTES.SIGNIN} className="form__link">
+            <Link to={ROUTES.SIGNIN} className="link">
               SignIn
             </Link>
           </Flex>

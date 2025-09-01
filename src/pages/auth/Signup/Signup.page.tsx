@@ -6,11 +6,12 @@ import { Flex, notification } from 'antd';
 import { signup } from '@store/auth';
 import { useAppDispatch, useAppSelector } from '@store/root';
 
-import { SignupForm, SignupFormikValues } from './SignupForm';
+import type { SignupFormikValues } from './SignupForm';
+import { SignupForm } from './SignupForm';
 
 import './Signup.styles.scss';
 
-const Signup = () => {
+export const Signup = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loading, errorMessage, user, infoMessage } = useAppSelector((s) => s.auth);
@@ -25,7 +26,7 @@ const Signup = () => {
   useEffect(() => {
     if (errorMessage) {
       api.error({
-        message: 'Hold on, something is wrong',
+        message: 'Hold on, something is wrong !!',
         description: errorMessage,
         placement: 'topLeft',
       });
@@ -52,4 +53,3 @@ const Signup = () => {
     </>
   );
 };
-export default Signup;

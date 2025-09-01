@@ -11,10 +11,17 @@ import { RootLayout } from '@layouts/RootLayout';
 import ProtectedRoute from './ProtectedRoute';
 import { RouteErrorBoundary } from './RouteErrorBoundary';
 
+import PostsIndex from '@pages/posts/PostIndex/PostsIndex.page';
+
 const NotFound = lazy(() =>
   import('@pages/notFound').then((module) => ({ default: module.NotFound })),
 );
-
+const Signup = lazy(() =>
+  import('@pages/auth/Signup').then((module) => ({ default: module.Signup })),
+);
+const Signin = lazy(() =>
+  import('@pages/notFound').then((module) => ({ default: module.NotFound })),
+);
 const routes: RouteObject[] = [
   {
     element: (
@@ -26,12 +33,12 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <div>TO BE IMPLEMENTED</div>,
+        element: <PostsIndex />,
       },
       {
         path: 'not-found',
         element: (
-          <Suspense fallback={<Spin />}>
+          <Suspense fallback={<Spin fullscreen />}>
             <NotFound />
           </Suspense>
         ),
@@ -51,7 +58,7 @@ const routes: RouteObject[] = [
       {
         path: 'signin',
         element: (
-          <Suspense fallback={<Spin />}>
+          <Suspense fallback={<Spin fullscreen />}>
             <Signin />
           </Suspense>
         ),
@@ -59,7 +66,7 @@ const routes: RouteObject[] = [
       {
         path: 'signup',
         element: (
-          <Suspense fallback={<Spin />}>
+          <Suspense fallback={<Spin fullscreen />}>
             <Signup />
           </Suspense>
         ),

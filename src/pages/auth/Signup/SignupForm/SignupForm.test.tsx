@@ -1,14 +1,14 @@
 import { MemoryRouter } from 'react-router-dom';
 
-import { FormikHelpers } from 'formik';
+import type { FormikHelpers } from 'formik';
 
 import { SignupForm } from './SignupForm.component';
-import { SignupFormikValues, SignUpFormsProps } from './SignupForm.types';
+import type { SignupFormikValues, SignUpFormsProps } from './SignupForm.types';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-const renderComponent = (props?: Partial<SignUpFormsProps>) => {
+const renderForm = (props?: Partial<SignUpFormsProps>) => {
   const mockHandleSubmit: jest.Mocked<
     (values: SignupFormikValues, helpers: FormikHelpers<SignupFormikValues>) => Promise<void>
   > = jest.fn();
@@ -26,7 +26,7 @@ const renderComponent = (props?: Partial<SignUpFormsProps>) => {
 
 describe('Signup', () => {
   it('renders all form fields', () => {
-    renderComponent();
+    renderForm();
     const firstNameField = screen.getByLabelText(/first name/i);
     const lastNameFiled = screen.getByLabelText(/last name/i);
     const emailField = screen.getByLabelText(/email/i);
@@ -44,7 +44,7 @@ describe('Signup', () => {
   });
 
   test('shows validation errors on empty submit', async () => {
-    const { user } = renderComponent();
+    const { user } = renderForm();
     const signupButton = screen.getByRole('button', { name: /sign up/i });
 
     await user.click(signupButton);
@@ -55,7 +55,7 @@ describe('Signup', () => {
   });
 
   test('calls signUp with correct arguments on valid submit (user-event)', async () => {
-    const { user, mockHandleSubmit } = renderComponent();
+    const { user, mockHandleSubmit } = renderForm();
 
     const firstNameField = screen.getByLabelText(/first name/i);
     const lastNameFiled = screen.getByLabelText(/last name/i);
@@ -82,7 +82,7 @@ describe('Signup', () => {
   });
 
   test('disables inputs when loading is true', () => {
-    renderComponent({ isLoading: true });
+    renderForm({ isLoading: true });
     const firstNameField = screen.getByLabelText(/first name/i);
     const lastNameFiled = screen.getByLabelText(/last name/i);
     const emailField = screen.getByLabelText(/email/i);

@@ -2,13 +2,10 @@ import { useEffect } from 'react';
 
 import { Flex } from 'antd';
 
+import type { SignupFormikValues } from '@components/SignupForm';
+import { SignupForm } from '@components/SignupForm';
 import { useAuth } from '@store/auth';
 import { useAppSelector } from '@store/root';
-
-import type { SignupFormikValues } from './SignupForm';
-import { SignupForm } from './SignupForm';
-
-import './Signup.styles.scss';
 import { useNotificationApi } from '@contexts/Notification';
 
 export const Signup = () => {
@@ -38,7 +35,7 @@ export const Signup = () => {
   };
 
   return (
-    <Flex align="center" className="signup">
+    <Flex align="center" className="page">
       <SignupForm handleSubmit={handleSubmit} isLoading={loading} />
     </Flex>
   );

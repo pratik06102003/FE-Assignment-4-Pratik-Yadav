@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
 import { useAuth } from '@store/auth/';
+import { NotificationProvider } from '@contexts/Notification/notification.context';
 
 import { router } from './routes/router';
-
-import { NotificationProvider } from '@contexts/Notification/notification.context';
 
 export const App = () => {
   const { listenService } = useAuth();

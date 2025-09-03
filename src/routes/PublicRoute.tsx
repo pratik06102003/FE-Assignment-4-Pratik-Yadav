@@ -1,8 +1,6 @@
 import { type ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Spin } from 'antd';
-
 import { useAppSelector } from '@store/root';
 import { ROUTES } from '@constants/routes.constants';
 
@@ -12,9 +10,9 @@ export const PublicRoute = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!loading && user) {
-      void navigate(ROUTES.HOME);
+      void navigate(ROUTES.HOME, { replace: true });
     }
   }, [user, loading, navigate]);
 
-  return loading ? <Spin fullscreen /> : children;
+  return children;
 };

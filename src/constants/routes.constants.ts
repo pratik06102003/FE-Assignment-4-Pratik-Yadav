@@ -1,15 +1,7 @@
 export const ROUTES = {
   HOME: '/',
   BLOGS: '/blogs',
-  ABOUT: '/about',
-  CONTACT: '/contact',
-  DOCS: '/docs',
-  PROFILE: '/profile',
-  STORIES: '/stories',
-  SETTINGS: '/settings',
   LOGOUT: '/logout',
-  PRIVACY: '/privacy',
-  TERMS: '/terms',
-  HELP: '/help',
   CREATE_POST: '/posts/create',
+  PLACEHOLDER: '#',
 } as const;

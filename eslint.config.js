@@ -41,6 +41,12 @@ export default tseslint.config(
       'no-console': 'error',
       'no-shadow': 'error',
       'import/no-duplicates': 'error',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: ['../*', '../../*'],
+        },
+      ],
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/naming-convention': [
         'error',

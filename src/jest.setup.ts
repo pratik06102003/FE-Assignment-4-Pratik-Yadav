@@ -11,7 +11,14 @@ jest.mock('antd', () => {
     ...antd,
     Grid: {
       ...antd.Grid,
-      useBreakpoint: jest.fn(),
+      useBreakpoint: jest.fn(() => ({
+        xs: false,
+        sm: true,
+        md: false,
+        lg: false,
+        xl: false,
+        xxl: false,
+      })),
     },
   };
 });

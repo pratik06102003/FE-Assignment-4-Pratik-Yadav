@@ -46,15 +46,10 @@ export const Header: React.FC = () => {
           ) : (
             <Menu
               mode="horizontal"
-              tabIndex={-1}
               className="header__menu"
               items={HEADER_MENU_ITEMS.map((item) => ({
                 key: item.key,
-                label: (
-                  <Link to={item.to} className="link">
-                    {item.label}
-                  </Link>
-                ),
+                label: <Link to={item.to}>{item.label}</Link>,
               }))}
             />
           )}
@@ -70,9 +65,9 @@ export const Header: React.FC = () => {
 
           <LinkButton
             size="middle"
-            className="link header__link"
+            className="header__link"
             to={ROUTES.CREATE_POST}
-            Icon={ICONS.WRITE}
+            icon={'WRITE'}
             label="Write"
           />
 

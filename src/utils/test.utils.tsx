@@ -1,4 +1,3 @@
-import { act } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
 import type { ReactElement } from 'react';
@@ -11,18 +10,16 @@ import { render, screen, waitFor } from '@testing-library/react';
  * like useLocation, useNavigate, NavLink, etc.
  *
  * @param component - ReactElement to render
- * @param options - Optional route and render options
  * @returns The result of RTL's render function
  */
-export async function renderWithRouter(component: ReactElement) {
-  return await act(() => render(<MemoryRouter>{component}</MemoryRouter>));
-}
+export const renderWithRouter = (component: ReactElement) =>
+  render(<MemoryRouter>{component}</MemoryRouter>);
 
 /**
  * Asserts that all menu items in the given array exist in the DOM.
  * Useful for testing dropdowns or navigation menus.
  *
- * @param items - Array of objects with a `label` property
+ * @param labels - Array of string defining the label
  */
 export const expectMenuitemsToBeVisible = async (labels: string[]) => {
   for (const label of labels) {
@@ -35,7 +32,7 @@ export const expectMenuitemsToBeVisible = async (labels: string[]) => {
  * Asserts that all menu items in the given array do NOT exist in the DOM.
  * Useful for testing hidden menus or conditional rendering.
  *
- * @param items - Array of objects with a `label` property
+ * @param labels - Array of string defining the label
  */
 export const expectMenuitemsToNotToBeVisible = (labels: string[]) => {
   labels.forEach((label) => {
@@ -56,6 +53,6 @@ export const expectMenuitemsToNotToBeVisible = (labels: string[]) => {
 export const expectMenuitemsToHaveCorrectHref = (items: { label: string; to: string }[]) => {
   items.forEach((item) => {
     const link = screen.getByRole('link', { name: new RegExp(item.label, 'i') });
-    expect(link).toHaveAttribute('href', item.to);
+    expect(link).toHaveAttribute('href', item.to === '#' ? '/' : item.to);
   });
 };

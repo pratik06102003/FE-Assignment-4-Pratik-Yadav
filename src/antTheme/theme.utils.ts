@@ -6,7 +6,7 @@
  * @returns {string | number} The computed value of the CSS variable, with leading/trailing whitespace removed.
  *
  */
-export function getCssVar(name: string): string | number {
+export const getCssVar = (name: string): string | number => {
   const rootStyle = getComputedStyle(document.documentElement);
   const value = rootStyle.getPropertyValue(name)?.trim() || '';
 
@@ -18,4 +18,4 @@ export function getCssVar(name: string): string | number {
   }
 
   return value;
-}
+};

@@ -1,1 +1,13 @@
 @import 'antd/dist/reset.css';
+
+a {
+  &:focus-visible {
+    border-radius: 5%;
+    outline-offset: 2px;
+    outline: 3px solid black;
+  }
+
+  &:active {
+    text-decoration: underline;
+  }
+}

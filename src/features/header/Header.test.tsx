@@ -5,7 +5,7 @@ import { ROUTES } from '@constants/routes.constants';
 import { Header } from './Header.component';
 import { HEADER_DROPDOWN_ITEMS, HEADER_MENU_ITEMS } from './Header.constants';
 
-import { act, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
   expectMenuitemsToBeVisible,
@@ -14,16 +14,12 @@ import {
   renderWithRouter,
 } from '@utils/test.utils';
 
-const renderHeader = async () => await act(() => renderWithRouter(<Header />));
-
 describe('Header Component', () => {
   const mockedUseBreakpoint = Grid.useBreakpoint as jest.Mock;
 
-  mockedUseBreakpoint.mockResolvedValue({ md: true });
-
   test('renders brand title, logo, search input, write button', async () => {
     mockedUseBreakpoint.mockReturnValue({ md: true });
-    await renderHeader();
+    renderWithRouter(<Header />);
     expect(screen.getByRole('heading', { name: /bhq/i })).toBeVisible();
     expect(screen.getByRole('link', { name: /bhq/i })).toHaveAttribute('href', '/');
 
@@ -43,7 +39,7 @@ describe('Header Component', () => {
 
   test('renders Dropdown on mobile', async () => {
     mockedUseBreakpoint.mockReturnValue({ sm: true });
-    await renderHeader();
+    renderWithRouter(<Header />);
     const dropdownButton = screen.getByRole('button', { name: 'menu-fold' });
     expectMenuitemsToNotToBeVisible(HEADER_MENU_ITEMS.map((item) => item.label));
     expect(dropdownButton).toBeVisible();
@@ -55,7 +51,7 @@ describe('Header Component', () => {
 
   test('renders user avatar dropdown and opens on click', async () => {
     mockedUseBreakpoint.mockReturnValue({ md: true });
-    await renderHeader();
+    renderWithRouter(<Header />);
     const avatarButton = screen.getByRole('button', { name: 'user' });
 
     expectMenuitemsToNotToBeVisible(HEADER_DROPDOWN_ITEMS.map((item) => item.label));

@@ -4,17 +4,17 @@ import type { FooterNavLinkType } from './Footer.types';
 
 export const FOOTER_NAV_LINKS: FooterNavLinkType[] = [
   {
-    to: ROUTES.TERMS,
+    to: ROUTES.PLACEHOLDER,
     label: 'Terms',
     key: 'footer-terms',
   },
   {
-    to: ROUTES.PRIVACY,
+    to: ROUTES.PLACEHOLDER,
     label: 'Privacy',
     key: 'footer-privacy',
   },
   {
-    to: ROUTES.HELP,
+    to: ROUTES.PLACEHOLDER,
     label: 'Help',
     key: 'footer-help',
   },

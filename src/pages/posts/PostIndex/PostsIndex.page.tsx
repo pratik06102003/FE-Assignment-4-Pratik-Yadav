@@ -1,15 +1,14 @@
 import { Button, Typography } from 'antd';
 
-import { useDispatch } from 'react-redux';
-
-import { signout } from '@store/auth';
+import { useAuth } from '@store/auth';
 
 const { Title } = Typography;
 const PostsIndex = () => {
-  const dispatch = useDispatch();
+  const { signoutService } = useAuth();
+
   return (
     <>
-      <Button onClick={() => void signout(dispatch)}>SignOut</Button>
+      <Button onClick={() => void signoutService()}>SignOut</Button>
       <Title>All Posts</Title>
     </>
   );

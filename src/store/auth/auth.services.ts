@@ -1,46 +1,51 @@
 import { FirebaseError } from 'firebase/app';
 
-import { authServices } from '@app/auth';
-import type { AppDispatch } from '@store/root';
+import { listen, signout, signup } from '@app/auth';
+import { useAppDispatch } from '@store/root';
 
 import { authError, authStart, authSuccess } from './auth.actions';
 import { mapFirebaseError } from './auth.utils';
 
-export const signup = async (
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-  dispatch: AppDispatch,
-) => {
-  dispatch(authStart());
-  try {
-    const user = await authServices.signup(firstName, lastName, email, password);
-    dispatch(authSuccess(user, 'Signup Successful'));
-  } catch (error) {
-    if (error instanceof FirebaseError) {
-      dispatch(authError(mapFirebaseError(error.code)));
-    } else {
-      dispatch(authError('Unexpected Error occurred'));
-    }
-  }
-};
+export const useAuth = () => {
+  const dispatch = useAppDispatch();
 
-export const signout = async (dispatch: AppDispatch) => {
-  dispatch(authStart());
-  try {
-    await authServices.signout();
-    dispatch(authSuccess(null, 'Signout Successful'));
-  } catch (error) {
-    if (error instanceof FirebaseError) {
-      dispatch(authError(mapFirebaseError(error.code)));
-    } else {
-      dispatch(authError('Unexpected Error occurred'));
-    }
-  }
-};
+  const listenService = () => {
+    dispatch(authStart());
+    return listen((user) => dispatch(authSuccess(user)));
+  };
 
-export const listen = (dispatch: AppDispatch) => {
-  dispatch(authStart());
-  return authServices.listen((user) => dispatch(authSuccess(user)));
+  const signupService = async (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+  ) => {
+    dispatch(authStart());
+    try {
+      const user = await signup(firstName, lastName, email, password);
+      dispatch(authSuccess(user, 'Signup Successful'));
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        dispatch(authError(mapFirebaseError(error.code)));
+      } else {
+        dispatch(authError('Unexpected Error occurred'));
+      }
+    }
+  };
+
+  const signoutService = async () => {
+    dispatch(authStart());
+    try {
+      await signout();
+      dispatch(authSuccess(null, 'Signout Successful'));
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        dispatch(authError(mapFirebaseError(error.code)));
+      } else {
+        dispatch(authError('Unexpected Error occurred'));
+      }
+    }
+  };
+
+  return { signupService, signoutService, listenService };
 };

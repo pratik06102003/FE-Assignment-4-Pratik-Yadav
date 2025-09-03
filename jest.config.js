@@ -11,6 +11,7 @@ export default {
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@constants/(.*)$': '<rootDir>/src/constants/$1',
     '^@store/(.*)$': '<rootDir>/src/store/$1',
+    '^@contexts/(.*)$': '<rootDir>/src/contexts/$1',
   },
   testPathIgnorePatterns: ['/node_modules/', '/build/'],
 };

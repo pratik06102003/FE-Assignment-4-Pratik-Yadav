@@ -6,13 +6,13 @@ import { Spin } from 'antd';
 import { useAppSelector } from '@store/root';
 import { ROUTES } from '@constants/routes.constants';
 
-export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+export const PublicRoute = ({ children }: { children: ReactNode }) => {
   const { user, loading } = useAppSelector((s) => s.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      void navigate(ROUTES.SIGNUP);
+    if (user) {
+      void navigate(ROUTES.HOME);
     }
   }, [user, navigate]);
 

@@ -2,38 +2,25 @@ import { MemoryRouter } from 'react-router-dom';
 
 import type * as AntDModule from 'antd';
 
-import type * as ReactRouterDomModule from 'react-router-dom';
-
-import type { AuthState, signup } from '@store/auth';
-import type { AppDispatch, useAppDispatch, useAppSelector } from '@store/root';
+import type { AuthState } from '@store/auth';
+import type { useAppSelector } from '@store/root';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 // Mocking useAppDispatch, useAppSelector
-const mockUseAppDispatch: jest.MockedFunction<typeof useAppDispatch> = jest.fn();
 const mockUseAppSelector: jest.MockedFunction<typeof useAppSelector> = jest.fn();
 jest.mock('@store/root', () => ({
-  useAppDispatch: mockUseAppDispatch,
   useAppSelector: mockUseAppSelector,
 }));
 
-// Mocking useAppDispatch, signUp
-const mockSignUp: jest.MockedFunction<typeof signup> = jest.fn();
+// Mocking  signUpservice from use auth
+const mockSignupService = jest.fn();
 jest.mock('@store/auth', () => ({
-  signup: mockSignUp,
+  useAuth: jest.fn(() => ({
+    signupService: mockSignupService,
+  })),
 }));
-
-// Mocking useNavigate
-const mockNavigate: jest.MockedFunction<typeof ReactRouterDomModule.Navigate> = jest.fn();
-jest.mock('react-router-dom', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const actual = jest.requireActual('react-router-dom') as typeof ReactRouterDomModule;
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  };
-});
 
 type UseNotificationReturn = ReturnType<typeof AntDModule.notification.useNotification>;
 const mockApi: UseNotificationReturn[0] = {
@@ -44,18 +31,9 @@ const mockApi: UseNotificationReturn[0] = {
   open: jest.fn(),
   destroy: jest.fn(),
 };
-const contextHolder: UseNotificationReturn[1] = <div data-testid="mock-context-holder" />;
-jest.mock('antd', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const actualAntd = jest.requireActual('antd') as typeof AntDModule;
-  return {
-    ...actualAntd,
-    notification: {
-      ...actualAntd.notification,
-      useNotification: () => [mockApi, contextHolder],
-    },
-  };
-});
+jest.mock('@contexts/Notification', () => ({
+  useNotificationApi: () => mockApi,
+}));
 
 import { Signup } from './Signup.page';
 
@@ -76,8 +54,6 @@ describe('Signup', () => {
   });
 
   test('calls signUp with correct args when form is submitted', async () => {
-    const mockDispatch: AppDispatch = jest.fn();
-    mockUseAppDispatch.mockReturnValue(mockDispatch);
     const testAuthState: AuthState = {
       loading: false,
       errorMessage: null,
@@ -94,28 +70,14 @@ describe('Signup', () => {
     await user.type(screen.getByLabelText(/password/i), 'pass1234');
     await user.click(screen.getByRole('button', { name: /sign up/i }));
 
-    expect(mockSignUp).toHaveBeenCalledTimes(1);
+    expect(mockSignupService).toHaveBeenCalledTimes(1);
 
-    expect(mockSignUp).toHaveBeenCalledWith(
+    expect(mockSignupService).toHaveBeenCalledWith(
       'firstName',
       'lastName',
       'mail@domain.com',
       'pass1234',
-      mockDispatch,
     );
-  });
-
-  test("navigates to '/' when user exists in auth slice", () => {
-    const testAuthState: AuthState = {
-      loading: false,
-      errorMessage: null,
-      infoMessage: null,
-      user: { uid: 'u1', email: 'Alice' },
-    };
-
-    mockUseAppSelector.mockReturnValue(testAuthState);
-    renderPage();
-    expect(mockNavigate).toHaveBeenCalledWith('/');
   });
 
   test('calls notification.error when errorMessage exists in auth slice', () => {
@@ -140,9 +102,6 @@ describe('Signup', () => {
         placement: 'topLeft',
       }),
     );
-
-    // context holder should render
-    expect(screen.getByTestId('mock-context-holder')).toBeVisible();
   });
 
   test('calls notification.info when infoMessage exists in auth slice', () => {

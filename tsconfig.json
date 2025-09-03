@@ -25,7 +25,8 @@
       "@store/*": ["store/*"],
       "@services/*": ["services/*"],
       "@app/*": ["app/*"],
-      "@constants/*": ["constants/*"]
+      "@constants/*": ["constants/*"],
+      "@contexts/*": ["contexts/*"]
     }
   },
   "include": ["src/**/*"]

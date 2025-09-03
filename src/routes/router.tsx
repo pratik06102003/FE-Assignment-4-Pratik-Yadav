@@ -9,6 +9,7 @@ import { AuthLayout } from '@layouts/AuthLayout';
 import { RootLayout } from '@layouts/RootLayout';
 
 import ProtectedRoute from './ProtectedRoute';
+import PublicRoute from './PublicRoute';
 import { RouteErrorBoundary } from './RouteErrorBoundary';
 
 import PostsIndex from '@pages/posts/PostIndex/PostsIndex.page';
@@ -52,7 +53,11 @@ const routes: RouteObject[] = [
 
   {
     path: 'auth',
-    element: <AuthLayout />,
+    element: (
+      <PublicRoute>
+        <AuthLayout />
+      </PublicRoute>
+    ),
     errorElement: <RouteErrorBoundary />,
     children: [
       {

@@ -1,27 +1,20 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { Flex, notification } from 'antd';
+import { Flex } from 'antd';
 
-import { signup } from '@store/auth';
-import { useAppDispatch, useAppSelector } from '@store/root';
+import { useAuth } from '@store/auth';
+import { useAppSelector } from '@store/root';
 
 import type { SignupFormikValues } from './SignupForm';
 import { SignupForm } from './SignupForm';
 
 import './Signup.styles.scss';
+import { useNotificationApi } from '@contexts/Notification';
 
 export const Signup = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { loading, errorMessage, user, infoMessage } = useAppSelector((s) => s.auth);
-  const [api, contextHolder] = notification.useNotification();
-
-  useEffect(() => {
-    if (user) {
-      void navigate('/');
-    }
-  }, [user, navigate]);
+  const { signupService } = useAuth();
+  const { loading, errorMessage, infoMessage } = useAppSelector((s) => s.auth);
+  const api = useNotificationApi();
 
   useEffect(() => {
     if (errorMessage) {
@@ -41,15 +34,12 @@ export const Signup = () => {
   }, [errorMessage, infoMessage, api]);
 
   const handleSubmit = async ({ firstName, lastName, email, password }: SignupFormikValues) => {
-    await signup(firstName, lastName, email, password, dispatch);
+    await signupService(firstName, lastName, email, password);
   };
 
   return (
-    <>
-      <Flex align="center" className="signup">
-        {contextHolder}
-        <SignupForm handleSubmit={handleSubmit} isLoading={loading} />
-      </Flex>
-    </>
+    <Flex align="center" className="signup">
+      <SignupForm handleSubmit={handleSubmit} isLoading={loading} />
+    </Flex>
   );
 };

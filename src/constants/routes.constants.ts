@@ -6,4 +6,5 @@ export const ROUTES = {
   PLACEHOLDER: '#',
   SIGNIN: '/auth/signin',
   SIGNUP: '/auth/signup',
+  RESET_PASSWORD: '/auth/reset-password',
 } as const;

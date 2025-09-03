@@ -2,13 +2,10 @@ import { useEffect } from 'react';
 
 import { Flex } from 'antd';
 
+import type { SigninFormikValues } from '@components/SigninForm';
+import { SigninForm } from '@components/SigninForm';
 import { useAuth } from '@store/auth';
 import { useAppSelector } from '@store/root';
-
-import type { SigninFormikValues } from './SigninForm';
-import { SigninForm } from './SigninForm';
-
-import './Signin.styles.scss';
 import { useNotificationApi } from '@contexts/Notification';
 
 export const Signin = () => {
@@ -39,7 +36,7 @@ export const Signin = () => {
 
   return (
     <>
-      <Flex align="center" className="signin">
+      <Flex align="center" className="page">
         <SigninForm handleSubmit={handleSubmit} isLoading={loading} />
       </Flex>
     </>

@@ -2,13 +2,12 @@ import { useEffect } from 'react';
 
 import { Flex } from 'antd';
 
+import { ResetPasswordForm } from '@components/ResetPasswordForm';
 import { useAuth } from '@store/auth';
 import { useAppSelector } from '@store/root';
-
-import { ResetPasswordForm } from './ResetPasswordForm/ResetPasswordForm.component';
-import type { ResetPasswordFormikValues } from './ResetPassword.types';
-
 import { useNotificationApi } from '@contexts/Notification';
+
+import type { ResetPasswordFormikValues } from './ResetPassword.types';
 
 export const ResetPassword = () => {
   const { loading, errorMessage, infoMessage } = useAppSelector((s) => s.auth);

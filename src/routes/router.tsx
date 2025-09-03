@@ -24,7 +24,7 @@ const Signin = lazy(() =>
   import('@pages/auth/Signin').then((module) => ({ default: module.Signin })),
 );
 const ResetPassword = lazy(() =>
-  import('@pages/auth/RestPassword').then((module) => ({ default: module.ResetPassword })),
+  import('@pages/auth/ResetPassword').then((module) => ({ default: module.ResetPassword })),
 );
 
 const routes: RouteObject[] = [

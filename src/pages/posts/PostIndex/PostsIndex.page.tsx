@@ -1,15 +1,40 @@
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 
-import { Button, Typography } from 'antd';
+import { useInView } from 'react-intersection-observer';
 
-import { signOut } from '@store/auth';
+import { PostList } from '@components/PostCardList';
+import { PostFilter } from '@components/PostFilter';
+import { clearPosts } from '@store/posts/post.actions';
+import { usePost } from '@store/posts/post.services';
+import { useAppDispatch, useAppSelector } from '@store/root';
+
+import { PostQueryParams } from '@app/posts/posts.type';
 
 const PostsIndex = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { isFetching, posts, cursor, hasMore } = useAppSelector((state) => state.post);
+  const { ref, inView } = useInView({ threshold: 0 });
+  const { fetchPostService } = usePost();
+
+  const [filters, setFilters] = useState<PostQueryParams>({ published: true });
+
+  useEffect(() => {
+    if (inView && hasMore) {
+      void fetchPostService({ limit: 10, published: true, cursor, ...filters });
+    }
+  }, [inView, hasMore, cursor, fetchPostService]);
+
   return (
     <>
-      <Button onClick={() => void signOut(dispatch)}>SignOut</Button>
-      <Typography.Title>All Posts</Typography.Title>
+      <PostFilter
+        onChange={(f) => {
+          setFilters(f);
+          dispatch(clearPosts());
+          void fetchPostService({ limit: 10, ...f }); // refetch on filter change
+        }}
+      />
+      <PostList posts={posts} isLoading={isFetching} hasMore={hasMore} ref={ref} />
+      <div ref={ref}></div>
     </>
   );
 };

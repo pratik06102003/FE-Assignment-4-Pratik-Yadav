@@ -12,7 +12,7 @@ export const App = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(authStart());
-    const unsubscribe = authServices.listen((u) => dispatch(authSuccess(u)));
+    const unsubscribe = authServices.listen((u) => dispatch(authSuccess(u, 'ggoo')));
     return () => unsubscribe();
   }, [dispatch]);
 

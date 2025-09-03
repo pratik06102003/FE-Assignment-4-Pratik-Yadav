@@ -8,11 +8,12 @@ import { useAppDispatch, useAppSelector } from '@store/root';
 import { CreatePostForm } from './components/CreatePostForm';
 import { CreatePostValuesType } from './components/CreatePostForm/CreatePostForm.types';
 
-import { PostInput, postsServices } from '@app/posts';
+import { PostCreatePayload } from '@app/posts';
+import { createPost } from '@app/posts/posts.services';
 
 const PostCreate: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isCreating, createError } = useAppSelector((state) => state.post);
+  const { isCreating, postErrorMessage } = useAppSelector((state) => state.post);
   const userId = useAppSelector((state) => state.auth.user?.uid);
 
   const handleSubmit = async (
@@ -24,7 +25,8 @@ const PostCreate: React.FC = () => {
       return;
     }
 
-    const payload: PostInput = {
+    const payload: PostCreatePayload = {
+      authorId: userId,
       title: values.title.trim(),
       content: values.content,
       tags: values.tags ? values.tags.split(',').map((t) => t.trim()) : [],
@@ -32,7 +34,7 @@ const PostCreate: React.FC = () => {
 
     dispatch(createPostRequest());
     try {
-      const post = await postsServices.createPost(payload, userId);
+      const post = await createPost(userId, payload);
       dispatch(createPostSuccess(post, 'Post Created!!'));
       resetForm();
     } catch {
@@ -41,7 +43,11 @@ const PostCreate: React.FC = () => {
   };
 
   return (
-    <CreatePostForm handleSubmit={handleSubmit} isLoading={isCreating} errorMessage={createError} />
+    <CreatePostForm
+      handleSubmit={handleSubmit}
+      isLoading={isCreating}
+      errorMessage={postErrorMessage}
+    />
   );
 };
 

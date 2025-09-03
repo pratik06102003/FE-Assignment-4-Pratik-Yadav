@@ -8,8 +8,8 @@ import type { RouteObject } from 'react-router-dom';
 import { AuthLayout } from '@layouts/AuthLayout';
 import { RootLayout } from '@layouts/RootLayout';
 
-import ProtectedRoute from './ProtectedRoute';
-import PublicRoute from './PublicRoute';
+import { ProtectedRoute } from './ProtectedRoute';
+import { PublicRoute } from './PublicRoute';
 import { RouteErrorBoundary } from './RouteErrorBoundary';
 
 import PostsIndex from '@pages/posts/PostIndex/PostsIndex.page';

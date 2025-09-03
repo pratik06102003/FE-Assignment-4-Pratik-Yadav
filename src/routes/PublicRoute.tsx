@@ -11,10 +11,10 @@ export const PublicRoute = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (!loading && user) {
       void navigate(ROUTES.HOME);
     }
-  }, [user, navigate]);
+  }, [user, loading, navigate]);
 
   return loading ? <Spin fullscreen /> : children;
 };

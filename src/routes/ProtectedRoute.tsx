@@ -11,10 +11,10 @@ export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       void navigate(ROUTES.SIGNUP);
     }
-  }, [user, navigate]);
+  }, [user, loading, navigate]);
 
   return loading ? <Spin fullscreen /> : children;
 };

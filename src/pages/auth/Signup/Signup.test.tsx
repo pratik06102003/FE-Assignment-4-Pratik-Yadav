@@ -8,13 +8,13 @@ import type { useAppSelector } from '@store/root';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-// Mocking useAppDispatch, useAppSelector
+// Mocking useAppSelector
 const mockUseAppSelector: jest.MockedFunction<typeof useAppSelector> = jest.fn();
 jest.mock('@store/root', () => ({
   useAppSelector: mockUseAppSelector,
 }));
 
-// Mocking  signUpservice from use auth
+// Mocking signUpservice from use auth
 const mockSignupService = jest.fn();
 jest.mock('@store/auth', () => ({
   useAuth: jest.fn(() => ({
@@ -22,6 +22,7 @@ jest.mock('@store/auth', () => ({
   })),
 }));
 
+// Mocking useNotificationApi
 type UseNotificationReturn = ReturnType<typeof AntDModule.notification.useNotification>;
 const mockApi: UseNotificationReturn[0] = {
   success: jest.fn(),

@@ -12,6 +12,7 @@ export default {
     },
     compress: true,
     hot: true,
+    historyApiFallback: true,
   },
   devtool: 'eval-cheap-module-source-map',
 };

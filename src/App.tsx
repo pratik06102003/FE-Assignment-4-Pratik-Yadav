@@ -1,9 +1,5 @@
-import { Button } from 'antd';
+import { RouterProvider } from 'react-router-dom';
 
-import { testService } from '@app/services/firebaseTest.service';
+import { router } from './routes/router';
 
-export const App = () => (
-  <Button type="primary" onClick={testService}>
-    Test Firebase Service
-  </Button>
-);
+export const App = () => <RouterProvider router={router} />;

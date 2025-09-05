@@ -1,50 +1,57 @@
-import { ThemeConfig } from 'antd';
+import type { ThemeConfig } from 'antd';
 
 import { getCssVar } from './theme.utils';
 
-export function loadTheme() {
+export const loadTheme = () => {
   const theme: ThemeConfig = {
     token: {
-      colorPrimary: getCssVar('--primary-black'),
-      colorTextBase: getCssVar('--text-primary'),
-      colorTextSecondary: getCssVar('--text-secondary'),
+      colorPrimary: getCssVar('--primary-black') as string,
+      colorTextBase: getCssVar('--text-primary') as string,
+      colorTextSecondary: getCssVar('--text-secondary') as string,
 
-      colorBorder: getCssVar('--border-primary'),
-      colorBorderSecondary: getCssVar('--border-secondary'),
+      colorBorder: getCssVar('--border-primary') as string,
+      colorBorderSecondary: getCssVar('--border-secondary') as string,
 
-      colorLink: getCssVar('--link-primary'),
-      colorLinkHover: getCssVar('--link-primary-hover'),
+      colorLink: getCssVar('--link-primary') as string,
+      colorLinkHover: getCssVar('--link-primary-hover') as string,
 
-      colorSuccess: getCssVar('--success'),
-      colorWarning: getCssVar('--warning'),
-      colorError: getCssVar('--error'),
+      colorSuccess: getCssVar('--success') as string,
+      colorWarning: getCssVar('--warning') as string,
+      colorError: getCssVar('--error') as string,
 
-      colorHighlight: getCssVar('--highlight'),
+      colorHighlight: getCssVar('--highlight') as string,
 
       // Typography
-      fontSize: Number(getCssVar('--base-font-size')),
-      lineHeight: Number(getCssVar('--base-line-height')),
+      fontSize: getCssVar('--base-font-size') as number,
+      lineHeight: getCssVar('--base-line-height') as number,
 
-      fontSizeHeading1: Number(getCssVar('--heading-h1-size')),
-      lineHeightHeading1: Number(getCssVar('--heading-h1-line-height')),
-      fontSizeHeading2: Number(getCssVar('--heading-h2-size')),
-      lineHeightHeading2: Number(getCssVar('--heading-h2-line-height')),
-      fontSizeHeading3: Number(getCssVar('--heading-h3-size')),
-      lineHeightHeading3: Number(getCssVar('--heading-h3-line-height')),
-      fontSizeHeading4: Number(getCssVar('--heading-h4-size')),
-      lineHeightHeading4: Number(getCssVar('--heading-h4-line-height')),
-      fontSizeHeading5: Number(getCssVar('--heading-h5-size')),
-      lineHeightHeading5: Number(getCssVar('--heading-h5-line-height')),
+      fontSizeHeading1: getCssVar('--heading-h1-size') as number,
+      lineHeightHeading1: getCssVar('--heading-h1-line-height') as number,
+      fontSizeHeading2: getCssVar('--heading-h2-size') as number,
+      lineHeightHeading2: getCssVar('--heading-h2-line-height') as number,
+      fontSizeHeading3: getCssVar('--heading-h3-size') as number,
+      lineHeightHeading3: getCssVar('--heading-h3-line-height') as number,
+      fontSizeHeading4: getCssVar('--heading-h4-size') as number,
+      lineHeightHeading4: getCssVar('--heading-h4-line-height') as number,
+      fontSizeHeading5: getCssVar('--heading-h5-size') as number,
+      lineHeightHeading5: getCssVar('--heading-h5-line-height') as number,
 
       // Breakpoints
-      screenXS: Number(getCssVar('--breakpoint-xs')),
-      screenSM: Number(getCssVar('--breakpoint-sm')),
-      screenMD: Number(getCssVar('--breakpoint-md')),
-      screenLG: Number(getCssVar('--breakpoint-lg')),
-      screenXL: Number(getCssVar('--breakpoint-xl')),
-      screenXXL: Number(getCssVar('--breakpoint-xxl')),
+      screenXS: getCssVar('--breakpoint-xs') as number,
+      screenSM: getCssVar('--breakpoint-sm') as number,
+      screenMD: getCssVar('--breakpoint-md') as number,
+      screenLG: getCssVar('--breakpoint-lg') as number,
+      screenXL: getCssVar('--breakpoint-xl') as number,
+      screenXXL: getCssVar('--breakpoint-xxl') as number,
+    },
+    components: {
+      Typography: {
+        margin: 0,
+        titleMarginTop: 0,
+        titleMarginBottom: 0,
+      },
     },
   };
 
   return theme;
-}
+};

@@ -3,14 +3,15 @@ import { FormikHelpers } from 'formik';
 export type CreatePostValuesType = {
   title: string;
   content: string;
-  tags: string;
+  tags: string[];
 };
 
 export type CreatePostFormProps = {
-  handleSubmit: (
+  onSubmit: (
     values: CreatePostValuesType,
     formikHelpers: FormikHelpers<CreatePostValuesType>,
-  ) => Promise<void>;
-  isLoading: boolean;
-  errorMessage: string | null;
+  ) => Promise<void> | void;
+  mode?: 'create' | 'edit';
+  initialValues?: Partial<CreatePostValuesType>;
+  isLoading?: boolean;
 };

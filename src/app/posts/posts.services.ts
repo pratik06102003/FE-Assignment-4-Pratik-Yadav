@@ -1,9 +1,11 @@
 import {
   addDoc,
   collection,
+  doc,
   DocumentData,
   documentId,
   DocumentSnapshot,
+  getDoc,
   getDocs,
   limit as limitFn,
   orderBy,
@@ -11,10 +13,17 @@ import {
   serverTimestamp,
   startAfter,
   Timestamp,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 
-import { Post, PostCreatePayload, PostQueryParams, PostsPage } from './posts.type';
+import {
+  Post,
+  PostCreatePayload,
+  PostQueryParams,
+  PostsPage,
+  PostUpdatePayload,
+} from './posts.type';
 
 import { firestore } from '@app/index';
 
@@ -40,7 +49,7 @@ function mapDocToPost(docSnap: DocumentSnapshot<DocumentData>): Post {
   };
 }
 
-export const createPost = async (authorId: string, payload: PostCreatePayload): Promise<void> => {
+export const createPost = async (authorId: string, payload: PostCreatePayload): Promise<Post> => {
   const payloadToSave = {
     ...payload,
     authorId,
@@ -48,7 +57,9 @@ export const createPost = async (authorId: string, payload: PostCreatePayload): 
     updatedAt: serverTimestamp(),
   };
 
-  await addDoc(postsCollection(), payloadToSave);
+  const docRef = await addDoc(postsCollection(), payloadToSave);
+  const snap = await getDoc(docRef);
+  return mapDocToPost(snap);
 };
 
 export const fetchAuthors = async (
@@ -83,7 +94,7 @@ export const getPosts = async (params: PostQueryParams = {}): Promise<PostsPage>
     cursor = null,
     authorId,
     tags,
-    published,
+    published = true,
     orderByField = 'createdAt',
     order = 'desc',
     titlePrefix,
@@ -121,7 +132,6 @@ export const getPosts = async (params: PostQueryParams = {}): Promise<PostsPage>
   const posts = snap.docs.map(mapDocToPost);
   const nextCursor = snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null;
 
-  // hydrate author info
   const authorIds = [...new Set(posts.map((p) => p.authorId))];
   const authors = await fetchAuthors(authorIds);
 
@@ -130,4 +140,37 @@ export const getPosts = async (params: PostQueryParams = {}): Promise<PostsPage>
   });
 
   return { posts, nextCursor };
+};
+
+export const getPostById = async (postId: string): Promise<Post | null> => {
+  const docRef = doc(firestore, 'posts', postId);
+  const snap = await getDoc(docRef);
+  if (!snap.exists()) return null;
+  const post = mapDocToPost(snap);
+  if (!post.published) return null;
+  return post;
+};
+
+export const getPostsByUser = async (
+  userId: string,
+  params: Omit<PostQueryParams, 'authorId'> = {},
+): Promise<PostsPage> => getPosts({ ...params, authorId: userId });
+
+export const updatePost = async (postId: string, updates: PostUpdatePayload): Promise<Post> => {
+  const docRef = doc(firestore, 'posts', postId);
+  await updateDoc(docRef, {
+    ...updates,
+    updatedAt: serverTimestamp(),
+  });
+
+  const snap = await getDoc(docRef);
+  return mapDocToPost(snap);
+};
+
+export const deletePost = async (postId: string): Promise<void> => {
+  const docRef = doc(firestore, 'posts', postId);
+  await updateDoc(docRef, {
+    published: false,
+    updatedAt: serverTimestamp(),
+  });
 };

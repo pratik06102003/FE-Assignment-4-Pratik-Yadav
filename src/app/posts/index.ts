@@ -1,2 +1,2 @@
 export type { Post, PostCreatePayload, PostQueryParams } from './posts.type';
-export { getPosts } from './posts.services';
+export { getPosts, getPostById, getPostsByUser, deletePost, updatePost } from './posts.services';

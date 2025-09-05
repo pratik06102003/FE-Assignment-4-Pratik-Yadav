@@ -1,54 +1,43 @@
 import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
 
 import {
-  CLEAR_POSTS,
-  ClearPostsAction,
-  CREATE_POST_FAILURE,
-  CREATE_POST_REQUEST,
-  CREATE_POST_SUCCESS,
-  CreatePostFailureAction,
-  CreatePostRequestAction,
-  CreatePostSuccessAction,
-  FETCH_POSTS_FAILURE,
-  FETCH_POSTS_REQUEST,
-  FETCH_POSTS_SUCCESS,
-  FetchPostsFailureAction,
-  FetchPostsRequestAction,
-  FetchPostsSuccessAction,
+  ALL_POSTS_CLEAR,
+  ALL_POSTS_SUCCESS,
+  type AllPostsClearAction,
+  type AllPostsSuccessAction,
+  POST_FAILURE,
+  POST_REQUEST,
+  POST_SUCCESS,
+  type PostFailureAction,
+  type PostRequestAction,
+  type PostSuccessAction,
 } from './posts.types';
 
 import { Post } from '@app/posts';
 
-export const createPostRequest = (): CreatePostRequestAction => ({
-  type: CREATE_POST_REQUEST,
+export const postRequest = (): PostRequestAction => ({
+  type: POST_REQUEST,
 });
 
-export const createPostSuccess = (post: Post, message: string): CreatePostSuccessAction => ({
-  type: CREATE_POST_SUCCESS,
+export const postSuccess = (post: Post | null, message: string): PostSuccessAction => ({
+  type: POST_SUCCESS,
   payload: { post, message },
 });
 
-export const createPostFailure = (message: string): CreatePostFailureAction => ({
-  type: CREATE_POST_FAILURE,
+export const postFailure = (message: string): PostFailureAction => ({
+  type: POST_FAILURE,
   payload: { message },
 });
 
-export const fetchPostsRequest = (): FetchPostsRequestAction => ({ type: FETCH_POSTS_REQUEST });
-
-export const fetchPostsSuccess = (
-  posts: Post[],
-  cursor: QueryDocumentSnapshot<DocumentData, DocumentData>,
+export const allPostsSuccess = (
+  newPosts: Post[],
+  cursor: QueryDocumentSnapshot<DocumentData, DocumentData> | null,
   hasMore: boolean,
-): FetchPostsSuccessAction => ({
-  type: FETCH_POSTS_SUCCESS,
-  payload: { posts, cursor, hasMore },
+): AllPostsSuccessAction => ({
+  type: ALL_POSTS_SUCCESS,
+  payload: { newPosts, cursor, hasMore },
 });
 
-export const fetchPostsFailure = (message: string): FetchPostsFailureAction => ({
-  type: FETCH_POSTS_FAILURE,
-  payload: { message },
-});
-
-export const clearPosts = (): ClearPostsAction => ({
-  type: CLEAR_POSTS,
+export const allPostsClear = (): AllPostsClearAction => ({
+  type: ALL_POSTS_CLEAR,
 });

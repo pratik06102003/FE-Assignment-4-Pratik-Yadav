@@ -3,7 +3,6 @@ import { Ref } from 'react';
 
 import { Card, Flex, List, Skeleton, Spin, Typography } from 'antd';
 
-// import { Post } from '@components/PostCard';
 import { PostCard } from '@components/PostCard/PostCard.component';
 
 import { Post } from '@app/posts';
@@ -11,7 +10,7 @@ import { Post } from '@app/posts';
 type PostListProps = {
   posts: Post[];
   isLoading?: boolean;
-  onOpenPost?: (postId: string) => void;
+  onOpenPost?: (postId: string) => Promise<void>;
   hasMore?: boolean;
   ref: Ref<HTMLDivElement>;
 };

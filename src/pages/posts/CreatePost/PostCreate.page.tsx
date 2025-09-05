@@ -2,7 +2,7 @@ import { message } from 'antd';
 
 import { FormikHelpers } from 'formik';
 
-import { createPostFailure, createPostRequest, createPostSuccess } from '@store/posts/post.actions';
+import { postFailure, postRequest, postSuccess } from '@store/posts/post.actions';
 import { useAppDispatch, useAppSelector } from '@store/root';
 
 import { CreatePostForm } from './components/CreatePostForm';
@@ -13,7 +13,7 @@ import { createPost } from '@app/posts/posts.services';
 
 const PostCreate: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isCreating, postErrorMessage } = useAppSelector((state) => state.post);
+  const { isLoading } = useAppSelector((state) => state.posts);
   const userId = useAppSelector((state) => state.auth.user?.uid);
 
   const handleSubmit = async (
@@ -29,26 +29,20 @@ const PostCreate: React.FC = () => {
       authorId: userId,
       title: values.title.trim(),
       content: values.content,
-      tags: values.tags ? values.tags.split(',').map((t) => t.trim()) : [],
+      tags: values.tags,
     };
 
-    dispatch(createPostRequest());
+    dispatch(postRequest());
     try {
       const post = await createPost(userId, payload);
-      dispatch(createPostSuccess(post, 'Post Created!!'));
+      dispatch(postSuccess(post, 'Post Created!!'));
       resetForm();
     } catch {
-      dispatch(createPostFailure('Failed to create post'));
+      dispatch(postFailure('Failed to create post'));
     }
   };
 
-  return (
-    <CreatePostForm
-      handleSubmit={handleSubmit}
-      isLoading={isCreating}
-      errorMessage={postErrorMessage}
-    />
-  );
+  return <CreatePostForm onSubmit={handleSubmit} isLoading={isLoading} />;
 };
 
 export default PostCreate;

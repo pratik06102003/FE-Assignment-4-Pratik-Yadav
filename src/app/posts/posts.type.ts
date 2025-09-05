@@ -12,11 +12,11 @@ export type Post = {
   content: string;
   tags?: string[];
   published?: boolean;
-  createdAt?: Timestamp | null;
-  updatedAt?: Timestamp | null;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 };
 
-export type PostCreatePayload = Omit<Post, 'id' | 'createdAt' | 'updatedAt'>;
+export type PostCreatePayload = Omit<Post, 'id' | 'createdAt' | 'updatedAt' | 'author'>;
 export type PostUpdatePayload = Partial<Omit<Post, 'id' | 'authorId' | 'createdAt' | 'updatedAt'>>;
 
 export type PostQueryParams = {
@@ -32,5 +32,5 @@ export type PostQueryParams = {
 
 export type PostsPage = {
   posts: Post[];
-  nextCursor?: QueryDocumentSnapshot<DocumentData> | null;
+  nextCursor: QueryDocumentSnapshot<DocumentData> | null;
 };

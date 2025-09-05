@@ -12,7 +12,7 @@ export const PostCard = ({ post, onOpen }: PostCardProps) => {
   const preview = post.content.slice(0, 220) + (post.content.length > 220 ? '…' : '');
 
   return (
-    <Card hoverable className="post-card" onClick={() => onOpen?.(post.id)}>
+    <Card hoverable className="post-card" onClick={() => void onOpen?.(post.id)}>
       <Flex vertical gap={12}>
         <Title level={4} ellipsis={{ rows: 2 }}>
           {post.title}

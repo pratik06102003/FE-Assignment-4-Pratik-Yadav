@@ -1,23 +1,25 @@
 import { useEffect, useState } from 'react';
 
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 
 import { PostList } from '@components/PostCardList';
 import { PostFilter } from '@components/PostFilter';
-import { clearPosts } from '@store/posts/post.actions';
 import { usePost } from '@store/posts/post.services';
-import { useAppDispatch, useAppSelector } from '@store/root';
+import { useAppSelector } from '@store/root';
 
 import { PostQueryParams } from '@app/posts/posts.type';
 
 const PostsIndex = () => {
-  const dispatch = useAppDispatch();
-  const { isFetching, posts, cursor, hasMore } = useAppSelector((state) => state.post);
-  const { ref, inView } = useInView({ threshold: 0 });
-  const { fetchPostService } = usePost();
-
+  const navigate = useNavigate();
+  const { isLoading, posts, cursor, hasMore } = useAppSelector((state) => state.posts);
+  const { ref, inView } = useInView({ threshold: 0.5 });
+  const { fetchPostService, filterPostService } = usePost();
   const [filters, setFilters] = useState<PostQueryParams>({ published: true });
 
+  const handlePostOpen = async (postId: string) => {
+    await navigate(`/posts/${postId}`);
+  };
   useEffect(() => {
     if (inView && hasMore) {
       void fetchPostService({ limit: 10, published: true, cursor, ...filters });
@@ -29,11 +31,17 @@ const PostsIndex = () => {
       <PostFilter
         onChange={(f) => {
           setFilters(f);
-          dispatch(clearPosts());
-          void fetchPostService({ limit: 10, ...f }); // refetch on filter change
+          void filterPostService({ limit: 10, ...f });
         }}
+        initialFilters={{ order: 'desc', orderByField: 'createdAt' }}
       />
-      <PostList posts={posts} isLoading={isFetching} hasMore={hasMore} ref={ref} />
+      <PostList
+        posts={posts}
+        isLoading={isLoading}
+        hasMore={hasMore}
+        onOpenPost={handlePostOpen}
+        ref={ref}
+      />
       <div ref={ref}></div>
     </>
   );

@@ -13,7 +13,7 @@ import { RouteErrorBoundary } from './RouteErrorBoundary';
 
 const PostsIndex = lazy(() => import('@pages/posts/PostIndex'));
 const PostDetails = lazy(() => import('@pages/posts/PostDetails'));
-const PostCreate = lazy(() => import('@pages/posts/PostCreate'));
+const PostCreate = lazy(() => import('@pages/posts/CreatePost'));
 const PostEdit = lazy(() => import('@pages/posts/PostEdit'));
 const Signin = lazy(() => import('@pages/auth/Signin'));
 const Signup = lazy(() => import('@pages/auth/Signup'));

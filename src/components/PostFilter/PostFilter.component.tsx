@@ -11,8 +11,6 @@ const { Search } = Input;
 export type PostFiltersProps = {
   onChange: (filters: PostQueryParams) => void;
   initialFilters?: Partial<PostQueryParams>;
-  availableTags?: string[];
-  availableAuthors?: { id: string; name: string }[];
 };
 
 export const PostFilter = ({ onChange, initialFilters = {} }: PostFiltersProps) => {
@@ -20,8 +18,8 @@ export const PostFilter = ({ onChange, initialFilters = {} }: PostFiltersProps) 
 
   const handleUpdate = (changed: Partial<PostQueryParams>) => {
     const updated = { ...filters, ...changed };
-    setFilters(updated);
     onChange(updated);
+    setFilters({ ...updated, titlePrefix: '' });
   };
 
   return (
@@ -32,6 +30,8 @@ export const PostFilter = ({ onChange, initialFilters = {} }: PostFiltersProps) 
         allowClear
         onSearch={(val) => handleUpdate({ titlePrefix: val })}
         className="post-filter__search"
+        onChange={(e) => setFilters({ ...filters, titlePrefix: e.target.value })}
+        value={filters.titlePrefix}
       />
 
       {/* Sorting */}
@@ -55,7 +55,7 @@ export const PostFilter = ({ onChange, initialFilters = {} }: PostFiltersProps) 
         <Option value="desc">Descending</Option>
       </Select>
 
-      <Button onClick={() => handleUpdate({})}>Reset</Button>
+      <Button onClick={() => handleUpdate(initialFilters)}>Reset</Button>
     </Flex>
   );
 };

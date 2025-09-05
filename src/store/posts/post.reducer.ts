@@ -1,61 +1,65 @@
 import {
-  CLEAR_POSTS,
-  CREATE_POST_FAILURE,
-  CREATE_POST_REQUEST,
-  CREATE_POST_SUCCESS,
-  FETCH_POSTS_REQUEST,
-  FETCH_POSTS_SUCCESS,
-  PostsActionTypes,
-  PostsState,
+  ALL_POSTS_CLEAR,
+  ALL_POSTS_SUCCESS,
+  POST_FAILURE,
+  POST_REQUEST,
+  POST_SUCCESS,
+  type PostsActionTypes,
+  type PostsState,
 } from './posts.types';
 
 const initialState: PostsState = {
   posts: [],
-  isCreating: false,
-  isFetching: false,
-  postErrorMessage: null,
-  postInfoMessage: null,
+  post: null,
+  isLoading: false,
   cursor: null,
   hasMore: true,
+  errorMessage: null,
+  infoMessage: null,
 };
 
-export function postsReducer(state = initialState, action: PostsActionTypes): PostsState {
+export const postsReducer = (state = initialState, action: PostsActionTypes): PostsState => {
   switch (action.type) {
-    case CREATE_POST_REQUEST:
-      return { ...state, isCreating: true, postErrorMessage: null, postInfoMessage: null };
-
-    case CREATE_POST_SUCCESS: {
+    case POST_REQUEST:
       return {
         ...state,
-        isCreating: false,
-        postErrorMessage: null,
-        postInfoMessage: action.payload.message,
-        posts: [...state.posts, action.payload.post],
+        isLoading: true,
+        errorMessage: null,
+        infoMessage: null,
       };
-    }
 
-    case CREATE_POST_FAILURE:
-      return { ...state, isCreating: false, postErrorMessage: action.payload.message };
-
-    case FETCH_POSTS_REQUEST:
-      return { ...state, isFetching: true };
-
-    case FETCH_POSTS_SUCCESS:
+    case POST_SUCCESS:
       return {
         ...state,
-        isFetching: false,
-        posts: [...state.posts, ...action.payload.posts],
+        isLoading: false,
+        post: action.payload.post,
+        infoMessage: action.payload.message,
+        errorMessage: null,
+      };
+
+    case POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload.message,
+      };
+
+    case ALL_POSTS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        posts: [...state.posts, ...action.payload.newPosts],
         cursor: action.payload.cursor,
         hasMore: action.payload.hasMore,
+        errorMessage: null,
       };
 
-    case CLEAR_POSTS:
+    case ALL_POSTS_CLEAR:
       return {
-        ...state,
-        posts: [],
+        ...initialState,
       };
 
     default:
       return state;
   }
-}
+};

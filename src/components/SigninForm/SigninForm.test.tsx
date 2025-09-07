@@ -8,20 +8,18 @@ import type { SigninFormikValues, SigninFormsProps } from './SigninForm.types';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-const renderForm = (props?: Partial<SigninFormsProps>) => {
-  const mockHandleSubmit: jest.Mocked<
-    (values: SigninFormikValues, helpers: FormikHelpers<SigninFormikValues>) => Promise<void>
-  > = jest.fn();
-  const isLoading = props?.isLoading ?? false;
-  const user = userEvent.setup();
+const mockHandleSubmit: jest.Mocked<
+  (values: SigninFormikValues, helpers: FormikHelpers<SigninFormikValues>) => Promise<void>
+> = jest.fn();
 
-  const utils = render(
+const renderForm = (props?: Partial<SigninFormsProps>) => {
+  const isLoading = props?.isLoading ?? false;
+
+  render(
     <MemoryRouter>
       <SigninForm isLoading={isLoading} handleSubmit={mockHandleSubmit} />
     </MemoryRouter>,
   );
-
-  return { ...utils, user, mockHandleSubmit };
 };
 
 describe('Signin', () => {
@@ -44,7 +42,9 @@ describe('Signin', () => {
   });
 
   test('shows validation errors on empty submit', async () => {
-    const { user } = renderForm();
+    renderForm();
+    const user = userEvent.setup();
+
     const signinButton = screen.getByRole('button', { name: /sign in/i });
 
     await user.click(signinButton);
@@ -53,7 +53,8 @@ describe('Signin', () => {
   });
 
   test('calls handleSubmit with correct arguments on valid submit (user-event)', async () => {
-    const { user, mockHandleSubmit } = renderForm();
+    renderForm();
+    const user = userEvent.setup();
 
     const emailField = screen.getByLabelText(/email/i);
     const passwordField = screen.getByLabelText(/password/i);

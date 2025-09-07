@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 
 import { Button, Card, Flex, Input, Typography } from 'antd';
 
-import type { FieldProps } from 'formik';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -10,46 +9,44 @@ import { ROUTES } from '@constants/routes.constants';
 
 import type { SigninFormikValues, SigninFormsProps } from './SigninForm.types';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
+const { Password } = Input;
 
 const SigninSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email format').required('Email is required'),
-  password: Yup.string().min(8, 'Minimum 8 characters').required('Password is required'),
+  password: Yup.string().required('Password is required'),
 });
 
 const initialValues: SigninFormikValues = { email: '', password: '' };
 
-export const SigninForm = ({ isLoading, handleSubmit }: SigninFormsProps) => (
-  <>
+export const SigninForm = (props: SigninFormsProps) => {
+  const { isLoading, handleSubmit } = props;
+
+  return (
     <Card title={<Title level={3}>Signin</Title>}>
       <Formik initialValues={initialValues} validationSchema={SigninSchema} onSubmit={handleSubmit}>
         <Form className="form">
           <Flex className="form-control">
-            <label htmlFor="email">
-              <Text>Email</Text>
-            </label>
-            <Field name="email">
-              {({ field }: FieldProps<string, SigninFormikValues>) => (
-                <Input id="email" placeholder="Enter your email" {...field} disabled={isLoading} />
-              )}
-            </Field>
+            <label htmlFor="email">Email</label>
+            <Field
+              id="email"
+              name="email"
+              as={Input}
+              placeholder="Enter your email"
+              disabled={isLoading}
+            />
             <ErrorMessage name="email" component="div" className="form__error" />
           </Flex>
 
           <Flex className="form-control">
-            <label htmlFor="password">
-              <Text>Password</Text>
-            </label>
-            <Field name="password">
-              {({ field }: FieldProps<string, SigninFormikValues>) => (
-                <Input.Password
-                  id="password"
-                  placeholder="Enter your password"
-                  {...field}
-                  disabled={isLoading}
-                />
-              )}
-            </Field>
+            <label htmlFor="password">Password</label>
+            <Field
+              name="password"
+              as={Password}
+              id="password"
+              placeholder="Enter your password"
+              disabled={isLoading}
+            />
             <ErrorMessage name="password" component="div" className="form__error" />
           </Flex>
 
@@ -67,5 +64,5 @@ export const SigninForm = ({ isLoading, handleSubmit }: SigninFormsProps) => (
         </Form>
       </Formik>
     </Card>
-  </>
-);
+  );
+};

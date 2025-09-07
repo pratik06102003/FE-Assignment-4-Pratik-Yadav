@@ -3,10 +3,7 @@ import type { User } from '@app/auth';
 import { authFailure, authStart, authSuccess } from './auth.actions';
 import { authReducer } from './auth.reducer';
 import type { AuthState } from './auth.types';
-<<<<<<< HEAD
-=======
 
->>>>>>> 82b3fb9 (YP_RU_03: Auth 2 - Signin: Restructured service)
 describe('authReducer', () => {
   const initialState: AuthState = {
     user: null,
@@ -21,11 +18,7 @@ describe('authReducer', () => {
 
   test('AUTH_SUCCESS stores user and stops loading', () => {
     const user: User = { uid: 'u1', email: 'test@test.com' };
-<<<<<<< HEAD
     const state = authReducer(initialState, authSuccess(user));
-=======
-    const state = authReducer(initialState, authSuccess(user, 'successful'));
->>>>>>> 82b3fb9 (YP_RU_03: Auth 2 - Signin: Restructured service)
     expect(state.loading).toBe(false);
     expect(state.user).toEqual(user);
   });

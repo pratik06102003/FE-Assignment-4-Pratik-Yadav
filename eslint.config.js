@@ -84,6 +84,7 @@ export default tseslint.config(
               '^@styles',
               '^@contexts',
               '^@hooks',
+              '^@utils',
             ],
             ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
           ],

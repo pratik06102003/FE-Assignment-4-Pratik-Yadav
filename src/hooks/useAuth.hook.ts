@@ -1,14 +1,9 @@
 import { FirebaseError } from 'firebase/app';
 
-<<<<<<< HEAD:src/hooks/useAuth.hook.ts
-import { listen, signout, signup } from '@app/auth';
+import { listen, resetPassword, signin, signout, signup } from '@app/auth';
 import { authFailure, authStart, authSuccess } from '@store/auth';
 import { sendErrorMessage, sendInfoMessage } from '@store/messages';
-=======
-import { listen, resetPassword, signin, signout, signup } from '@app/auth';
->>>>>>> 82b3fb9 (YP_RU_03: Auth 2 - Signin: Restructured service):src/store/auth/auth.services.ts
 import { useAppDispatch } from '@store/root';
-
 import { mapFirebaseError } from '@utils/firebase';
 
 export const useAuth = () => {
@@ -31,11 +26,10 @@ export const useAuth = () => {
       dispatch(authSuccess(user));
       dispatch(sendInfoMessage('User Signup Successful'));
     } catch (error) {
+      dispatch(authFailure());
       if (error instanceof FirebaseError) {
-        dispatch(authFailure());
         dispatch(sendErrorMessage(mapFirebaseError(error.code)));
       } else {
-        dispatch(authFailure());
         dispatch(sendErrorMessage(mapFirebaseError('Unexpected Error occurred')));
       }
     }
@@ -45,12 +39,14 @@ export const useAuth = () => {
     dispatch(authStart());
     try {
       const user = await signin(email, password);
-      dispatch(authSuccess(user, 'Sign in successful'));
+      dispatch(authSuccess(user));
+      dispatch(sendInfoMessage('Sign in successful!!'));
     } catch (error) {
+      dispatch(authFailure());
       if (error instanceof FirebaseError) {
-        dispatch(authError(mapFirebaseError(error.code)));
+        dispatch(sendErrorMessage(mapFirebaseError(error.code)));
       } else {
-        dispatch(authError('Unexpected Error occurred'));
+        dispatch(sendErrorMessage('Unexpected Error occurred'));
       }
     }
   };
@@ -62,11 +58,10 @@ export const useAuth = () => {
       dispatch(authSuccess(null));
       dispatch(sendInfoMessage('Signout Successful'));
     } catch (error) {
+      dispatch(authFailure());
       if (error instanceof FirebaseError) {
-        dispatch(authFailure());
         dispatch(sendErrorMessage(mapFirebaseError(error.code)));
       } else {
-        dispatch(authFailure());
         dispatch(sendErrorMessage(mapFirebaseError('Unexpected Error occurred')));
       }
     }
@@ -76,12 +71,14 @@ export const useAuth = () => {
     dispatch(authStart());
     try {
       await resetPassword(email);
-      dispatch(authSuccess(null, 'Password reset Email Sent'));
+      dispatch(authSuccess(null));
+      dispatch(sendInfoMessage('Reset password link send to your mail'));
     } catch (error) {
+      dispatch(authFailure());
       if (error instanceof FirebaseError) {
-        dispatch(authError(mapFirebaseError(error.code)));
+        dispatch(sendErrorMessage(mapFirebaseError(error.code)));
       } else {
-        dispatch(authError('Unexpected Error occurred'));
+        dispatch(sendErrorMessage(mapFirebaseError('Unexpected Error occurred')));
       }
     }
   };

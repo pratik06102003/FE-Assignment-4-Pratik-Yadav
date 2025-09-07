@@ -1,43 +1,21 @@
-import { useEffect } from 'react';
-
 import { Flex } from 'antd';
 
 import { ResetPasswordForm } from '@components/ResetPasswordForm';
-import { useAuth } from '@store/auth';
 import { useAppSelector } from '@store/root';
-import { useNotificationApi } from '@contexts/Notification';
+import { useAuth } from '@hooks/useAuth.hook';
 
 import type { ResetPasswordFormikValues } from './ResetPassword.types';
 
 export const ResetPassword = () => {
-  const { loading, errorMessage, infoMessage } = useAppSelector((s) => s.auth);
+  const { loading } = useAppSelector((s) => s.auth);
   const { resetPasswordService } = useAuth();
-
-  const api = useNotificationApi();
-
-  useEffect(() => {
-    if (errorMessage) {
-      api.error({
-        message: 'Hold on, something is wrong !!',
-        description: errorMessage,
-        placement: 'topLeft',
-      });
-    }
-    if (infoMessage) {
-      api.info({
-        message: 'Here you go',
-        description: infoMessage,
-        placement: 'topLeft',
-      });
-    }
-  }, [errorMessage, infoMessage, api]);
 
   const handleSubmit = async (values: ResetPasswordFormikValues) => {
     await resetPasswordService(values.email);
   };
 
   return (
-    <Flex align="center" style={{ height: '100%' }}>
+    <Flex align="center" className="page">
       <ResetPasswordForm handleSubmit={handleSubmit} isLoading={loading} />
     </Flex>
   );

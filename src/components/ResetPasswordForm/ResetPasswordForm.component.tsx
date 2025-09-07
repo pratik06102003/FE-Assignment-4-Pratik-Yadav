@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 
 import { Button, Card, Flex, Input, Typography } from 'antd';
 
-import type { FieldProps } from 'formik';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -28,11 +27,13 @@ export const ResetPasswordForm = (props: ResetPasswordFormProps) => {
             <label htmlFor="email" className="form__label">
               Email
             </label>
-            <Field name="email">
-              {({ field }: FieldProps<string, ResetPasswordFormikValues>) => (
-                <Input id="email" placeholder="Enter your email" {...field} disabled={isLoading} />
-              )}
-            </Field>
+            <Field
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              disabled={isLoading}
+              as={Input}
+            />
             <ErrorMessage name="email" component="div" className="form__error" />
           </Flex>
 

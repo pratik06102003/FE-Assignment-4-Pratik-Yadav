@@ -1,10 +1,11 @@
 import { FirebaseError } from 'firebase/app';
 
 import { listen, signout, signup } from '@app/auth';
+import { authFailure, authStart, authSuccess } from '@store/auth';
+import { sendErrorMessage, sendInfoMessage } from '@store/messages';
 import { useAppDispatch } from '@store/root';
 
-import { authError, authStart, authSuccess } from './auth.actions';
-import { mapFirebaseError } from './auth.utils';
+import { mapFirebaseError } from '@utils/firebase';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -23,12 +24,15 @@ export const useAuth = () => {
     dispatch(authStart());
     try {
       const user = await signup(firstName, lastName, email, password);
-      dispatch(authSuccess(user, 'Signup Successful'));
+      dispatch(authSuccess(user));
+      dispatch(sendInfoMessage('User Signup Successful'));
     } catch (error) {
       if (error instanceof FirebaseError) {
-        dispatch(authError(mapFirebaseError(error.code)));
+        dispatch(authFailure());
+        dispatch(sendErrorMessage(mapFirebaseError(error.code)));
       } else {
-        dispatch(authError('Unexpected Error occurred'));
+        dispatch(authFailure());
+        dispatch(sendErrorMessage(mapFirebaseError('Unexpected Error occurred')));
       }
     }
   };
@@ -37,12 +41,15 @@ export const useAuth = () => {
     dispatch(authStart());
     try {
       await signout();
-      dispatch(authSuccess(null, 'Signout Successful'));
+      dispatch(authSuccess(null));
+      dispatch(sendInfoMessage('Signout Successful'));
     } catch (error) {
       if (error instanceof FirebaseError) {
-        dispatch(authError(mapFirebaseError(error.code)));
+        dispatch(authFailure());
+        dispatch(sendErrorMessage(mapFirebaseError(error.code)));
       } else {
-        dispatch(authError('Unexpected Error occurred'));
+        dispatch(authFailure());
+        dispatch(sendErrorMessage(mapFirebaseError('Unexpected Error occurred')));
       }
     }
   };

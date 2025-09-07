@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
-import { firebaseAuth, firestore } from '@app/index';
+import { firebaseAuth, firestore } from '@app/firebase';
 
 import type { User } from './auth.types';
 
@@ -27,7 +27,7 @@ export const signup = async (
   lastName: string,
   email: string,
   password: string,
-): Promise<User> => {
+): Promise<User | null> => {
   await setPersistence(firebaseAuth, browserLocalPersistence);
   const { user } = await createUserWithEmailAndPassword(firebaseAuth, email, password);
   await setDoc(doc(firestore, 'users', user.uid), {

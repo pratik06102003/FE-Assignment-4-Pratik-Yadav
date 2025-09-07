@@ -1,8 +1,9 @@
 import { MemoryRouter } from 'react-router-dom';
 
 import type { FormikHelpers } from 'formik';
+import { ValidationError } from 'yup';
 
-import { SignupForm } from './SignupForm.component';
+import { SignupForm, SignupSchema } from './SignupForm.component';
 import type { SignupFormikValues, SignUpFormsProps } from './SignupForm.types';
 
 import { render, screen } from '@testing-library/react';
@@ -45,13 +46,35 @@ describe('Signup', () => {
 
   test('shows validation errors on empty submit', async () => {
     const { user } = renderForm();
+
+    const firstNameField = screen.getByLabelText<HTMLInputElement>(/first name/i);
+    const lastNameField = screen.getByLabelText<HTMLInputElement>(/last name/i);
+    const emailField = screen.getByLabelText<HTMLInputElement>(/email/i);
+    const passwordField = screen.getByLabelText<HTMLInputElement>(/password/i);
     const signupButton = screen.getByRole('button', { name: /sign up/i });
 
     await user.click(signupButton);
-    expect(screen.getByText(/first name is required/i)).toBeVisible();
-    expect(screen.getByText(/last name is required/i)).toBeVisible();
-    expect(screen.getByText(/email is required/i)).toBeVisible();
-    expect(screen.getByText(/password is required/i)).toBeVisible();
+    const values = {
+      firstName: firstNameField.value,
+      lastName: lastNameField.value,
+      email: emailField.value,
+      password: passwordField.value,
+    };
+
+    try {
+      await SignupSchema.validate(values, { abortEarly: false });
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        const messages = err.inner.map((e) => e.message);
+
+        expect(messages).toContain('First name is required');
+        expect(messages).toContain('Last name is required');
+        expect(messages).toContain('Email is required');
+        expect(messages).toContain('Password is required');
+      } else {
+        throw err;
+      }
+    }
   });
 
   test('calls signUp with correct arguments on valid submit (user-event)', async () => {

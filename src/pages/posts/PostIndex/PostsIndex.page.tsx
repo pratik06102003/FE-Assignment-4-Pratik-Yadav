@@ -1,6 +1,6 @@
 import { Button, Typography } from 'antd';
 
-import { useAuth } from '@store/auth';
+import { useAuth } from '@hooks/useAuth.hook';
 
 const { Title } = Typography;
 const PostsIndex = () => {

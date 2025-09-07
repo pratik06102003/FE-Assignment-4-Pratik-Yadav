@@ -1,4 +1,3 @@
-import { type ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Spin } from 'antd';
@@ -6,15 +5,16 @@ import { Spin } from 'antd';
 import { useAppSelector } from '@store/root';
 import { ROUTES } from '@constants/routes.constants';
 
-export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+import type { ProtectedRoutesProps } from './ProtectedRoute.types';
+
+export const ProtectedRoute = (props: ProtectedRoutesProps) => {
+  const { children } = props;
   const { user, loading } = useAppSelector((s) => s.auth);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!loading && !user) {
-      void navigate(ROUTES.SIGNUP);
-    }
-  }, [user, loading, navigate]);
+  if (!loading && !user) {
+    void navigate(ROUTES.SIGNIN);
+  }
 
   return loading ? <Spin fullscreen /> : children;
 };

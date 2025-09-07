@@ -12,6 +12,8 @@ export default {
     '^@constants/(.*)$': '<rootDir>/src/constants/$1',
     '^@store/(.*)$': '<rootDir>/src/store/$1',
     '^@contexts/(.*)$': '<rootDir>/src/contexts/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@app/(.*)$': '<rootDir>/src/app/$1',
   },
   testPathIgnorePatterns: ['/node_modules/', '/build/'],
 };

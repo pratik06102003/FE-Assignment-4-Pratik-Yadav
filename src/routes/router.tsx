@@ -8,8 +8,8 @@ import type { RouteObject } from 'react-router-dom';
 import { AuthLayout } from '@layouts/AuthLayout';
 import { RootLayout } from '@layouts/RootLayout';
 
+import { AuthRoute } from './AuthRoute';
 import { ProtectedRoute } from './ProtectedRoute';
-import { PublicRoute } from './PublicRoute';
 import { RouteErrorBoundary } from './RouteErrorBoundary';
 
 import PostsIndex from '@pages/posts/PostIndex/PostsIndex.page';
@@ -25,16 +25,17 @@ const Signin = lazy(() =>
 );
 const routes: RouteObject[] = [
   {
-    element: (
-      <ProtectedRoute>
-        <RootLayout />
-      </ProtectedRoute>
-    ),
+    element: <RootLayout />,
     errorElement: <RouteErrorBoundary />,
     children: [
       {
         index: true,
-        element: <PostsIndex />,
+
+        element: (
+          <ProtectedRoute>
+            <PostsIndex />,
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'not-found',
@@ -53,18 +54,16 @@ const routes: RouteObject[] = [
 
   {
     path: 'auth',
-    element: (
-      <PublicRoute>
-        <AuthLayout />
-      </PublicRoute>
-    ),
+    element: <AuthLayout />,
     errorElement: <RouteErrorBoundary />,
     children: [
       {
         path: 'signin',
         element: (
           <Suspense fallback={<Spin fullscreen />}>
-            <Signin />
+            <AuthRoute>
+              <Signin />
+            </AuthRoute>
           </Suspense>
         ),
       },
@@ -72,7 +71,9 @@ const routes: RouteObject[] = [
         path: 'signup',
         element: (
           <Suspense fallback={<Spin fullscreen />}>
-            <Signup />
+            <AuthRoute>
+              <Signup />
+            </AuthRoute>
           </Suspense>
         ),
       },

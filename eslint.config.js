@@ -73,6 +73,7 @@ export default tseslint.config(
             ['^react', '^redux', '^@redux', '^react-redux'],
             ['^\\w'],
             [
+              '^@app',
               '^@assets',
               '^@components',
               '^@store',
@@ -81,6 +82,8 @@ export default tseslint.config(
               '^@constants',
               '^@features',
               '^@styles',
+              '^@contexts',
+              '^@hooks',
             ],
             ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
           ],

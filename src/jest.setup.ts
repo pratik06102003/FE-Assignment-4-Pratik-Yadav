@@ -30,9 +30,5 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-if (!('TextEncoder' in globalThis)) {
-  Object.defineProperty(globalThis, 'TextEncoder', { value: TextEncoder });
-}
-if (!('TextDecoder' in globalThis)) {
-  Object.defineProperty(globalThis, 'TextDecoder', { value: TextDecoder });
-}
+Object.defineProperty(globalThis, 'TextEncoder', { value: TextEncoder });
+Object.defineProperty(globalThis, 'TextDecoder', { value: TextDecoder });

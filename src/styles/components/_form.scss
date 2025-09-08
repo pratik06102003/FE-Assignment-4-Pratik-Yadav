@@ -1,0 +1,15 @@
+@use '../abstracts/functions' as functions;
+@use '../abstracts/variables' as variables;
+@use '../abstracts/mixins' as mixins;
+
+.form {
+  @include mixins.flex($direction: column, $align-items: stretch, $gap: functions.px-to-rem(8));
+
+  &-control {
+    flex-direction: column;
+  }
+
+  &__error {
+    color: variables.$error;
+  }
+}

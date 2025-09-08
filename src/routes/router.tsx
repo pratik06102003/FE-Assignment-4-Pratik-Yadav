@@ -5,14 +5,24 @@ import { Spin } from 'antd';
 
 import type { RouteObject } from 'react-router-dom';
 
+import { AuthLayout } from '@layouts/AuthLayout';
 import { RootLayout } from '@layouts/RootLayout';
 
+import { AuthRoute } from './AuthRoute';
+import { ProtectedRoute } from './ProtectedRoute';
 import { RouteErrorBoundary } from './RouteErrorBoundary';
+
+import PostsIndex from '@pages/posts/PostIndex/PostsIndex.page';
 
 const NotFound = lazy(() =>
   import('@pages/notFound').then((module) => ({ default: module.NotFound })),
 );
-
+const Signup = lazy(() =>
+  import('@pages/auth/Signup').then((module) => ({ default: module.Signup })),
+);
+const Signin = lazy(() =>
+  import('@pages/notFound').then((module) => ({ default: module.NotFound })),
+);
 const routes: RouteObject[] = [
   {
     element: <RootLayout />,
@@ -20,12 +30,17 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <div>TO BE IMPLEMENTED</div>,
+
+        element: (
+          <ProtectedRoute>
+            <PostsIndex />,
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'not-found',
         element: (
-          <Suspense fallback={<Spin />}>
+          <Suspense fallback={<Spin fullscreen />}>
             <NotFound />
           </Suspense>
         ),
@@ -33,6 +48,34 @@ const routes: RouteObject[] = [
       {
         path: '*',
         element: <Navigate to="/not-found" />,
+      },
+    ],
+  },
+
+  {
+    path: 'auth',
+    element: <AuthLayout />,
+    errorElement: <RouteErrorBoundary />,
+    children: [
+      {
+        path: 'signin',
+        element: (
+          <Suspense fallback={<Spin fullscreen />}>
+            <AuthRoute>
+              <Signin />
+            </AuthRoute>
+          </Suspense>
+        ),
+      },
+      {
+        path: 'signup',
+        element: (
+          <Suspense fallback={<Spin fullscreen />}>
+            <AuthRoute>
+              <Signup />
+            </AuthRoute>
+          </Suspense>
+        ),
       },
     ],
   },

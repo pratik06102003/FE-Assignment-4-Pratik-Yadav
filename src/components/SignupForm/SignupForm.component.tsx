@@ -3,38 +3,23 @@ import { Link } from 'react-router-dom';
 import { Button, Card, Flex, Input, Typography } from 'antd';
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import * as Yup from 'yup';
 
-import {
-  FORM_FIRST_NAME_FILED_MAX_LENGTH,
-  FORM_LAST_NAME_FILED_MAX_LENGTH,
-  FORM_PASSWORD_FILED_MIN_LENGTH,
-} from '@constants/common.constant';
 import { ROUTES } from '@constants/routes.constants';
 
-import type { SignupFormikValues, SignUpFormsProps } from './SignupForm.types';
+import { SIGNUP_FORM_DEFAULT_VALUES } from './SignupForm.constants';
+import { SignupSchema } from './SignupForm.schema';
+import type { SignUpFormsProps } from './SignupForm.types';
 
 const { Title } = Typography;
 const { Password } = Input;
 
-export const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .max(FORM_FIRST_NAME_FILED_MAX_LENGTH, `Maximum ${FORM_FIRST_NAME_FILED_MAX_LENGTH} characters`)
-    .required('First name is required'),
-  lastName: Yup.string()
-    .max(FORM_LAST_NAME_FILED_MAX_LENGTH, `Maximum ${FORM_LAST_NAME_FILED_MAX_LENGTH} characters`)
-    .required('Last name is required'),
-  email: Yup.string().email('Invalid email format').required('Email is required'),
-  password: Yup.string()
-    .min(FORM_PASSWORD_FILED_MIN_LENGTH, `Minimum ${FORM_PASSWORD_FILED_MIN_LENGTH} characters`)
-    .required('Password is required'),
-});
-
-const initialValues: SignupFormikValues = { firstName: '', lastName: '', email: '', password: '' };
-
 export const SignupForm = ({ isLoading, handleSubmit }: SignUpFormsProps) => (
   <Card title={<Title level={3}>Signup</Title>}>
-    <Formik initialValues={initialValues} validationSchema={SignupSchema} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={SIGNUP_FORM_DEFAULT_VALUES}
+      validationSchema={SignupSchema}
+      onSubmit={handleSubmit}
+    >
       <Form className="form">
         <Flex className="form-control">
           <label htmlFor="firstName">First Name</label>

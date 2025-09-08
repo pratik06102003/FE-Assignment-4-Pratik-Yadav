@@ -3,26 +3,24 @@ import { MemoryRouter } from 'react-router-dom';
 import type { FormikHelpers } from 'formik';
 import { ValidationError } from 'yup';
 
-import { SignupForm, SignupSchema } from './SignupForm.component';
+import { SignupForm } from './SignupForm.component';
+import { SignupSchema } from './SignupForm.schema';
 import type { SignupFormikValues, SignUpFormsProps } from './SignupForm.types';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+const mockHandleSubmit: jest.Mocked<
+  (values: SignupFormikValues, helpers: FormikHelpers<SignupFormikValues>) => Promise<void>
+> = jest.fn();
 
 const renderForm = (props?: Partial<SignUpFormsProps>) => {
-  const mockHandleSubmit: jest.Mocked<
-    (values: SignupFormikValues, helpers: FormikHelpers<SignupFormikValues>) => Promise<void>
-  > = jest.fn();
   const isLoading = props?.isLoading ?? false;
-  const user = userEvent.setup();
 
-  const utils = render(
+  render(
     <MemoryRouter>
       <SignupForm isLoading={isLoading} handleSubmit={mockHandleSubmit} />
     </MemoryRouter>,
   );
-
-  return { ...utils, user, mockHandleSubmit };
 };
 
 describe('Signup', () => {
@@ -45,8 +43,8 @@ describe('Signup', () => {
   });
 
   test('shows validation errors on empty submit', async () => {
-    const { user } = renderForm();
-
+    renderForm();
+    const user = userEvent.setup();
     const firstNameField = screen.getByLabelText<HTMLInputElement>(/first name/i);
     const lastNameField = screen.getByLabelText<HTMLInputElement>(/last name/i);
     const emailField = screen.getByLabelText<HTMLInputElement>(/email/i);
@@ -54,6 +52,7 @@ describe('Signup', () => {
     const signupButton = screen.getByRole('button', { name: /sign up/i });
 
     await user.click(signupButton);
+
     const values = {
       firstName: firstNameField.value,
       lastName: lastNameField.value,
@@ -61,24 +60,32 @@ describe('Signup', () => {
       password: passwordField.value,
     };
 
+    let validationError: ValidationError | null = null;
+
     try {
       await SignupSchema.validate(values, { abortEarly: false });
     } catch (err) {
       if (err instanceof ValidationError) {
-        const messages = err.inner.map((e) => e.message);
-
-        expect(messages).toContain('First name is required');
-        expect(messages).toContain('Last name is required');
-        expect(messages).toContain('Email is required');
-        expect(messages).toContain('Password is required');
+        validationError = err;
       } else {
         throw err;
       }
     }
+
+    expect(validationError).not.toBeNull();
+    if (validationError) {
+      const messages = validationError.inner.map((e) => e.message);
+
+      expect(messages.some((msg) => msg.includes('First name is required'))).toBe(true);
+      expect(messages.some((msg) => msg.includes('Last name is required'))).toBe(true);
+      expect(messages.some((msg) => msg.includes('Email is required'))).toBe(true);
+      expect(messages.some((msg) => msg.includes('Password is required'))).toBe(true);
+    }
   });
 
   test('calls signUp with correct arguments on valid submit (user-event)', async () => {
-    const { user, mockHandleSubmit } = renderForm();
+    renderForm();
+    const user = userEvent.setup();
 
     const firstNameField = screen.getByLabelText(/first name/i);
     const lastNameFiled = screen.getByLabelText(/last name/i);

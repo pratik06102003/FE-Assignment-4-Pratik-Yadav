@@ -5,9 +5,37 @@ export const TRIGGERS = {
   HOVER: 'hover',
 } as const;
 
-export const FORM_FIRST_NAME_FILED_MAX_LENGTH = 50;
-export const FORM_LAST_NAME_FILED_MAX_LENGTH = 50;
-export const FORM_PASSWORD_FILED_MIN_LENGTH = 8;
+export const AUTH_FORM = {
+  FIRST_NAME: {
+    MAX_LEN: {
+      CONSTRAINT: 50,
+      MESSAGE: 'First name must not exceed 50 characters.',
+    },
+    REQUIRED: {
+      MESSAGE: 'First name is required.',
+    },
+  },
+
+  LAST_NAME: {
+    MAX_LEN: {
+      CONSTRAINT: 50,
+      MESSAGE: 'Last name must not exceed 50 characters.',
+    },
+    REQUIRED: {
+      MESSAGE: 'Last name is required.',
+    },
+  },
+
+  PASSWORD: {
+    MIN_LEN: {
+      CONSTRAINT: 8,
+      MESSAGE: 'Password must be at least 8 characters long.',
+    },
+    REQUIRED: {
+      MESSAGE: 'Password is required.',
+    },
+  },
+};
 
 // This is an object, as later other collections can be added
 export const FIRESTORE_COLLECTIONS = {

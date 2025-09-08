@@ -67,7 +67,7 @@ describe('Signup page', () => {
     expect(message.errorMessage).toBeNull();
   });
 
-  it('Triggres errormessage if api throws error', async () => {
+  test('Triggers errormessage if api throws error', async () => {
     signupMock.mockImplementationOnce(() => {
       throw new Error();
     });

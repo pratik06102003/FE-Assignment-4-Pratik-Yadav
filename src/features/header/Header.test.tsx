@@ -1,12 +1,6 @@
 import { Grid } from 'antd';
 
 import { ROUTES } from '@constants/routes.constants';
-
-import { Header } from './Header.component';
-import { HEADER_DROPDOWN_ITEMS, HEADER_MENU_ITEMS } from './Header.constants';
-
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import {
   expectMenuitemsToBeVisible,
   expectMenuitemsToHaveCorrectHref,
@@ -14,6 +8,22 @@ import {
   renderWithRouter,
 } from '@utils/test.utils';
 
+import { HEADER_MENU_ITEMS } from './Header.constants';
+
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+const mockUseAuth = jest.fn();
+jest.mock('@hooks/useAuth.hook', () => ({
+  useAuth: mockUseAuth,
+}));
+
+const mockSignout = jest.fn();
+mockUseAuth.mockImplementation(() => ({
+  signoutService: mockSignout,
+}));
+
+import { Header } from './Header.component';
 describe('Header Component', () => {
   const mockedUseBreakpoint = Grid.useBreakpoint as jest.Mock;
 
@@ -26,15 +36,12 @@ describe('Header Component', () => {
     await expectMenuitemsToBeVisible(HEADER_MENU_ITEMS.map((item) => item.label));
     expectMenuitemsToHaveCorrectHref(HEADER_MENU_ITEMS);
 
-    const searchInput = screen.getByPlaceholderText(/search stories, authors/i);
-    expect(searchInput).toBeVisible();
-
     const writeButton = screen.getByRole('link', { name: /write/i });
     expect(writeButton).toBeVisible();
     expect(writeButton).toHaveAttribute('href', ROUTES.CREATE_POST);
 
-    await userEvent.type(searchInput, 'React Testing');
-    expect(searchInput).toHaveValue('React Testing');
+    const signoutButton = screen.getByRole('button', { name: /signout/i });
+    expect(signoutButton).toBeVisible();
   });
 
   test('renders Dropdown on mobile', async () => {
@@ -49,17 +56,12 @@ describe('Header Component', () => {
     expectMenuitemsToHaveCorrectHref(HEADER_MENU_ITEMS);
   });
 
-  test('renders user avatar dropdown and opens on click', async () => {
-    mockedUseBreakpoint.mockReturnValue({ md: true });
+  test('calls signout service on clicking signout', async () => {
+    mockedUseBreakpoint.mockReturnValue({ sm: true });
     renderWithRouter(<Header />);
-    const avatarButton = screen.getByRole('button', { name: 'user' });
+    const signoutButton = screen.getByRole('button', { name: /signout/i });
+    await userEvent.click(signoutButton);
 
-    expectMenuitemsToNotToBeVisible(HEADER_DROPDOWN_ITEMS.map((item) => item.label));
-
-    expect(avatarButton).toBeVisible();
-    await userEvent.click(avatarButton);
-
-    await expectMenuitemsToBeVisible(HEADER_DROPDOWN_ITEMS.map((item) => item.label));
-    expectMenuitemsToHaveCorrectHref(HEADER_DROPDOWN_ITEMS);
+    expect(mockSignout).toHaveBeenCalledTimes(1);
   });
 });

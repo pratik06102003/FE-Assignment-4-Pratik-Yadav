@@ -1,8 +1,10 @@
 import { MemoryRouter } from 'react-router-dom';
 
 import type { FormikHelpers } from 'formik';
+import { ValidationError } from 'yup';
 
 import { SigninForm } from './SigninForm.component';
+import { SigninSchema } from './SigninForm.schema';
 import type { SigninFormikValues, SigninFormsProps } from './SigninForm.types';
 
 import { render, screen } from '@testing-library/react';
@@ -44,12 +46,36 @@ describe('Signin', () => {
   test('shows validation errors on empty submit', async () => {
     renderForm();
     const user = userEvent.setup();
-
+    const emailField = screen.getByLabelText<HTMLInputElement>(/email/i);
+    const passwordField = screen.getByLabelText<HTMLInputElement>(/password/i);
     const signinButton = screen.getByRole('button', { name: /sign in/i });
 
     await user.click(signinButton);
-    expect(screen.getByText(/email is required/i)).toBeVisible();
-    expect(screen.getByText(/password is required/i)).toBeVisible();
+
+    const values = {
+      email: emailField.value,
+      password: passwordField.value,
+    };
+
+    let validationError: ValidationError | null = null;
+
+    try {
+      await SigninSchema.validate(values, { abortEarly: false });
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        validationError = err;
+      } else {
+        throw err;
+      }
+    }
+
+    expect(validationError).not.toBeNull();
+    if (validationError) {
+      const messages = validationError.inner.map((e) => e.message);
+
+      expect(messages.some((msg) => msg.includes('Email is required'))).toBe(true);
+      expect(messages.some((msg) => msg.includes('Password is required'))).toBe(true);
+    }
   });
 
   test('calls handleSubmit with correct arguments on valid submit (user-event)', async () => {

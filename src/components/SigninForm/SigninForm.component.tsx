@@ -3,28 +3,26 @@ import { Link } from 'react-router-dom';
 import { Button, Card, Flex, Input, Typography } from 'antd';
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import * as Yup from 'yup';
 
 import { ROUTES } from '@constants/routes.constants';
 
-import type { SigninFormikValues, SigninFormsProps } from './SigninForm.types';
+import { SIGNIN_FORM_DEFAULT_VALUES } from './SigninForm.constants';
+import { SigninSchema } from './SigninForm.schema';
+import type { SigninFormsProps } from './SigninForm.types';
 
 const { Title } = Typography;
 const { Password } = Input;
-
-const SigninSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email format').required('Email is required'),
-  password: Yup.string().required('Password is required'),
-});
-
-const initialValues: SigninFormikValues = { email: '', password: '' };
 
 export const SigninForm = (props: SigninFormsProps) => {
   const { isLoading, handleSubmit } = props;
 
   return (
     <Card title={<Title level={3}>Signin</Title>}>
-      <Formik initialValues={initialValues} validationSchema={SigninSchema} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={SIGNIN_FORM_DEFAULT_VALUES}
+        validationSchema={SigninSchema}
+        onSubmit={handleSubmit}
+      >
         <Form className="form">
           <Flex className="form-control">
             <label htmlFor="email">Email</label>

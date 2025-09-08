@@ -26,6 +26,15 @@ export const AUTH_FORM = {
     },
   },
 
+  EMAIL: {
+    INVALID_FORMAT: {
+      MESSAGE: 'Invalid Email Format',
+    },
+    REQUIRED: {
+      MESSAGE: 'Email is required.',
+    },
+  },
+
   PASSWORD: {
     MIN_LEN: {
       CONSTRAINT: 8,

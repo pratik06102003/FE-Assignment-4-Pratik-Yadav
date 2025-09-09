@@ -13,7 +13,7 @@ export const RootLayout = () => (
   <Layout className="root-layout">
     <Header />
 
-    <Content className="container">
+    <Content className="content">
       <Outlet />
     </Content>
 

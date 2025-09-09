@@ -12,8 +12,6 @@ import { AuthRoute } from './AuthRoute';
 import { ProtectedRoute } from './ProtectedRoute';
 import { RouteErrorBoundary } from './RouteErrorBoundary';
 
-import PostsIndex from '@pages/posts/PostIndex/PostsIndex.page';
-
 const NotFound = lazy(() =>
   import('@pages/notFound').then((module) => ({ default: module.NotFound })),
 );
@@ -27,6 +25,22 @@ const ResetPassword = lazy(() =>
   import('@pages/auth/ResetPassword').then((module) => ({ default: module.ResetPassword })),
 );
 
+const PostsFeed = lazy(() =>
+  import('@pages/posts/PostFeed').then((module) => ({ default: module.PostsFeed })),
+);
+
+const PostDetails = lazy(() =>
+  import('@pages/posts/PostDetails').then((module) => ({ default: module.PostDetails })),
+);
+
+const CreatePost = lazy(() =>
+  import('@pages/posts/CreatePost').then((module) => ({ default: module.CreatePost })),
+);
+
+const EditPost = lazy(() =>
+  import('@pages/posts/EditPost').then((module) => ({ default: module.EditPost })),
+);
+
 const routes: RouteObject[] = [
   {
     element: <RootLayout />,
@@ -37,9 +51,47 @@ const routes: RouteObject[] = [
 
         element: (
           <ProtectedRoute>
-            <PostsIndex />,
+            <PostsFeed />
           </ProtectedRoute>
         ),
+      },
+
+      {
+        path: 'posts',
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Spin />}>
+                <PostsFeed />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'create',
+            element: (
+              <Suspense fallback={<Spin />}>
+                <CreatePost />
+              </Suspense>
+            ),
+          },
+          {
+            path: ':postId',
+            element: (
+              <Suspense fallback={<Spin />}>
+                <PostDetails />
+              </Suspense>
+            ),
+          },
+          {
+            path: ':postId/edit',
+            element: (
+              <Suspense fallback={<Spin />}>
+                <EditPost />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: 'not-found',

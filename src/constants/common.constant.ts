@@ -46,7 +46,7 @@ export const AUTH_FORM = {
   },
 };
 
-// This is an object, as later other collections can be added
 export const FIRESTORE_COLLECTIONS = {
   USERS: 'users',
+  POSTS: 'posts',
 };

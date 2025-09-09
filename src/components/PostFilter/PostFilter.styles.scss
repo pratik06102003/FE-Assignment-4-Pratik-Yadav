@@ -1,0 +1,28 @@
+@use '@styles/abstracts/functions';
+@use '@styles/abstracts/mixins';
+
+.post-filter {
+  &__search {
+    width: 100%;
+    @include mixins.breakpoint-up(sm) {
+      width: 30%;
+    }
+
+    @include mixins.breakpoint-up(xl) {
+      padding: functions.px-to-rem(32) 0;
+    }
+  }
+
+  &__select {
+    width: 100%;
+    @include mixins.breakpoint-up(xs) {
+      width: 45%;
+    }
+    @include mixins.breakpoint-up(sm) {
+      width: 30%;
+    }
+    @include mixins.breakpoint-up(md) {
+      width: 25%;
+    }
+  }
+}

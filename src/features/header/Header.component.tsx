@@ -1,27 +1,28 @@
 import { Link } from 'react-router-dom';
 
-import { Avatar, Button, Dropdown, Flex, Grid, Input, Layout, Menu, Typography } from 'antd';
+import { Button, Dropdown, Flex, Grid, Layout, Menu, Typography } from 'antd';
 
 import { LinkButton } from '@components/LinkButton';
 import { ICONS } from '@constants/icon.constants';
 import { ROUTES } from '@constants/routes.constants';
+import { useAuth } from '@hooks/useAuth.hook';
 
-import {
-  HEADER_DROPDOWN_ITEMS,
-  HEADER_DROPDOWN_TRIGGERS,
-  HEADER_MENU_ITEMS,
-} from './Header.constants';
+import { HEADER_DROPDOWN_TRIGGERS, HEADER_MENU_ITEMS } from './Header.constants';
 
 import './Header.styles.scss';
 
 const { Header: AntHeader } = Layout;
-const { Search } = Input;
 const { Title } = Typography;
 const { useBreakpoint } = Grid;
 
-export const Header: React.FC = () => {
+export const Header = () => {
   const screens = useBreakpoint();
   const isMobile = !screens.md;
+  const { signoutService } = useAuth();
+
+  const handleSignout = async () => {
+    await signoutService();
+  };
 
   return (
     <AntHeader className="header">
@@ -56,13 +57,6 @@ export const Header: React.FC = () => {
         </Flex>
 
         <Flex justify="flex-end" align="center" gap={8} flex={1}>
-          <Search
-            placeholder="Search stories, authors"
-            allowClear
-            enterButton
-            className="header__search"
-          />
-
           <LinkButton
             size="middle"
             className="header__link"
@@ -71,19 +65,9 @@ export const Header: React.FC = () => {
             label="Write"
           />
 
-          <Dropdown
-            menu={{
-              items: HEADER_DROPDOWN_ITEMS.map((item) => ({
-                key: item.key,
-                label: <Link to={item.to}>{item.label}</Link>,
-              })),
-            }}
-            trigger={HEADER_DROPDOWN_TRIGGERS}
-          >
-            <Button type="link">
-              <Avatar icon={<ICONS.USER />} />
-            </Button>
-          </Dropdown>
+          <Button type="primary" onClick={() => void handleSignout()}>
+            Signout
+          </Button>
         </Flex>
       </Flex>
     </AntHeader>

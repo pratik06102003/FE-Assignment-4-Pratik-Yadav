@@ -1,1 +1,1 @@
-export { mapFirebaseError } from './firebase.utils';
+export { mapFirebaseError, mapDocToPost } from './firebase.utils';

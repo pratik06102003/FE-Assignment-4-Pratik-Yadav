@@ -1,0 +1,11 @@
+@use '@styles/abstracts/functions';
+
+.post-card {
+  &-header {
+    padding: functions.px-to-rem(16) 0;
+  }
+
+  &-content {
+    white-space: pre-wrap;
+  }
+}

@@ -19,7 +19,7 @@ export const postRequest = (): PostRequestAction => ({
   type: POST_REQUEST,
 });
 
-export const postSuccess = (post: Post | null): PostSuccessAction => ({
+export const postSuccess = (post: Post): PostSuccessAction => ({
   type: POST_SUCCESS,
   payload: { post },
 });
@@ -30,11 +30,11 @@ export const postFailure = (): PostFailureAction => ({
 
 export const allPostsSuccess = (
   newPosts: Post[],
-  cursorId: string | null,
+  lastFetchedDocumentId: string,
   hasMore: boolean,
 ): AllPostsSuccessAction => ({
   type: ALL_POSTS_SUCCESS,
-  payload: { newPosts, cursorId, hasMore },
+  payload: { newPosts, lastFetchedDocumentId, hasMore },
 });
 
 export const allPostsClear = (): AllPostsClearAction => ({

@@ -10,9 +10,9 @@ import type {
 
 export type PostsState = {
   posts: Post[];
-  post: Post | null;
+  post: Post;
   isLoading: boolean;
-  cursorId: string | null;
+  lastFetchedDocumentId: string;
   hasMore: boolean;
 };
 
@@ -21,7 +21,7 @@ export type PostRequestAction = {
 };
 export type PostSuccessAction = {
   type: typeof POST_SUCCESS;
-  payload: { post: Post | null };
+  payload: { post: Post };
 };
 export type PostFailureAction = {
   type: typeof POST_FAILURE;
@@ -31,7 +31,7 @@ export type AllPostsSuccessAction = {
   type: typeof ALL_POSTS_SUCCESS;
   payload: {
     newPosts: Post[];
-    cursorId: string | null;
+    lastFetchedDocumentId: string;
     hasMore: boolean;
   };
 };

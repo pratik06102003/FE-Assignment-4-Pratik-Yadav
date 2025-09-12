@@ -14,19 +14,18 @@
     "resolveJsonModule": true,
     "baseUrl": "src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@utils/*": ["utils/*"],
-      "@styles/*": ["styles/*"],
+      "@components/*": ["shared/components/*"],
+      "@utils/*": ["shared/utils/*"],
+      "@styles/*": ["shared/styles/*"],
       "@layouts/*": ["layouts/*"],
       "@features/*": ["features/*"],
-      "@assets/*": ["assets/*"],
-      "@hooks/*": ["hooks/*"],
+      "@assets/*": ["shared/assets/*"],
+      "@hooks/*": ["core/hooks/*"],
       "@pages/*": ["pages/*"],
       "@store/*": ["store/*"],
       "@services/*": ["services/*"],
-      "@app/*": ["app/*"],
-      "@constants/*": ["constants/*"],
-      "@contexts/*": ["contexts/*"]
+      "@app/*": ["core/app/*"],
+      "@constants/*": ["shared/constants/*"]
     }
   },
   "include": ["src/**/*"]

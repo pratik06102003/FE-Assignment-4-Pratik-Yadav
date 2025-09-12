@@ -1,13 +1,8 @@
-import type {
-  CollectionReference,
-  DocumentReference,
-  QueryDocumentSnapshot,
-} from 'firebase/firestore';
+import type { CollectionReference, DocumentReference } from 'firebase/firestore';
 import {
   addDoc,
   collection,
   doc,
-  documentId,
   getDoc,
   getDocs,
   limit as limitFn,
@@ -21,11 +16,9 @@ import {
 
 import { firestore } from '@app/firebase';
 import { FIRESTORE_COLLECTIONS } from '@constants/common.constant';
-import { mapDocToPost } from '@utils/firebase';
+import { mapDocToPost } from '@utils//firebase';
 
-import { FETCH_AUTHORS_CHUNK_SIZE } from './posts.constants';
 import type {
-  AuthorDocumentData,
   Post,
   PostCreatePayload,
   PostDocumentData,
@@ -36,8 +29,6 @@ import type {
 
 const postsCollection = () =>
   collection(firestore, FIRESTORE_COLLECTIONS.POSTS) as CollectionReference<PostDocumentData>;
-const usersCollection = () =>
-  collection(firestore, FIRESTORE_COLLECTIONS.USERS) as CollectionReference<AuthorDocumentData>;
 
 export const createPost = async (authorId: string, payload: PostCreatePayload): Promise<Post> => {
   const payloadToSave = {
@@ -56,39 +47,10 @@ export const createPost = async (authorId: string, payload: PostCreatePayload): 
   return mapDocToPost(snap);
 };
 
-const mapAuthorSnap = (snap: QueryDocumentSnapshot<AuthorDocumentData>) => {
-  const data = snap.data();
-  return {
-    email: data.email,
-    firstName: data.firstName,
-    lastName: data.lastName,
-  };
-};
-
-export const fetchAuthors = async (
-  authorIds: string[],
-): Promise<Record<string, Post['author']>> => {
-  if (authorIds.length === 0) return {};
-
-  const result: Record<string, Post['author']> = {};
-
-  for (let i = 0; i < authorIds.length; i += FETCH_AUTHORS_CHUNK_SIZE) {
-    const chunk = authorIds.slice(i, i + FETCH_AUTHORS_CHUNK_SIZE);
-    const authorsQuery = query(usersCollection(), where(documentId(), 'in', chunk));
-    const authorsSnaps = await getDocs(authorsQuery);
-
-    authorsSnaps.forEach((snap) => {
-      result[snap.id] = mapAuthorSnap(snap);
-    });
-  }
-
-  return result;
-};
-
 export const getPosts = async (params: PostQueryParams = {}): Promise<PostsPage> => {
   const {
     limit = 10,
-    cursorId = null,
+    lastFetchedDocumentId = null,
     authorId,
     tags,
     published = true,
@@ -103,9 +65,7 @@ export const getPosts = async (params: PostQueryParams = {}): Promise<PostsPage>
     q = query(q, where('authorId', '==', authorId));
   }
 
-  if (typeof published === 'boolean') {
-    q = query(q, where('published', '==', published));
-  }
+  q = query(q, where('published', '==', published));
 
   if (tags && tags.length > 0) {
     q = query(q, where('tags', 'array-contains-any', tags.slice(0, 10)));
@@ -121,23 +81,16 @@ export const getPosts = async (params: PostQueryParams = {}): Promise<PostsPage>
 
   q = query(q, limitFn(limit));
 
-  if (cursorId) {
-    const cursor = await getDoc(doc(firestore, FIRESTORE_COLLECTIONS.POSTS, cursorId));
+  if (lastFetchedDocumentId) {
+    const cursor = await getDoc(doc(firestore, FIRESTORE_COLLECTIONS.POSTS, lastFetchedDocumentId));
     q = query(q, startAfter(cursor));
   }
 
   const snap = await getDocs(q);
   const posts = snap.docs.map(mapDocToPost);
-  const nextCursor = snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null;
+  const lastFetchedDocument = snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null;
 
-  const authorIds = [...new Set(posts.map((p) => p.authorId))];
-  const authors = await fetchAuthors(authorIds);
-
-  posts.forEach((post) => {
-    post.author = authors[post.authorId] ?? null;
-  });
-
-  return { posts, nextCursorId: nextCursor?.id || null };
+  return { posts, nextLastFetchedDocumentId: lastFetchedDocument?.id || '' };
 };
 
 export const getPostById = async (postId: string): Promise<Post | null> => {

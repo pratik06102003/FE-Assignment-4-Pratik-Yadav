@@ -4,6 +4,7 @@ import { combineReducers, legacy_createStore as createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import { authReducer } from '@store/auth';
+import { DUMB_USER } from '@store/auth/auth.constants';
 import { messageReducer } from '@store/messages';
 
 import { render, screen } from '@testing-library/react';
@@ -17,7 +18,7 @@ jest.mock('@app/auth', () => ({
 
 const rootReducer = combineReducers({ auth: authReducer, messages: messageReducer });
 const store = createStore(rootReducer, {
-  auth: { loading: false, user: null },
+  auth: { loading: false, user: DUMB_USER },
 });
 
 import { Signup } from './Signup.page';
@@ -45,8 +46,8 @@ describe('Signup page', () => {
     expect(signupMock).not.toHaveBeenCalled();
 
     const message = store.getState().messages;
-    expect(message.infoMessage).toBeNull();
-    expect(message.errorMessage).toBeNull();
+    expect(message.infoMessage).toBe('');
+    expect(message.errorMessage).toBe('');
   });
 
   test('calls signUp when correct form is submitted', async () => {
@@ -64,7 +65,7 @@ describe('Signup page', () => {
     expect(signupMock).toHaveBeenCalledWith('firstName', 'lastName', 'mail@domain.com', 'pass1234');
     const message = store.getState().messages;
     expect(message.infoMessage).toBe('User Signup Successful');
-    expect(message.errorMessage).toBeNull();
+    expect(message.errorMessage).toBe('');
   });
 
   test('Triggers errormessage if api throws error', async () => {
@@ -85,6 +86,6 @@ describe('Signup page', () => {
 
     const message = store.getState().messages;
     expect(message.errorMessage).toBe('Unexpected Error occurred');
-    expect(message.infoMessage).toBeNull();
+    expect(message.infoMessage).toBe('');
   });
 });

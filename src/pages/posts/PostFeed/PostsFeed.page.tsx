@@ -11,7 +11,9 @@ import { usePost } from '@hooks/usePost.hook';
 
 export const PostsFeed = () => {
   const navigate = useNavigate();
-  const { isLoading, posts, cursorId, hasMore } = useAppSelector((state) => state.posts);
+  const { isLoading, posts, lastFetchedDocumentId, hasMore } = useAppSelector(
+    (state) => state.posts,
+  );
   const { ref, inView } = useInView({ threshold: 0.5 });
   const { fetchPostService, filterPostService } = usePost();
   const [filters, setFilters] = useState<PostQueryParams>({ published: true });
@@ -21,9 +23,9 @@ export const PostsFeed = () => {
   };
   useEffect(() => {
     if (inView && hasMore) {
-      void fetchPostService({ limit: 10, published: true, cursorId, ...filters });
+      void fetchPostService({ limit: 10, published: true, lastFetchedDocumentId, ...filters });
     }
-  }, [inView, hasMore, cursorId, fetchPostService]);
+  }, [inView, hasMore, lastFetchedDocumentId, fetchPostService]);
 
   return (
     <>

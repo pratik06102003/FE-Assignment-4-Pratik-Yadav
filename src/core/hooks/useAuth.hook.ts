@@ -2,16 +2,17 @@ import { FirebaseError } from 'firebase/app';
 
 import { listen, resetPassword, signin, signout, signup } from '@app/auth';
 import { authFailure, authStart, authSuccess } from '@store/auth';
+import { DUMB_USER } from '@store/auth/auth.constants';
 import { sendErrorMessage, sendInfoMessage } from '@store/messages';
 import { useAppDispatch } from '@store/root';
-import { mapFirebaseError } from '@utils/firebase';
+import { mapFirebaseError } from '@utils//firebase';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
 
   const listenService = () => {
     dispatch(authStart());
-    return listen((user) => dispatch(authSuccess(user)));
+    return listen((user) => dispatch(authSuccess(user || DUMB_USER)));
   };
 
   const signupService = async (
@@ -23,7 +24,7 @@ export const useAuth = () => {
     dispatch(authStart());
     try {
       const user = await signup(firstName, lastName, email, password);
-      dispatch(authSuccess(user));
+      dispatch(authSuccess(user || DUMB_USER));
       dispatch(sendInfoMessage('User Signup Successful'));
     } catch (error) {
       dispatch(authFailure());
@@ -55,7 +56,7 @@ export const useAuth = () => {
     dispatch(authStart());
     try {
       await signout();
-      dispatch(authSuccess(null));
+      dispatch(authSuccess(DUMB_USER));
       dispatch(sendInfoMessage('Signout Successful'));
     } catch (error) {
       dispatch(authFailure());
@@ -71,7 +72,7 @@ export const useAuth = () => {
     dispatch(authStart());
     try {
       await resetPassword(email);
-      dispatch(authSuccess(null));
+      dispatch(authSuccess(DUMB_USER));
       dispatch(sendInfoMessage('Reset password link send to your mail'));
     } catch (error) {
       dispatch(authFailure());

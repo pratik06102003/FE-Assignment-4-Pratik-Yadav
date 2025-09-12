@@ -1,1 +1,0 @@
-export const FETCH_AUTHORS_CHUNK_SIZE = 10;

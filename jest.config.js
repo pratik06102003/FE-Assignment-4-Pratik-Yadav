@@ -7,13 +7,12 @@ export default {
   setupFilesAfterEnv: ['./src/jest.setup.ts'],
   moduleNameMapper: {
     '\\.scss$': 'identity-obj-proxy',
-    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
-    '^@components/(.*)$': '<rootDir>/src/components/$1',
-    '^@constants/(.*)$': '<rootDir>/src/constants/$1',
+    '^@utils/(.*)$': '<rootDir>/src/shared/utils/$1',
+    '^@components/(.*)$': '<rootDir>/src/shared/components/$1',
+    '^@constants/(.*)$': '<rootDir>/src/shared/constants/$1',
     '^@store/(.*)$': '<rootDir>/src/store/$1',
-    '^@contexts/(.*)$': '<rootDir>/src/contexts/$1',
-    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
-    '^@app/(.*)$': '<rootDir>/src/app/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/core/hooks/$1',
+    '^@app/(.*)$': '<rootDir>/src/core/app/$1',
   },
   testPathIgnorePatterns: ['/node_modules/', '/build/'],
 };

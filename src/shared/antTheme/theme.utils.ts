@@ -12,6 +12,7 @@ export const getCssVar = (name: string): string | number => {
 
   // Try to convert px, rem, em, % values to number
   const numericMatch = value.match(/^(-?\d*\.?\d+)([a-z%]*)$/i);
+
   if (numericMatch) {
     const num = parseFloat(numericMatch[1]);
     return num;

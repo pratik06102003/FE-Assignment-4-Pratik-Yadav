@@ -1,8 +1,8 @@
 import type { SEND_ERROR_MESSAGE, SEND_INFO_MESSAGE } from './messages.constants';
 
 export type MessageState = {
-  infoMessage: string | null;
-  errorMessage: string | null;
+  infoMessage: string;
+  errorMessage: string;
 };
 
 export type SendInfoMessageActionType = {

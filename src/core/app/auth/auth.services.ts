@@ -6,10 +6,12 @@ import {
   setPersistence,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
 import { firebaseAuth, firestore } from '@app/firebase';
+import { FIRESTORE_COLLECTIONS } from '@constants/common.constant';
 
 import type { User } from './auth.types';
 
@@ -30,12 +32,17 @@ export const signup = async (
 ): Promise<User | null> => {
   await setPersistence(firebaseAuth, browserLocalPersistence);
   const { user } = await createUserWithEmailAndPassword(firebaseAuth, email, password);
-  await setDoc(doc(firestore, 'users', user.uid), {
+  const profilePromise = updateProfile(user, { displayName: `${firstName} ${lastName}` });
+
+  const userDocRef = doc(firestore, FIRESTORE_COLLECTIONS.USERS, user.uid);
+  const setDocPromise = setDoc(userDocRef, {
     firstName,
     lastName,
     email: user.email,
     createdAt: user.metadata.creationTime,
   });
+
+  await Promise.all([profilePromise, setDocPromise]);
   return user;
 };
 

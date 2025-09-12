@@ -3,11 +3,7 @@ import type { Timestamp } from 'firebase/firestore';
 export type Post = {
   id: string;
   authorId: string;
-  author: {
-    firstName: string;
-    lastName: string;
-    email: string;
-  } | null;
+  authorDisplayName: string;
   title: string;
   content: string;
   tags?: string[];
@@ -23,7 +19,7 @@ export type PostUpdatePayload = Partial<Omit<Post, 'id' | 'authorId' | 'createdA
 
 export type PostQueryParams = Partial<{
   limit: number;
-  cursorId: string | null;
+  lastFetchedDocumentId: string | null;
   authorId: string;
   tags: string[];
   published: boolean;
@@ -34,7 +30,7 @@ export type PostQueryParams = Partial<{
 
 export type PostsPage = {
   posts: Post[];
-  nextCursorId: string | null;
+  nextLastFetchedDocumentId: string;
 };
 
 export type AuthorDocumentData = {

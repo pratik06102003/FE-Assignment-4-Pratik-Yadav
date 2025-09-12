@@ -12,6 +12,10 @@ import { AuthRoute } from './AuthRoute';
 import { ProtectedRoute } from './ProtectedRoute';
 import { RouteErrorBoundary } from './RouteErrorBoundary';
 
+import { CreatePost } from '@pages/posts/CreatePost';
+import { EditPost } from '@pages/posts/EditPost';
+import { PostDetails } from '@pages/posts/PostDetails';
+
 const NotFound = lazy(() =>
   import('@pages/notFound').then((module) => ({ default: module.NotFound })),
 );
@@ -27,18 +31,6 @@ const ResetPassword = lazy(() =>
 
 const PostsFeed = lazy(() =>
   import('@pages/posts/PostFeed').then((module) => ({ default: module.PostsFeed })),
-);
-
-const PostDetails = lazy(() =>
-  import('@pages/posts/PostDetails').then((module) => ({ default: module.PostDetails })),
-);
-
-const CreatePost = lazy(() =>
-  import('@pages/posts/CreatePost').then((module) => ({ default: module.CreatePost })),
-);
-
-const EditPost = lazy(() =>
-  import('@pages/posts/EditPost').then((module) => ({ default: module.EditPost })),
 );
 
 const routes: RouteObject[] = [
@@ -62,33 +54,41 @@ const routes: RouteObject[] = [
           {
             index: true,
             element: (
-              <Suspense fallback={<Spin />}>
-                <PostsFeed />
-              </Suspense>
+              <ProtectedRoute>
+                <Suspense fallback={<Spin />}>
+                  <PostsFeed />
+                </Suspense>
+              </ProtectedRoute>
             ),
           },
           {
             path: 'create',
             element: (
-              <Suspense fallback={<Spin />}>
-                <CreatePost />
-              </Suspense>
+              <ProtectedRoute>
+                <Suspense fallback={<Spin />}>
+                  <CreatePost />
+                </Suspense>
+              </ProtectedRoute>
             ),
           },
           {
             path: ':postId',
             element: (
-              <Suspense fallback={<Spin />}>
-                <PostDetails />
-              </Suspense>
+              <ProtectedRoute>
+                <Suspense fallback={<Spin />}>
+                  <PostDetails />
+                </Suspense>
+              </ProtectedRoute>
             ),
           },
           {
             path: ':postId/edit',
             element: (
-              <Suspense fallback={<Spin />}>
-                <EditPost />
-              </Suspense>
+              <ProtectedRoute>
+                <Suspense fallback={<Spin />}>
+                  <EditPost />
+                </Suspense>
+              </ProtectedRoute>
             ),
           },
         ],

@@ -1,9 +1,9 @@
 import { APP_COPYRIGHT_YEAR } from '@constants/common.constant';
+import { renderWithRouter } from '@utils/test.utils';
 
 import { Footer } from './Footer.component';
 
 import { screen } from '@testing-library/react';
-import { renderWithRouter } from '@utils/test.utils';
 
 describe('Footer Component', () => {
   test('renders all component correctly (Title, paragraph, links and copyright)', () => {

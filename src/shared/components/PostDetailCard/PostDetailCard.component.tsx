@@ -24,7 +24,6 @@ const { Title, Text, Paragraph } = Typography;
 
 export const PostDetailCard = (props: PostDetailCardProps) => {
   const { post, isLoading, showAuthorActions, onEdit, onDelete, onShare } = props;
-  const { author } = post;
 
   if (isLoading) {
     return (
@@ -56,7 +55,7 @@ export const PostDetailCard = (props: PostDetailCardProps) => {
 
         <Flex vertical>
           <Title level={2}>{post.title}</Title>
-          <Text>{author ? `${author.firstName} ${author.lastName}` : 'Anonymous Author'}</Text>
+          <Text>{post.authorDisplayName || 'Anonymous Author'}</Text>
         </Flex>
       </Space>
     </Flex>

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import { store } from '@store/root';
 
-import { loadTheme } from './antTheme';
+import { loadTheme } from './shared/antTheme';
 import { App } from './App';
 
 import '@styles/main.scss';

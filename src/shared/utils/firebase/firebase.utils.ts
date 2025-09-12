@@ -26,7 +26,7 @@ export const mapDocToPost = (docSnap: DocumentSnapshot<PostDocumentData>): Post 
   return {
     id: docSnap.id,
     authorId: data.authorId,
-    author: null,
+    authorDisplayName: data.authorDisplayName,
     title: data.title,
     content: data.content,
     tags: data.tags,

@@ -9,7 +9,7 @@ import type {
 
 export const authStart = (): AuthStartActionType => ({ type: AUTH_START });
 
-export const authSuccess = (user: User | null): AuthSuccessActionType => ({
+export const authSuccess = (user: User): AuthSuccessActionType => ({
   type: AUTH_SUCCESS,
   payload: { user },
 });

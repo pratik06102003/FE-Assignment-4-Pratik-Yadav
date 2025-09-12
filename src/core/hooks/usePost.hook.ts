@@ -12,6 +12,7 @@ import {
   postRequest,
   postSuccess,
 } from '@store/posts';
+import { DUMB_POST } from '@store/posts/post.constants';
 import { useAppDispatch } from '@store/root';
 import { mapFirebaseError } from '@utils/firebase';
 
@@ -24,6 +25,7 @@ export const usePost = () => {
       try {
         const post = await createPost(userId, payload);
         dispatch(postSuccess(post));
+        dispatch(allPostsClear());
         dispatch(sendInfoMessage('Post Created!!'));
       } catch (error) {
         dispatch(postFailure());
@@ -42,12 +44,18 @@ export const usePost = () => {
       dispatch(postRequest());
       try {
         const page: PostsPage = await getPosts({ ...params });
-        dispatch(allPostsSuccess(page.posts, page.nextCursorId, !!page.nextCursorId));
+        dispatch(
+          allPostsSuccess(
+            page.posts,
+            page.nextLastFetchedDocumentId,
+            !!page.nextLastFetchedDocumentId,
+          ),
+        );
       } catch (error) {
         dispatch(postFailure());
         if (error instanceof FirebaseError) {
-          dispatch(sendErrorMessage(mapFirebaseError(error.code)));
           dispatch(postFailure());
+          dispatch(sendErrorMessage(mapFirebaseError(error.code)));
         } else {
           dispatch(sendErrorMessage('Unexpected Error occurred'));
         }
@@ -61,7 +69,7 @@ export const usePost = () => {
       dispatch(postRequest());
       try {
         const post = await getPostById(postId);
-        dispatch(postSuccess(post));
+        dispatch(postSuccess(post || DUMB_POST));
       } catch (error) {
         dispatch(postFailure());
         if (error instanceof FirebaseError) {
@@ -81,7 +89,13 @@ export const usePost = () => {
       dispatch(postRequest());
       try {
         const page: PostsPage = await getPosts({ ...params });
-        dispatch(allPostsSuccess(page.posts, page.nextCursorId, !!page.nextCursorId));
+        dispatch(
+          allPostsSuccess(
+            page.posts,
+            page.nextLastFetchedDocumentId,
+            !!page.nextLastFetchedDocumentId,
+          ),
+        );
       } catch (error) {
         dispatch(postFailure());
         if (error instanceof FirebaseError) {
@@ -100,7 +114,8 @@ export const usePost = () => {
       dispatch(postRequest());
       try {
         await deletePost(postId);
-        dispatch(postSuccess(null));
+        dispatch(postSuccess(DUMB_POST));
+        dispatch(allPostsClear());
         dispatch(sendInfoMessage('Post Deleted!!'));
       } catch (error) {
         dispatch(postFailure());

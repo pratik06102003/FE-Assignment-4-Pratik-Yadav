@@ -1,6 +1,7 @@
 import {
   ALL_POSTS_CLEAR,
   ALL_POSTS_SUCCESS,
+  DUMB_POST,
   POST_FAILURE,
   POST_REQUEST,
   POST_SUCCESS,
@@ -9,9 +10,9 @@ import type { PostsActionTypes, PostsState } from './posts.types';
 
 const initialState: PostsState = {
   posts: [],
-  post: null,
+  post: DUMB_POST,
   isLoading: false,
-  cursorId: null,
+  lastFetchedDocumentId: '',
   hasMore: true,
 };
 
@@ -41,7 +42,7 @@ export const postsReducer = (state = initialState, action: PostsActionTypes): Po
         ...state,
         isLoading: false,
         posts: [...state.posts, ...action.payload.newPosts],
-        cursorId: action.payload.cursorId,
+        lastFetchedDocumentId: action.payload.lastFetchedDocumentId,
         hasMore: action.payload.hasMore,
       };
 

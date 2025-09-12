@@ -1,8 +1,8 @@
-import { AUTH_ERROR, AUTH_START, AUTH_SUCCESS } from './auth.constants';
+import { AUTH_ERROR, AUTH_START, AUTH_SUCCESS, DUMB_USER } from './auth.constants';
 import type { AuthAction, AuthState } from './auth.types';
 
 const initialState: AuthState = {
-  user: null,
+  user: DUMB_USER,
   loading: false,
 };
 

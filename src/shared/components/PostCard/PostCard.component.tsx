@@ -23,7 +23,7 @@ export const PostCard = (props: PostCardProps) => {
           <Space size="small">
             <Avatar icon={<UserOutlined />} />
             <Flex vertical>
-              <Text strong>{post.author?.firstName || 'Anonymous'}</Text>
+              <Text strong>{post.authorDisplayName || 'Anonymous'}</Text>
               <Text type="secondary" className="post-card__date">
                 {post.createdAt && formatDate(post.createdAt)}
               </Text>

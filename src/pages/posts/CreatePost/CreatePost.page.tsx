@@ -13,21 +13,22 @@ export const CreatePost = () => {
   const { createPostService } = usePost();
   const navigate = useNavigate();
   const { isLoading } = useAppSelector((state) => state.posts);
-  const userId = useAppSelector((state) => state.auth.user?.uid);
+  const user = useAppSelector((state) => state.auth.user);
 
   const handleSubmit = async (
     values: PostValuesType,
     { resetForm }: FormikHelpers<PostValuesType>,
   ) => {
     const payload: PostCreatePayload = {
-      authorId: userId || '',
+      authorId: user.uid,
       title: values.title,
       content: values.content,
       tags: values.tags,
       published: true,
+      authorDisplayName: user.displayName || '',
     };
 
-    await createPostService(userId || '', payload);
+    await createPostService(user.uid, payload);
     resetForm();
     await navigate(ROUTES.BLOGS);
   };

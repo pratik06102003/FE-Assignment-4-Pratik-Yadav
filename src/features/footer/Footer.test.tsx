@@ -1,5 +1,5 @@
 import { APP_COPYRIGHT_YEAR } from '@constants/common.constant';
-import { renderWithRouter } from '@utils//test.utils';
+import { renderWithRouter } from '@utils/test.utils';
 
 import { Footer } from './Footer.component';
 

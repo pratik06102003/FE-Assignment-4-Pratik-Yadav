@@ -14,7 +14,7 @@ import {
 } from '@store/posts';
 import { DUMB_POST } from '@store/posts/post.constants';
 import { useAppDispatch } from '@store/root';
-import { mapFirebaseError } from '@utils//firebase';
+import { mapFirebaseError } from '@utils/firebase';
 
 export const usePost = () => {
   const dispatch = useAppDispatch();

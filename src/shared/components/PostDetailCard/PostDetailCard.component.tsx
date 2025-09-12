@@ -14,7 +14,7 @@ import {
 } from 'antd';
 import { DeleteOutlined, EditOutlined, ShareAltOutlined, UserOutlined } from '@ant-design/icons';
 
-import { formatDate } from '@utils//common.utils';
+import { formatDate } from '@utils/common.utils';
 
 import type { PostDetailCardProps } from './PostDetailCard.types';
 

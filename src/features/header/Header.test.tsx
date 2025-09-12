@@ -6,7 +6,7 @@ import {
   expectMenuitemsToHaveCorrectHref,
   expectMenuitemsToNotToBeVisible,
   renderWithRouter,
-} from '@utils//test.utils';
+} from '@utils/test.utils';
 
 import { HEADER_MENU_ITEMS } from './Header.constants';
 
@@ -14,7 +14,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 const mockUseAuth = jest.fn();
-jest.mock('@hooks//useAuth.hook', () => ({
+jest.mock('@hooks/useAuth.hook', () => ({
   useAuth: mockUseAuth,
 }));
 

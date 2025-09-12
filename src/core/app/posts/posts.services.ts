@@ -16,7 +16,7 @@ import {
 
 import { firestore } from '@app/firebase';
 import { FIRESTORE_COLLECTIONS } from '@constants/common.constant';
-import { mapDocToPost } from '@utils//firebase';
+import { mapDocToPost } from '@utils/firebase';
 
 import type {
   Post,

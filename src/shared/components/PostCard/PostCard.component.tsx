@@ -1,7 +1,7 @@
 import { Avatar, Card, Flex, Space, Tag, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
-import { formatDate } from '@utils//common.utils';
+import { formatDate } from '@utils/common.utils';
 
 import type { PostCardProps } from './PostCard.types';
 

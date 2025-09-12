@@ -5,7 +5,7 @@ import { authFailure, authStart, authSuccess } from '@store/auth';
 import { DUMB_USER } from '@store/auth/auth.constants';
 import { sendErrorMessage, sendInfoMessage } from '@store/messages';
 import { useAppDispatch } from '@store/root';
-import { mapFirebaseError } from '@utils//firebase';
+import { mapFirebaseError } from '@utils/firebase';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();

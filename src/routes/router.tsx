@@ -21,8 +21,12 @@ const Signup = lazy(() =>
   import('@pages/auth/Signup').then((module) => ({ default: module.Signup })),
 );
 const Signin = lazy(() =>
-  import('@pages/notFound').then((module) => ({ default: module.NotFound })),
+  import('@pages/auth/Signin').then((module) => ({ default: module.Signin })),
 );
+const ResetPassword = lazy(() =>
+  import('@pages/auth/ResetPassword').then((module) => ({ default: module.ResetPassword })),
+);
+
 const routes: RouteObject[] = [
   {
     element: <RootLayout />,
@@ -74,6 +78,14 @@ const routes: RouteObject[] = [
             <AuthRoute>
               <Signup />
             </AuthRoute>
+          </Suspense>
+        ),
+      },
+      {
+        path: 'reset-password',
+        element: (
+          <Suspense fallback={<Spin fullscreen />}>
+            <ResetPassword />
           </Suspense>
         ),
       },

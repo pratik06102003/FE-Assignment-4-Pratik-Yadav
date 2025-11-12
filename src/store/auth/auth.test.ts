@@ -3,6 +3,7 @@ import type { User } from '@app/auth';
 import { authFailure, authStart, authSuccess } from './auth.actions';
 import { authReducer } from './auth.reducer';
 import type { AuthState } from './auth.types';
+
 describe('authReducer', () => {
   const initialState: AuthState = {
     user: null,

@@ -1,0 +1,113 @@
+import { MemoryRouter } from 'react-router-dom';
+
+import type { FormikHelpers } from 'formik';
+import { ValidationError } from 'yup';
+
+import { SigninForm } from './SigninForm.component';
+import { SigninSchema } from './SigninForm.schema';
+import type { SigninFormikValues, SigninFormsProps } from './SigninForm.types';
+
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+const mockHandleSubmit: jest.Mocked<
+  (values: SigninFormikValues, helpers: FormikHelpers<SigninFormikValues>) => Promise<void>
+> = jest.fn();
+
+const renderForm = (props?: Partial<SigninFormsProps>) => {
+  const isLoading = props?.isLoading ?? false;
+
+  render(
+    <MemoryRouter>
+      <SigninForm isLoading={isLoading} handleSubmit={mockHandleSubmit} />
+    </MemoryRouter>,
+  );
+};
+
+describe('Signin', () => {
+  it('renders all form fields', () => {
+    renderForm();
+    const emailField = screen.getByLabelText(/email/i);
+    const passwordField = screen.getByLabelText(/password/i);
+    const signinButton = screen.getByRole('button', { name: /sign in/i });
+    const signupLink = screen.getByRole('link', { name: /signup/i });
+    const resetPasswordLink = screen.getByRole('link', { name: /reset password/i });
+
+    expect(emailField).toBeVisible();
+    expect(passwordField).toBeVisible();
+    expect(signinButton).toBeVisible();
+    expect(signupLink).toBeVisible();
+    expect(resetPasswordLink).toBeVisible();
+
+    expect(signupLink).toHaveAttribute('href', '/auth/signup');
+    expect(resetPasswordLink).toHaveAttribute('href', '/auth/reset-password');
+  });
+
+  test('shows validation errors on empty submit', async () => {
+    renderForm();
+    const user = userEvent.setup();
+    const emailField = screen.getByLabelText<HTMLInputElement>(/email/i);
+    const passwordField = screen.getByLabelText<HTMLInputElement>(/password/i);
+    const signinButton = screen.getByRole('button', { name: /sign in/i });
+
+    await user.click(signinButton);
+
+    const values = {
+      email: emailField.value,
+      password: passwordField.value,
+    };
+
+    let validationError: ValidationError | null = null;
+
+    try {
+      await SigninSchema.validate(values, { abortEarly: false });
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        validationError = err;
+      } else {
+        throw err;
+      }
+    }
+
+    expect(validationError).not.toBeNull();
+    if (validationError) {
+      const messages = validationError.inner.map((e) => e.message);
+
+      expect(messages.some((msg) => msg.includes('Email is required'))).toBe(true);
+      expect(messages.some((msg) => msg.includes('Password is required'))).toBe(true);
+    }
+  });
+
+  test('calls handleSubmit with correct arguments on valid submit (user-event)', async () => {
+    renderForm();
+    const user = userEvent.setup();
+
+    const emailField = screen.getByLabelText(/email/i);
+    const passwordField = screen.getByLabelText(/password/i);
+    const signinButton = screen.getByRole('button', { name: /sign in/i });
+
+    await user.type(emailField, 'email@domain.com');
+    await user.type(passwordField, 'password123');
+    await user.click(signinButton);
+
+    expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
+    expect(mockHandleSubmit).toHaveBeenCalledWith(
+      {
+        email: 'email@domain.com',
+        password: 'password123',
+      },
+      expect.any(Object) as FormikHelpers<SigninFormikValues>,
+    );
+  });
+
+  test('disables inputs when loading is true', () => {
+    renderForm({ isLoading: true });
+    const emailField = screen.getByLabelText(/email/i);
+    const passwordField = screen.getByLabelText(/password/i);
+    const signinButton = screen.getByRole('button', { name: /sign in/i });
+
+    expect(emailField).toBeDisabled();
+    expect(passwordField).toBeDisabled();
+    expect(signinButton).toBeDisabled();
+  });
+});

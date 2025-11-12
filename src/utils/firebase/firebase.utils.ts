@@ -6,6 +6,8 @@ export const mapFirebaseError = (code: string): string => {
       return 'Email already in use.';
     case 'auth/weak-password':
       return 'Password is too weak.';
+    case 'auth/invalid-credential':
+      return 'Invalid Credentials';
     default:
       return code;
   }
